@@ -52,6 +52,8 @@ public class LoaderFXML {
 
     public void loadCreateLance() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/Dashboard_Lance.fxml", "Licitar");}
 
+    public void loadEditClient() {loadView("/com/lp3_grupo5/lp2/ClienteViews/EditCliente.fxml", "Editar Cliente"); }
+
 
 
 

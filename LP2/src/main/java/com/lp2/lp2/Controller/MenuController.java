@@ -62,4 +62,12 @@ public class MenuController {
     private Stage getStage() {
         return (Stage) btnLance.getScene().getWindow();
     }
+
+    @FXML
+    private void handleBtnEditCliente(ActionEvent event) {
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadEditClient();
+        mostrarMensagem("Navegar para Cliente");
+    }
 }
