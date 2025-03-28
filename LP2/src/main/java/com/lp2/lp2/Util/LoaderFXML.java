@@ -56,7 +56,7 @@ public class LoaderFXML {
 
     public void loadListClient() {loadView("/com/lp3_grupo5/lp2/ClienteViews/ReadCliente.fxml", "Listar Cliente"); }
 
-
+    public void loadListLeilao() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/ReadLeilao.fxml", "Listar Leilões"); }
 
 /** ************************************************************************************************************************************************************************ */
     /**

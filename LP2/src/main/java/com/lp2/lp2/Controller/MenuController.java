@@ -78,4 +78,12 @@ public class MenuController {
         loader.loadListClient();
         mostrarMensagem("Navegar para Cliente");
     }
+
+    @FXML
+    private void handleBtnListLeilao(ActionEvent event) {
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadListLeilao();
+        mostrarMensagem("Navegar para Cliente");
+    }
 }
