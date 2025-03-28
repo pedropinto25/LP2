@@ -1,4 +1,4 @@
-package com.lp2.lp2.Controller;
+package com.lp2.lp2.Controller.Cliente;
 
 import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.DAO.ClienteDAO;

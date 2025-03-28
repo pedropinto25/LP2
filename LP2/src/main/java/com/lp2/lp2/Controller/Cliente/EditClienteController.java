@@ -1,4 +1,4 @@
-package com.lp2.lp2.Controller;
+package com.lp2.lp2.Controller.Cliente;
 
 import com.lp2.lp2.DAO.ClienteDAO;
 import com.lp2.lp2.Model.Cliente;
@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 import static javafx.collections.FXCollections.observableArrayList;
 

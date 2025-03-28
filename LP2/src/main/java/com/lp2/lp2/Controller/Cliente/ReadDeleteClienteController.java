@@ -1,9 +1,8 @@
-package com.lp2.lp2.Controller;
+package com.lp2.lp2.Controller.Cliente;
 
 import com.lp2.lp2.DAO.ClienteDAO;
 import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.Util.LoaderFXML;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

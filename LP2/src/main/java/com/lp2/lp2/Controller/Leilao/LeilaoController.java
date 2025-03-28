@@ -1,4 +1,4 @@
-package com.lp2.lp2.Controller;
+package com.lp2.lp2.Controller.Leilao;
 
 import com.lp2.lp2.DAO.LeilaoDAO;
 import com.lp2.lp2.Model.Leilao;
