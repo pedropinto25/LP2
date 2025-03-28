@@ -13,7 +13,9 @@ module com.lp2.lp2 {
     requires java.sql;
     requires com.zaxxer.hikari;
     requires java.dotenv;
+    opens com.lp2.lp2.Model;
     opens com.lp2.lp2.Controller to javafx.fxml;
     opens com.lp2.lp2 to javafx.fxml;
     exports com.lp2.lp2;
+    exports com.lp2.lp2.Controller;
 }

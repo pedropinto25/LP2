@@ -2,12 +2,15 @@ package com.lp2.lp2.Controller;
 
 import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.DAO.ClienteDAO;
+import com.lp2.lp2.Util.LoaderFXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -23,6 +26,8 @@ public class ClienteController {
     private TextField emailField;
     @FXML
     private TextField senhaField;
+    @FXML
+    private Button btnBack;
 
     private ClienteDAO clienteDAO;
 
@@ -67,7 +72,11 @@ public class ClienteController {
         // Implementar lógica para o botão de menu
     }
 
-    public void handleBtnBack(ActionEvent actionEvent) {
-        // Implementar lógica para o botão de retroceder
+    @FXML
+    void handleBtnBack(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) btnBack.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadMainMenu();
     }
+
 }

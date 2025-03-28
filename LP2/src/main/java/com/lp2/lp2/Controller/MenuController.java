@@ -70,4 +70,12 @@ public class MenuController {
         loader.loadEditClient();
         mostrarMensagem("Navegar para Cliente");
     }
+
+    @FXML
+    private void handleBtnListCliente(ActionEvent event) {
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadListClient();
+        mostrarMensagem("Navegar para Cliente");
+    }
 }

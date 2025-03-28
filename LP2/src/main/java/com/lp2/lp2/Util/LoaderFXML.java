@@ -54,7 +54,7 @@ public class LoaderFXML {
 
     public void loadEditClient() {loadView("/com/lp3_grupo5/lp2/ClienteViews/EditCliente.fxml", "Editar Cliente"); }
 
-
+    public void loadListClient() {loadView("/com/lp3_grupo5/lp2/ClienteViews/ReadCliente.fxml", "Listar Cliente"); }
 
 
 
