@@ -15,7 +15,8 @@ import javafx.stage.Stage;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class ClienteController {
+public class CreateClienteController {
+
     @FXML
     private TextField nomeField;
     @FXML
@@ -31,7 +32,7 @@ public class ClienteController {
 
     private ClienteDAO clienteDAO;
 
-    public ClienteController() throws SQLException {
+    public CreateClienteController() throws SQLException {
         clienteDAO = new ClienteDAO();
     }
 
