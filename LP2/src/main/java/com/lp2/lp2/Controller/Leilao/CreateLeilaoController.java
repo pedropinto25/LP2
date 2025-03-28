@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class LeilaoController {
+public class CreateLeilaoController {
     @FXML
     private TextField nomeField;
     @FXML
@@ -35,7 +35,7 @@ public class LeilaoController {
 
     private LeilaoDAO leilaoDAO;
 
-    public LeilaoController() throws SQLException {
+    public CreateLeilaoController() throws SQLException {
         leilaoDAO = new LeilaoDAO();
     }
 

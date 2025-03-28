@@ -68,7 +68,7 @@ public class MenuController {
         Stage currentStage = getStage();
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadEditClient();
-        mostrarMensagem("Navegar para Cliente");
+        mostrarMensagem("Navegar para Editar Clientes");
     }
 
     @FXML
@@ -76,7 +76,7 @@ public class MenuController {
         Stage currentStage = getStage();
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadListClient();
-        mostrarMensagem("Navegar para Cliente");
+        mostrarMensagem("Navegar para Listar Cliente");
     }
 
     @FXML
@@ -84,6 +84,14 @@ public class MenuController {
         Stage currentStage = getStage();
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadListLeilao();
-        mostrarMensagem("Navegar para Cliente");
+        mostrarMensagem("Navegar para Listar Leilões");
+    }
+
+    @FXML
+    private void handleBtnEditLeilao(ActionEvent event) {
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadEditLeilao();
+        mostrarMensagem("Navegar para Editar Leilões");
     }
 }

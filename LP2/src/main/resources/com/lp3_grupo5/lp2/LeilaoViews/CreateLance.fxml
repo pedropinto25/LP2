@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="649.0" prefWidth="560.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.LanceController">
+<Pane prefHeight="649.0" prefWidth="560.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.CreateLanceController">
     <children>
         <TextField fx:id="valorField" layoutX="180.0" layoutY="181.0" prefWidth="200.0" promptText="Valor do Lance" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
         <DatePicker fx:id="dataHoraField" layoutX="180.0" layoutY="240.0" prefWidth="200.0" promptText="Data e Hora" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />

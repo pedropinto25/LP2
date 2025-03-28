@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-public class LanceController {
+public class CreateLanceController {
     @FXML
     private TextField valorField;
     @FXML
@@ -30,7 +30,7 @@ public class LanceController {
 
     private LanceDAO lanceDAO;
 
-    public LanceController() throws SQLException {
+    public CreateLanceController() throws SQLException {
         lanceDAO = new LanceDAO();
     }
 
