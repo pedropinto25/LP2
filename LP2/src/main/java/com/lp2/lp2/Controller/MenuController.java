@@ -62,4 +62,36 @@ public class MenuController {
     private Stage getStage() {
         return (Stage) btnLance.getScene().getWindow();
     }
+
+    @FXML
+    private void handleBtnEditCliente(ActionEvent event) {
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadEditClient();
+        mostrarMensagem("Navegar para Editar Clientes");
+    }
+
+    @FXML
+    private void handleBtnListCliente(ActionEvent event) {
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadListClient();
+        mostrarMensagem("Navegar para Listar Cliente");
+    }
+
+    @FXML
+    private void handleBtnListLeilao(ActionEvent event) {
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadListLeilao();
+        mostrarMensagem("Navegar para Listar Leilões");
+    }
+
+    @FXML
+    private void handleBtnEditLeilao(ActionEvent event) {
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadEditLeilao();
+        mostrarMensagem("Navegar para Editar Leilões");
+    }
 }

@@ -48,14 +48,17 @@ public class LoaderFXML {
         loadView("/com/lp3_grupo5/lp2/ClienteViews/AddCliente.fxml", "Criar Cliente");
     }
 
-    public void loadCreateLeilao() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/Dashboard_Create_Leilao.fxml", "Criar Leilão");}
+    public void loadCreateLeilao() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/CreateLeilao.fxml", "Criar Leilão");}
 
-    public void loadCreateLance() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/Dashboard_Lance.fxml", "Licitar");}
+    public void loadCreateLance() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/CreateLance.fxml", "Licitar");}
 
+    public void loadEditClient() {loadView("/com/lp3_grupo5/lp2/ClienteViews/EditCliente.fxml", "Editar Cliente"); }
 
+    public void loadListClient() {loadView("/com/lp3_grupo5/lp2/ClienteViews/ReadCliente.fxml", "Listar Cliente"); }
 
+    public void loadListLeilao() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/ReadLeilao.fxml", "Listar Leilões"); }
 
-
+    public void loadEditLeilao() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/EditLeilao.fxml", "Editar Leilões"); }
 /** ************************************************************************************************************************************************************************ */
     /**
      * Carrega e exibe uma tela específica (view) definida pelo caminho do arquivo FXML.

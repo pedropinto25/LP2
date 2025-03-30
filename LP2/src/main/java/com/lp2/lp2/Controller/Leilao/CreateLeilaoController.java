@@ -1,20 +1,19 @@
-package com.lp2.lp2.Controller;
+package com.lp2.lp2.Controller.Leilao;
 
 import com.lp2.lp2.DAO.LeilaoDAO;
 import com.lp2.lp2.Model.Leilao;
+import com.lp2.lp2.Util.LoaderFXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class LeilaoController {
+public class CreateLeilaoController {
     @FXML
     private TextField nomeField;
     @FXML
@@ -31,10 +30,12 @@ public class LeilaoController {
     private TextField valorMaximoField;
     @FXML
     private TextField multiploLanceField;
+    @FXML
+    private Button btnBack;
 
     private LeilaoDAO leilaoDAO;
 
-    public LeilaoController() throws SQLException {
+    public CreateLeilaoController() throws SQLException {
         leilaoDAO = new LeilaoDAO();
     }
 
@@ -78,7 +79,10 @@ public class LeilaoController {
         // Implementar lógica para o botão de menu
     }
 
-    public void handleBtnBack(ActionEvent actionEvent) {
-        // Implementar lógica para o botão de retroceder
+    @FXML
+    void handleBtnBack(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) btnBack.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadMainMenu();
     }
 }
