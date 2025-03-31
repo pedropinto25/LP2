@@ -13,6 +13,7 @@ module com.lp2.lp2 {
     requires java.sql;
     requires com.zaxxer.hikari;
     requires java.dotenv;
+    requires com.opencsv;
     opens com.lp2.lp2.Model;
     opens com.lp2.lp2.Controller to javafx.fxml;
     opens com.lp2.lp2 to javafx.fxml;
