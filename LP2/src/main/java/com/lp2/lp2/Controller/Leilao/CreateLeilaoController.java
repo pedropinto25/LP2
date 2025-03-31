@@ -38,6 +38,11 @@ public class CreateLeilaoController {
     public CreateLeilaoController() throws SQLException {
         leilaoDAO = new LeilaoDAO();
     }
+    @FXML
+    public void initialize() {
+        tipoField.getItems().addAll("Online", "Carta Fechada");
+    }
+
 
     @FXML
     private void adicionarLeilao() {

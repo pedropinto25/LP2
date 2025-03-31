@@ -4,6 +4,7 @@ package com.lp2.lp2.DAO;
 import com.lp2.lp2.DAO.IDAO.ILanceDAO;
 import com.lp2.lp2.Model.Lance;
 import com.lp2.lp2.Infrastucture.Connection.DBConnection ;
+import com.lp2.lp2.Util.CsvService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -25,6 +26,14 @@ public class LanceDAO implements ILanceDAO {
             stmt.setInt(4, lance.getLeilaoId());
             stmt.executeUpdate();
         }
+
+        // Salvar no CSV
+        try {
+            CsvService csvService = new CsvService();
+            csvService.saveLanceToCsv(lance);
+        } catch (Exception e) {
+            System.err.println("Erro ao salvar lance no CSV: " + e.getMessage());
+        }
     }
 
     @Override
@@ -38,7 +47,16 @@ public class LanceDAO implements ILanceDAO {
             stmt.setInt(5, lance.getId());
             stmt.executeUpdate();
         }
+
+        // Atualizar no CSV
+        try {
+            CsvService csvService = new CsvService();
+            csvService.updateLanceInCsv(lance);
+        } catch (Exception e) {
+            System.err.println("Erro ao atualizar lance no CSV: " + e.getMessage());
+        }
     }
+
 
     @Override
     public void deleteLance(int id) throws SQLException {
