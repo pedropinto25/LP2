@@ -2,3 +2,5 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 0,teste csv,teste csv,Online,2025-03-12,2025-03-21,1,123333,1
 9,tste id,teste id,Online,2025-02-25,2025-03-14,1,2222,1
 10,asjidaijdsas,asddasds,Carta Fechada,2025-04-02,2025-04-03,10,15,1.2
+12,casa123,sem piscina,Online,2025-04-04,2025-04-11,100000,150000,1.8
+13,asdasd,asdasd,Online,2025-04-02,2025-04-02,123123,123123,1.7
