@@ -56,6 +56,16 @@ public class EditLeilaoController {
 
     @FXML
     public void initialize() {
+        tipoField.getItems().addAll("Online", "Carta Fechada", "Venda Direta");
+        tipoField.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if ("Online".equals(newValue)) {
+                multiploLanceField.setDisable(false);
+            } else {
+                multiploLanceField.setDisable(true);
+                multiploLanceField.clear();
+            }
+        });
+
         populateIdChoiceBox();
 
         idChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -85,10 +95,16 @@ public class EditLeilaoController {
                 descricaoField.setText(leilao.getDescricao());
                 tipoField.setValue(leilao.getTipo());
                 dataInicioField.setValue(leilao.getDataInicio().toLocalDate());
-                dataFimField.setValue(leilao.getDataFim().toLocalDate());
+                dataFimField.setValue(leilao.getDataFim() != null ? leilao.getDataFim().toLocalDate() : null);
                 valorMinimoField.setText(leilao.getValorMinimo().toString());
-                valorMaximoField.setText(leilao.getValorMaximo().toString());
-                multiploLanceField.setText(leilao.getMultiploLance().toString());
+                valorMaximoField.setText(leilao.getValorMaximo() != null ? leilao.getValorMaximo().toString() : "");
+                if ("Online".equals(leilao.getTipo())) {
+                    multiploLanceField.setDisable(false);
+                    multiploLanceField.setText(leilao.getMultiploLance() != null ? leilao.getMultiploLance().toString() : "");
+                } else {
+                    multiploLanceField.setDisable(true);
+                    multiploLanceField.clear();
+                }
             } else {
                 mostrarMensagemErro("Leilão não encontrado!");
             }
@@ -110,8 +126,11 @@ public class EditLeilaoController {
                 leilao.setDataFim(Date.valueOf(dataFimField.getValue()));
                 leilao.setValorMinimo(new BigDecimal(valorMinimoField.getText()));
                 leilao.setValorMaximo(new BigDecimal(valorMaximoField.getText()));
-                leilao.setMultiploLance(new BigDecimal(multiploLanceField.getText()));
-                // Manter o estado inativo como está
+                if ("Online".equals(tipoField.getValue())) {
+                    leilao.setMultiploLance(new BigDecimal(multiploLanceField.getText()));
+                } else {
+                    leilao.setMultiploLance(null);
+                }
                 leilaoDAO.updateLeilao(leilao);
                 mostrarMensagemSucesso("Leilão atualizado com sucesso!");
             } else {

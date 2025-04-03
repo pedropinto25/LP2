@@ -7,3 +7,5 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 16,asdasd,asdsadds,Online,2025-04-03,2025-05-01,11111.00,111111.00,1.10,false
 17,asdasd,asdad,Venda Direta,2025-04-03,2025-04-24,1111,111111,1,false
 18,Casa,piscina e spa,Carta Fechada,2025-04-03,2025-04-24,11134.00,1321412.00,1.10,false
+22,sdaasd,asdsaddas,Venda Direta,2025-04-03,2025-04-17,11111,111111,,false
+23,Casa,resort,Carta Fechada,2025-04-03,2025-04-17,11111.00,111111.00,,false
