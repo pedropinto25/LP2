@@ -38,11 +38,11 @@ public class CreateLeilaoController {
     public CreateLeilaoController() throws SQLException {
         leilaoDAO = new LeilaoDAO();
     }
+
     @FXML
     public void initialize() {
-        tipoField.getItems().addAll("Online", "Carta Fechada");
+        tipoField.getItems().addAll("Online", "Carta Fechada", "Venda Direta");
     }
-
 
     @FXML
     private void adicionarLeilao() {
@@ -56,6 +56,7 @@ public class CreateLeilaoController {
             leilao.setValorMinimo(new BigDecimal(valorMinimoField.getText()));
             leilao.setValorMaximo(new BigDecimal(valorMaximoField.getText()));
             leilao.setMultiploLance(new BigDecimal(multiploLanceField.getText()));
+            leilao.setInativo(false); // Definir como ativo por padrão
             leilaoDAO.addLeilao(leilao);
             mostrarMensagemSucesso("Leilão adicionado com sucesso!");
         } catch (Exception e) {

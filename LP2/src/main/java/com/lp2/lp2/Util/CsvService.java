@@ -161,7 +161,8 @@ public class CsvService {
                     leilao.getDataFim().toString().trim(),
                     leilao.getValorMinimo().toString().trim(),
                     leilao.getValorMaximo().toString().trim(),
-                    leilao.getMultiploLance().toString().trim()
+                    leilao.getMultiploLance().toString().trim(),
+                    String.valueOf(leilao.getInativo()).trim()
             };
             writer.writeNext(data);
         }
@@ -190,7 +191,8 @@ public class CsvService {
                         leilao.getDataFim().toString().trim(),
                         leilao.getValorMinimo().toString().trim(),
                         leilao.getValorMaximo().toString().trim(),
-                        leilao.getMultiploLance().toString().trim()
+                        leilao.getMultiploLance().toString().trim(),
+                        String.valueOf(leilao.getInativo()).trim()
                 });
                 break;
             }
