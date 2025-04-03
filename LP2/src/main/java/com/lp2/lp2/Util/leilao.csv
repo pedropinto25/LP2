@@ -1,0 +1,9 @@
+ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
+0,teste csv,teste csv,Online,2025-03-12,2025-03-21,1,123333,1
+9,tste id,teste id,Online,2025-02-25,2025-03-14,1,2222,1
+10,asjidaijdsas,asddasds,Carta Fechada,2025-04-02,2025-04-03,10,15,1.2
+14,Casa t3,casa com divida por pagar,Venda Direta,2025-04-03,2025-05-08,80000,150000,1.1
+15,wqqew,sadasd,Venda Direta,2025-04-03,2025-04-24,11111,111111,1.2
+16,asdasd,asdsadds,Online,2025-04-03,2025-05-01,11111.00,111111.00,1.10,false
+17,asdasd,asdad,Venda Direta,2025-04-03,2025-04-24,1111,111111,1,false
+18,Casa,piscina e spa,Carta Fechada,2025-04-03,2025-04-24,11134.00,1321412.00,1.10,false
