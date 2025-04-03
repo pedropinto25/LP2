@@ -149,7 +149,7 @@ public class CsvService {
                 .build()) {
 
             if (!fileExists) {
-                writer.writeNext(LEILAO_HEADER);
+                writer.writeNext(new String[]{"ID", "Nome", "Descricao", "Tipo", "DataInicio", "DataFim", "ValorMinimo", "ValorMaximo", "MultiploLance", "Inativo"});
             }
 
             String[] data = {
@@ -158,10 +158,10 @@ public class CsvService {
                     leilao.getDescricao().trim(),
                     leilao.getTipo().trim(),
                     leilao.getDataInicio().toString().trim(),
-                    leilao.getDataFim().toString().trim(),
+                    leilao.getDataFim() != null ? leilao.getDataFim().toString().trim() : "",
                     leilao.getValorMinimo().toString().trim(),
-                    leilao.getValorMaximo().toString().trim(),
-                    leilao.getMultiploLance().toString().trim(),
+                    leilao.getValorMaximo() != null ? leilao.getValorMaximo().toString().trim() : "",
+                    leilao.getMultiploLance() != null ? leilao.getMultiploLance().toString().trim() : "",
                     String.valueOf(leilao.getInativo()).trim()
             };
             writer.writeNext(data);
@@ -188,10 +188,10 @@ public class CsvService {
                         leilao.getDescricao().trim(),
                         leilao.getTipo().trim(),
                         leilao.getDataInicio().toString().trim(),
-                        leilao.getDataFim().toString().trim(),
+                        leilao.getDataFim() != null ? leilao.getDataFim().toString().trim() : "",
                         leilao.getValorMinimo().toString().trim(),
-                        leilao.getValorMaximo().toString().trim(),
-                        leilao.getMultiploLance().toString().trim(),
+                        leilao.getValorMaximo() != null ? leilao.getValorMaximo().toString().trim() : "",
+                        leilao.getMultiploLance() != null ? leilao.getMultiploLance().toString().trim() : "",
                         String.valueOf(leilao.getInativo()).trim()
                 });
                 break;

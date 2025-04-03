@@ -2,7 +2,7 @@ package com.lp2.lp2.DAO;
 
 import com.lp2.lp2.DAO.IDAO.ILeilaoDAO;
 import com.lp2.lp2.Model.Leilao;
-import com.lp2.lp2.Infrastucture.Connection.DBConnection ;
+import com.lp2.lp2.Infrastucture.Connection.DBConnection;
 import com.lp2.lp2.Util.CsvService;
 import com.opencsv.exceptions.CsvException;
 
@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 public class LeilaoDAO implements ILeilaoDAO {
     private Connection connection;
 
@@ -28,7 +29,11 @@ public class LeilaoDAO implements ILeilaoDAO {
             stmt.setDate(5, leilao.getDataFim());
             stmt.setBigDecimal(6, leilao.getValorMinimo());
             stmt.setBigDecimal(7, leilao.getValorMaximo());
-            stmt.setBigDecimal(8, leilao.getMultiploLance());
+            if (leilao.getMultiploLance() != null) {
+                stmt.setBigDecimal(8, leilao.getMultiploLance());
+            } else {
+                stmt.setNull(8, Types.DECIMAL);
+            }
             stmt.setBoolean(9, leilao.getInativo());
             stmt.executeUpdate();
 
@@ -47,14 +52,11 @@ public class LeilaoDAO implements ILeilaoDAO {
                     }
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Erro ao adicionar leilão: " + e.getMessage());
             throw e; // Re-lançando a exceção para o chamador
         }
     }
-
-
 
     @Override
     public void updateLeilao(Leilao leilao) throws SQLException {
@@ -67,7 +69,11 @@ public class LeilaoDAO implements ILeilaoDAO {
             stmt.setDate(5, leilao.getDataFim());
             stmt.setBigDecimal(6, leilao.getValorMinimo());
             stmt.setBigDecimal(7, leilao.getValorMaximo());
-            stmt.setBigDecimal(8, leilao.getMultiploLance());
+            if (leilao.getMultiploLance() != null) {
+                stmt.setBigDecimal(8, leilao.getMultiploLance());
+            } else {
+                stmt.setNull(8, Types.DECIMAL);
+            }
             stmt.setBoolean(9, leilao.getInativo());
             stmt.setInt(10, leilao.getId());
             stmt.executeUpdate();
@@ -81,7 +87,6 @@ public class LeilaoDAO implements ILeilaoDAO {
             System.err.println("Erro ao atualizar leilão no CSV: " + e.getMessage());
         }
     }
-
 
     @Override
     public void deleteLeilao(int id) throws SQLException {
