@@ -94,4 +94,11 @@ public class MenuController {
         loader.loadEditLeilao();
         mostrarMensagem("Navegar para Editar Leilões");
     }
+
+    @FXML
+    private void handleBtnParticipate(ActionEvent event){
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadParticipateLeilao();
+    }
 }
