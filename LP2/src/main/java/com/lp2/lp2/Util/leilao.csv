@@ -9,7 +9,7 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 18,Casa,piscina e spa,Carta Fechada,2025-04-03,2025-04-24,11134.00,1321412.00,1.10,false
 22,sdaasd,asdsaddas,Venda Direta,2025-04-03,2025-04-17,11111,111111,,false
 23,Casa,resort,Carta Fechada,2025-04-03,2025-04-17,11111.00,111111.00,,false
-24,Casa com Piscina,4 quartos", 1 suite", 1 sala", 1 piscina", 4 wc's,Online,2025-04-03,2025-05-08,138240,1000000.00,1.20,false
+24,Casa com Piscina,4 quartos", 1 suite", 1 sala", 1 piscina", 4 wc's,Online,2025-04-03,2025-05-08,168000,1000000.00,1.20,false
 25,casa,piscina,Carta Fechada,2025-04-03,2025-05-08,15000,150000,,false
 26,Carro,gt3,Venda Direta,2025-04-10,2025-05-01,35000,35000,,false
 27,Chrome Hearts,Anel raro,Carta Fechada,2025-04-03,2025-04-10,1200,10000,,false
