@@ -111,6 +111,7 @@ public class EditLeilaoController {
                 leilao.setValorMinimo(new BigDecimal(valorMinimoField.getText()));
                 leilao.setValorMaximo(new BigDecimal(valorMaximoField.getText()));
                 leilao.setMultiploLance(new BigDecimal(multiploLanceField.getText()));
+                // Manter o estado inativo como está
                 leilaoDAO.updateLeilao(leilao);
                 mostrarMensagemSucesso("Leilão atualizado com sucesso!");
             } else {

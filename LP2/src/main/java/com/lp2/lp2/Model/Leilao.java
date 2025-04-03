@@ -13,8 +13,9 @@ public class Leilao {
     private BigDecimal valorMinimo;
     private BigDecimal valorMaximo;
     private BigDecimal multiploLance;
+    private boolean inativo;
 
-    public Leilao(String nome, String descricao, String tipo, Date dataInicio, Date dataFim, BigDecimal valorMinimo, BigDecimal valorMaximo, BigDecimal multiploLance) {
+    public Leilao(String nome, String descricao, String tipo, Date dataInicio, Date dataFim, BigDecimal valorMinimo, BigDecimal valorMaximo, BigDecimal multiploLance, boolean inativo) {
         this.nome = nome;
         this.descricao = descricao;
         this.tipo = tipo;
@@ -23,6 +24,7 @@ public class Leilao {
         this.valorMinimo = valorMinimo;
         this.valorMaximo = valorMaximo;
         this.multiploLance = multiploLance;
+        this.inativo = inativo;
     }
 
     public Leilao() {
@@ -99,5 +101,14 @@ public class Leilao {
 
     public void setMultiploLance(BigDecimal multiploLance) {
         this.multiploLance = multiploLance;
+    }
+
+    public boolean getInativo() {
+        return inativo;
+    }
+
+
+    public void setInativo(boolean inativo) {
+        this.inativo = inativo;
     }
 }
