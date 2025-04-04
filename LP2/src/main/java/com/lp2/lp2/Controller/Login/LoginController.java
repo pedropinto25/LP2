@@ -4,6 +4,7 @@ import com.lp2.lp2.DAO.IDAO.IUserDAO;
 import com.lp2.lp2.DAO.UserDAO;
 import com.lp2.lp2.Model.User;
 import com.lp2.lp2.Session.Session;
+import com.lp2.lp2.Util.LoaderFXML;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -79,8 +81,9 @@ public class LoginController {
     }
     @FXML
     void onRegistarButtonClicked(MouseEvent event) {
-
-
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadRegistar();
     }
     /**
      * Método para autenticar o usuário com base no nome de usuário e senha fornecidos.
@@ -105,6 +108,13 @@ public class LoginController {
             showAlert(Alert.AlertType.ERROR, "Erro", "Usuário foi excluído.");
             return false;
         }
+
+// Verifica se o usuário está aprovado
+        if (!user.isApproved()) {
+            showAlert(Alert.AlertType.WARNING, "Login Negado", "Este utilizador ainda não foi aprovado.");
+            return false;
+        }
+
 
         // Gera o hash da senha fornecida
         String passwordHash = hashPassword(password);
@@ -204,6 +214,9 @@ public class LoginController {
             alert.setContentText(message);
             alert.showAndWait();
         });
+    }
+    private Stage getStage() {
+        return (Stage) registarButton.getScene().getWindow();
     }
 }
 

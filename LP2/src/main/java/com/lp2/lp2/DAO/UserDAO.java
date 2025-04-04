@@ -36,6 +36,7 @@ public class UserDAO implements IUserDAO {
                 user.setUsername(rs.getString("email"));
                 user.setPasswordHash(rs.getString("password_hash")); // A senha em texto plano do banco
                 user.setRole(rs.getString("role"));
+                user.setApproved(rs.getBoolean("approved"));
                 //user.setInative(rs.getBoolean("inative"));
                 return Optional.of(user);
             }

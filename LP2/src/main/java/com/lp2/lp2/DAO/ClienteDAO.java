@@ -90,6 +90,21 @@ public class ClienteDAO implements IClienteDAO {
     }
 
     @Override
+    public void AproveCliente(int id) throws SQLException {
+        String sql = "UPDATE Cliente set approved = 1 WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+
+        String updtUser = "UPDATE Users SET approved = 1 WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(updtUser)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    @Override
     public Cliente getClienteById(int id) throws SQLException {
         String sql = "SELECT * FROM Cliente WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -124,6 +139,27 @@ public class ClienteDAO implements IClienteDAO {
                 cliente.setDataNascimento(rs.getDate("dataNascimento"));
                 cliente.setEmail(rs.getString("email"));
                 cliente.setSenha(rs.getString("senha"));
+                clientes.add(cliente);
+            }
+        }
+        return clientes;
+    }
+
+    @Override
+    public List<Cliente> getAllClientesToAprove() throws SQLException {
+        List<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT * FROM Cliente WHERE approved = 0";
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setMorada(rs.getString("morada"));
+                cliente.setDataNascimento(rs.getDate("dataNascimento"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setSenha(rs.getString("senha"));
+                cliente.setApproved(rs.getBoolean("approved"));
                 clientes.add(cliente);
             }
         }

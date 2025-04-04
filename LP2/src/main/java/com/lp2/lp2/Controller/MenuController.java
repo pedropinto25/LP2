@@ -20,7 +20,15 @@ public class MenuController {
 
     @FXML
     private Button btnSair;
+    @FXML
+    private Button btnAprovar;
 
+    @FXML
+    void handleBtnAprovar(ActionEvent event) {
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadAprovar();
+    }
     @FXML
     private void handleBtnLeilao(ActionEvent event) {
         Stage currentStage = getStage();

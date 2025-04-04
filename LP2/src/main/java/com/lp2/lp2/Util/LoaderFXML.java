@@ -63,6 +63,10 @@ public class LoaderFXML {
     public void loadParticipateLeilao() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/ParticipateLeilao.fxml", "Participar em Leilões");}
 
     public void loadLogin() {loadView("/com/lp3_grupo5/lp2/Login/Login.fxml", "Voltar ao login");}
+
+    public void loadRegistar() {loadView("/com/lp3_grupo5/lp2/Login/Registar.fxml", "Registar");}
+
+    public void loadAprovar() {loadView("/com/lp3_grupo5/lp2/ClienteViews/AproveCliente.fxml" , "Aprovar Clientes");}
 /** ************************************************************************************************************************************************************************ */
     /**
      * Carrega e exibe uma tela específica (view) definida pelo caminho do arquivo FXML.
