@@ -27,7 +27,18 @@ CREATE TABLE Cliente (
     morada TEXT,
     dataNascimento DATE,
     email VARCHAR(255),
-    senha VARCHAR(255)
+    senha VARCHAR(255),
+    encrypted BIT DEFAULT 0
+);
+GO
+
+-- Criar a tabela Users
+CREATE TABLE Users (
+    id INT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    encrypted BIT DEFAULT 0,
+    role VARCHAR(50) DEFAULT 'cliente'
 );
 GO
 
@@ -43,7 +54,7 @@ CREATE TABLE Lance (
 );
 GO
 
---Criar a tabela para participar em leilões
+--Criar a tabela para participar em leilï¿½es
 CREATE TABLE LeilaoParticipacao (
     id INT PRIMARY KEY IDENTITY(1,1),
     leilao_id INT NOT NULL,
@@ -53,4 +64,16 @@ CREATE TABLE LeilaoParticipacao (
     FOREIGN KEY (leilao_id) REFERENCES Leilao(id),
     FOREIGN KEY (cliente_id) REFERENCES Cliente(id)
 );
+GO
+
+-- Criar o trigger para popular a tabela Users
+CREATE TRIGGER trg_InsertUsers
+ON Cliente
+AFTER INSERT
+AS
+BEGIN
+    INSERT INTO Users (id, email, password_hash)
+    SELECT id, email, senha
+    FROM inserted;
+END;
 GO

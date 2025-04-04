@@ -23,4 +23,6 @@ module com.lp2.lp2 {
     opens com.lp2.lp2.Controller.Cliente to javafx.fxml;
     exports com.lp2.lp2.Controller.Leilao;
     opens com.lp2.lp2.Controller.Leilao to javafx.fxml;
+    exports com.lp2.lp2.Controller.Login;
+    opens com.lp2.lp2.Controller.Login to javafx.fxml;
 }

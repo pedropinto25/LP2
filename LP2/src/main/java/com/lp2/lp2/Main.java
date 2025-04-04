@@ -1,5 +1,6 @@
 package com.lp2.lp2;
 
+import com.lp2.lp2.Controller.Login.UserEncryption;
 import com.lp2.lp2.Util.LoaderFXML;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         mainStage = primaryStage;
-        loadScene("/com/lp3_grupo5/lp2/Menus/Menu_Inicial.fxml");
+        loadScene("/com/lp3_grupo5/lp2/Login/Login.fxml");
+
     }
     /**
      * Método para carregar uma nova cena no `Stage` principal.
@@ -56,6 +58,10 @@ public class Main extends Application {
         }
     }
     public static void main(String[] args) {
-        launch();
+        UserEncryption encryptionService = new UserEncryption();
+        encryptionService.encryptPasswords();
+        encryptionService.encryptPasswordsCliente();
+
+        launch(args);
     }
 }

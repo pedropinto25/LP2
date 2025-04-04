@@ -51,7 +51,7 @@ public class ClienteDAO implements IClienteDAO {
 
     @Override
     public void updateCliente(Cliente cliente) throws SQLException {
-        String sql = "UPDATE Cliente SET nome = ?, morada = ?, dataNascimento = ?, email = ?, senha = ? WHERE id = ?";
+        String sql = "UPDATE Cliente SET nome = ?, morada = ?, dataNascimento = ?, email = ?, senha = ?, encrypted = 0 WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getMorada());
@@ -60,6 +60,14 @@ public class ClienteDAO implements IClienteDAO {
             stmt.setString(5, cliente.getSenha());
             stmt.setInt(6, cliente.getId());
             stmt.executeUpdate();
+        }
+
+        String sqlUpdateUsers = "UPDATE Users SET email = ?, password_hash = ?, encrypted = 0 WHERE id = ?";
+        try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUpdateUsers)) {
+            stmtUsers.setString(1, cliente.getEmail());
+            stmtUsers.setString(2, cliente.getSenha());
+            stmtUsers.setInt(3, cliente.getId());
+            stmtUsers.executeUpdate();
         }
 
         // Atualizar também no CSV
