@@ -37,6 +37,8 @@ public class LoginController {
 
     @FXML
     private Button loginButton;  // Botão para realizar o login
+    @FXML
+    private Button registarButton;
 
     // Instância da DAO via interface para buscar usuários
     private final IUserDAO userDAO = new UserDAO();
@@ -75,7 +77,11 @@ public class LoginController {
             }
         }
     }
+    @FXML
+    void onRegistarButtonClicked(MouseEvent event) {
 
+
+    }
     /**
      * Método para autenticar o usuário com base no nome de usuário e senha fornecidos.
      *
