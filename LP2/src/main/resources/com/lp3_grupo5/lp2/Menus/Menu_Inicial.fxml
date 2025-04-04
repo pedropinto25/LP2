@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.MenuController">
+<Pane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.MenuController">
     <children>
         <Text fill="WHITE" layoutX="202.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Inicial" textAlignment="CENTER" wrappingWidth="199.0">
          <font>
@@ -20,5 +20,6 @@
       <Button fx:id="btnListLeilao" layoutX="74.0" layoutY="233.0" onAction="#handleBtnListLeilao" prefHeight="53.0" prefWidth="100.0" style="-fx-background-color: none; -fx-border-color: white;" text="Listar Leilão" textFill="WHITE" />
       <Button fx:id="btnEditLeilao" layoutX="74.0" layoutY="155.0" onAction="#handleBtnEditLeilao" prefHeight="53.0" prefWidth="100.0" style="-fx-background-color: none; -fx-border-color: white;" text="Editar Leilão" textFill="WHITE" />
       <Button fx:id="btnParticipate" layoutX="240.0" layoutY="155.0" onAction="#handleBtnParticipate" prefHeight="53.0" prefWidth="123.0" style="-fx-background-color: none; -fx-border-color: white;" text="Participar Leilão" textFill="WHITE" />
+      <Button fx:id="btnAprovar" layoutX="240.0" layoutY="233.0" onAction="#handleBtnAprovar" prefHeight="53.0" prefWidth="123.0" style="-fx-background-color: none; -fx-border-color: white;" text="Aprovar Clientes" textFill="WHITE" />
     </children>
 </Pane>

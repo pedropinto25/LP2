@@ -9,6 +9,11 @@ public interface IClienteDAO {
     void addCliente(Cliente cliente) throws SQLException;
     void updateCliente(Cliente cliente) throws SQLException;
     void deleteCliente(int id) throws SQLException;
+
+    void AproveCliente(int id) throws SQLException;
+
     Cliente getClienteById(int id) throws SQLException;
     List<Cliente> getAllClientes() throws SQLException;
+
+    List<Cliente> getAllClientesToAprove() throws SQLException;
 }

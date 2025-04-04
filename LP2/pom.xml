@@ -24,6 +24,11 @@
       <artifactId>javafx-fxml</artifactId>
       <version>21</version>
     </dependency>
+      <dependency>
+          <groupId>com.mailjet</groupId>
+          <artifactId>mailjet-client</artifactId>
+          <version>5.2.0</version>
+      </dependency>
 <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-web</artifactId>

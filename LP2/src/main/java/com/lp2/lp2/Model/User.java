@@ -8,6 +8,7 @@ public class User {
     private boolean inative;      // Estado do utilizador (ativo ou inativo)
     private Integer athleteId;    // ID do atleta relacionado (pode ser nulo se o utilizador não for um atleta)
     private boolean incripted;
+    private Boolean approved;
     /**
      * Obtém o ID único do utilizador.
      *
@@ -124,6 +125,18 @@ public class User {
     public void setIncripted(boolean incripted) {
         this.incripted = incripted;
     }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+    public boolean isApproved() {
+        return approved;
+    }
+
 }
 
 

@@ -3,3 +3,7 @@ ID,Nome,Morada,DataNascimento,Email,Senha
 14,luis,12,2025-03-24,12,12
 15,Teste Hash,rua 2,2025-04-14,teste@teste.pt,123
 16,Paulo Correia,Bomboclat,1969-06-09,paulo@admin.pt,123
+17,Pedro teste,Teste,2025-04-15,login@login.pt,123
+18,Teste registar,teste,2025-04-07,registar@teste.pt,123
+19,voltar,voltar,2025-04-16,voltar@voltar.pt,123
+20,teste,teste,2025-04-09,registar@registar.pt,123
