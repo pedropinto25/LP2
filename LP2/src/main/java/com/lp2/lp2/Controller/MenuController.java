@@ -45,12 +45,6 @@ public class MenuController {
 
     }
 
-    @FXML
-    private void handleBtnSair(ActionEvent event) {
-        // Implementar lógica para sair da aplicação
-
-    }
-
     private void mostrarMensagem(String mensagem) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Informação");
@@ -99,5 +93,12 @@ public class MenuController {
         Stage currentStage = getStage();
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadParticipateLeilao();
+    }
+
+    @FXML
+    private void handleBtnSair(ActionEvent event){
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadLogin();
     }
 }
