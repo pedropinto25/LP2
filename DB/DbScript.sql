@@ -42,3 +42,15 @@ CREATE TABLE Lance (
     FOREIGN KEY (leilaoId) REFERENCES Leilao(id)
 );
 GO
+
+--Criar a tabela para participar em leilões
+CREATE TABLE LeilaoParticipacao (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    leilao_id INT NOT NULL,
+    cliente_id INT NOT NULL,
+    data_participacao TIMESTAMP,
+    valor_lance DECIMAL(10, 2),
+    FOREIGN KEY (leilao_id) REFERENCES Leilao(id),
+    FOREIGN KEY (cliente_id) REFERENCES Cliente(id)
+);
+GO
