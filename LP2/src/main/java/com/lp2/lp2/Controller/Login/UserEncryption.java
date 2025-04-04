@@ -26,6 +26,22 @@ public class UserEncryption {
         }
     }
 
+    public void encryptPasswordsCliente() {
+        // Buscar todos os utilizadores
+        List<User> users = userDAO.getAllUClientes();
+
+        for (User user : users) {
+            // Verificar se a coluna incripted é 0
+            if (!user.isIncripted()) {
+                // Encriptar a palavra-passe
+                String encryptedPassword = hashPassword(user.getPasswordHash());
+
+                // Atualizar a palavra-passe encriptada e definir incripted como 1
+                userDAO.updatePasswordAndIncriptedCliente(user.getId(), encryptedPassword, 1);
+            }
+        }
+    }
+
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

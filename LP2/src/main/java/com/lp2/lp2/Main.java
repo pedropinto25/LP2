@@ -60,6 +60,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         UserEncryption encryptionService = new UserEncryption();
         encryptionService.encryptPasswords();
+        encryptionService.encryptPasswordsCliente();
 
         launch(args);
     }

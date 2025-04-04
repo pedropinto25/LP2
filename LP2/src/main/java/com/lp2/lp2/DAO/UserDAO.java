@@ -230,4 +230,47 @@ public class UserDAO implements IUserDAO {
         return users; // Retorna a lista de utilizadors
     }
 
+    @Override
+    public List<User> getAllUClientes() {
+        List<User> users = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "SELECT * FROM Cliente";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            // Percorrer todos os resultados da consulta
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("email"));
+                user.setPasswordHash(rs.getString("senha")); // A senha em texto plano do banco
+                //user.setRole(rs.getString("role"));
+                //user.setInative(rs.getBoolean("inative"));
+                user.setIncripted(rs.getBoolean("encrypted")); // Adiciona o campo incripted
+                users.add(user); // Adiciona o utilizador à lista
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Se necessário, você pode lançar uma exceção personalizada aqui
+        }
+        return users; // Retorna a lista de utilizadors
+    }
+
+    @Override
+    public boolean updatePasswordAndIncriptedCliente(int userId, String newPasswordHash, int incripted) {
+        String sql = "UPDATE Cliente SET senha = ?, encrypted = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, newPasswordHash);
+            pstmt.setInt(2, incripted);
+            pstmt.setInt(3, userId);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }
