@@ -38,11 +38,19 @@ public class CreateLeilaoController {
     public CreateLeilaoController() throws SQLException {
         leilaoDAO = new LeilaoDAO();
     }
+
     @FXML
     public void initialize() {
-        tipoField.getItems().addAll("Online", "Carta Fechada");
+        tipoField.getItems().addAll("Online", "Carta Fechada", "Venda Direta");
+        tipoField.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if ("Online".equals(newValue)) {
+                multiploLanceField.setDisable(false);
+            } else {
+                multiploLanceField.setDisable(true);
+                multiploLanceField.clear();
+            }
+        });
     }
-
 
     @FXML
     private void adicionarLeilao() {
@@ -55,7 +63,12 @@ public class CreateLeilaoController {
             leilao.setDataFim(Date.valueOf(dataFimField.getValue()));
             leilao.setValorMinimo(new BigDecimal(valorMinimoField.getText()));
             leilao.setValorMaximo(new BigDecimal(valorMaximoField.getText()));
-            leilao.setMultiploLance(new BigDecimal(multiploLanceField.getText()));
+            if ("Online".equals(tipoField.getValue())) {
+                leilao.setMultiploLance(new BigDecimal(multiploLanceField.getText()));
+            } else {
+                leilao.setMultiploLance(null); // Definir como null para outros tipos de leilão
+            }
+            leilao.setInativo(false); // Definir como ativo por padrão
             leilaoDAO.addLeilao(leilao);
             mostrarMensagemSucesso("Leilão adicionado com sucesso!");
         } catch (Exception e) {

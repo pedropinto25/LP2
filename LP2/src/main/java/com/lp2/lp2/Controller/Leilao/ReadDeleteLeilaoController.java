@@ -39,6 +39,8 @@ public class ReadDeleteLeilaoController {
     private TableColumn<Leilao, String> valorMaximoColumn;
     @FXML
     private TableColumn<Leilao, String> multiploLanceColumn;
+    @FXML
+    private TableColumn<Leilao, Boolean> inativoColumn; // Nova coluna
 
     @FXML
     private Button btnMenu;
@@ -64,6 +66,7 @@ public class ReadDeleteLeilaoController {
         valorMinimoColumn.setCellValueFactory(new PropertyValueFactory<>("valorMinimo"));
         valorMaximoColumn.setCellValueFactory(new PropertyValueFactory<>("valorMaximo"));
         multiploLanceColumn.setCellValueFactory(new PropertyValueFactory<>("multiploLance"));
+        inativoColumn.setCellValueFactory(new PropertyValueFactory<>("inativo")); // Configurar nova coluna
 
         leilaoTableView.setItems(loadLeiloes());
     }
@@ -116,6 +119,24 @@ public class ReadDeleteLeilaoController {
             }
         } else {
             mostrarMensagemErro("Por favor, selecione um leilão antes de tentar eliminá-lo.");
+        }
+    }
+
+    @FXML
+    void handleBtnDesativar(ActionEvent event) { // Novo método para desativar
+        Leilao selectedLeilao = leilaoTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedLeilao != null) {
+            try {
+                leilaoDAO.desativarLeilao(selectedLeilao.getId());
+                selectedLeilao.setInativo(true); // Atualizar o estado localmente
+                leilaoTableView.refresh(); // Atualizar a tabela para refletir a mudança
+                mostrarMensagemSucesso("Leilão desativado com sucesso!");
+            } catch (SQLException e) {
+                mostrarMensagemErro("Erro ao desativar leilão: " + e.getMessage());
+            }
+        } else {
+            mostrarMensagemErro("Por favor, selecione um leilão antes de tentar desativá-lo.");
         }
     }
 

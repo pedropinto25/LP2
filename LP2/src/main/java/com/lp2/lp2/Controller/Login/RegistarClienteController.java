@@ -1,22 +1,22 @@
-package com.lp2.lp2.Controller.Cliente;
+package com.lp2.lp2.Controller.Login;
 
 import com.lp2.lp2.Controller.Login.UserEncryption;
-import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.DAO.ClienteDAO;
+import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.Util.LoaderFXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class CreateClienteController {
+public class RegistarClienteController {
 
     @FXML
     private TextField nomeField;
@@ -33,7 +33,7 @@ public class CreateClienteController {
 
     private ClienteDAO clienteDAO;
 
-    public CreateClienteController() throws SQLException {
+    public RegistarClienteController() throws SQLException {
         clienteDAO = new ClienteDAO();
     }
 
@@ -47,22 +47,29 @@ public class CreateClienteController {
             cliente.setEmail(emailField.getText());
             cliente.setSenha(senhaField.getText());
             clienteDAO.addCliente(cliente);
-            mostrarMensagemSucesso("Cliente adicionado com sucesso!");
+            mostrarMensagemSucesso("Cliente Registado com sucesso!");
             UserEncryption encryptionService = new UserEncryption();
             encryptionService.encryptPasswords();
             encryptionService.encryptPasswordsCliente();
         } catch (Exception e) {
-            mostrarMensagemErro("Erro ao adicionar cliente: " + e.getMessage());
+            mostrarMensagemErro("Erro ao Registar cliente: " + e.getMessage());
             System.out.println(e.getMessage());
         }
     }
 
     private void mostrarMensagemSucesso(String mensagem) {
-        Alert alert = new Alert(AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Sucesso");
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
         alert.showAndWait();
+
+        // Obter o Stage de qualquer nodo da cena, como nomeField
+        Stage currentStage = (Stage) nomeField.getScene().getWindow();
+
+        // Redirecionar para a tela de login
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadLogin();
     }
 
     private void mostrarMensagemErro(String mensagem) {

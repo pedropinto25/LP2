@@ -2,7 +2,7 @@ package com.lp2.lp2.DAO;
 
 import com.lp2.lp2.DAO.IDAO.ILeilaoDAO;
 import com.lp2.lp2.Model.Leilao;
-import com.lp2.lp2.Infrastucture.Connection.DBConnection ;
+import com.lp2.lp2.Infrastucture.Connection.DBConnection;
 import com.lp2.lp2.Util.CsvService;
 import com.opencsv.exceptions.CsvException;
 
@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 public class LeilaoDAO implements ILeilaoDAO {
     private Connection connection;
 
@@ -19,7 +20,7 @@ public class LeilaoDAO implements ILeilaoDAO {
 
     @Override
     public void addLeilao(Leilao leilao) throws SQLException {
-        String sql = "INSERT INTO Leilao (nome, descricao, tipo, dataInicio, dataFim, valorMinimo, valorMaximo, multiploLance) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Leilao (nome, descricao, tipo, dataInicio, dataFim, valorMinimo, valorMaximo, multiploLance, inativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, leilao.getNome());
             stmt.setString(2, leilao.getDescricao());
@@ -28,7 +29,12 @@ public class LeilaoDAO implements ILeilaoDAO {
             stmt.setDate(5, leilao.getDataFim());
             stmt.setBigDecimal(6, leilao.getValorMinimo());
             stmt.setBigDecimal(7, leilao.getValorMaximo());
-            stmt.setBigDecimal(8, leilao.getMultiploLance());
+            if (leilao.getMultiploLance() != null) {
+                stmt.setBigDecimal(8, leilao.getMultiploLance());
+            } else {
+                stmt.setNull(8, Types.DECIMAL);
+            }
+            stmt.setBoolean(9, leilao.getInativo());
             stmt.executeUpdate();
 
             // Recuperar o ID gerado
@@ -46,18 +52,15 @@ public class LeilaoDAO implements ILeilaoDAO {
                     }
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Erro ao adicionar leilão: " + e.getMessage());
             throw e; // Re-lançando a exceção para o chamador
         }
     }
 
-
-
     @Override
     public void updateLeilao(Leilao leilao) throws SQLException {
-        String sql = "UPDATE Leilao SET nome = ?, descricao = ?, tipo = ?, dataInicio = ?, dataFim = ?, valorMinimo = ?, valorMaximo = ?, multiploLance = ? WHERE id = ?";
+        String sql = "UPDATE Leilao SET nome = ?, descricao = ?, tipo = ?, dataInicio = ?, dataFim = ?, valorMinimo = ?, valorMaximo = ?, multiploLance = ?, inativo = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, leilao.getNome());
             stmt.setString(2, leilao.getDescricao());
@@ -66,8 +69,13 @@ public class LeilaoDAO implements ILeilaoDAO {
             stmt.setDate(5, leilao.getDataFim());
             stmt.setBigDecimal(6, leilao.getValorMinimo());
             stmt.setBigDecimal(7, leilao.getValorMaximo());
-            stmt.setBigDecimal(8, leilao.getMultiploLance());
-            stmt.setInt(9, leilao.getId());
+            if (leilao.getMultiploLance() != null) {
+                stmt.setBigDecimal(8, leilao.getMultiploLance());
+            } else {
+                stmt.setNull(8, Types.DECIMAL);
+            }
+            stmt.setBoolean(9, leilao.getInativo());
+            stmt.setInt(10, leilao.getId());
             stmt.executeUpdate();
         }
 
@@ -79,7 +87,6 @@ public class LeilaoDAO implements ILeilaoDAO {
             System.err.println("Erro ao atualizar leilão no CSV: " + e.getMessage());
         }
     }
-
 
     @Override
     public void deleteLeilao(int id) throws SQLException {
@@ -107,6 +114,7 @@ public class LeilaoDAO implements ILeilaoDAO {
                     leilao.setValorMinimo(rs.getBigDecimal("valorMinimo"));
                     leilao.setValorMaximo(rs.getBigDecimal("valorMaximo"));
                     leilao.setMultiploLance(rs.getBigDecimal("multiploLance"));
+                    leilao.setInativo(rs.getBoolean("inativo"));
                     return leilao;
                 }
             }
@@ -117,7 +125,7 @@ public class LeilaoDAO implements ILeilaoDAO {
     @Override
     public List<Leilao> getAllLeiloes() throws SQLException {
         List<Leilao> leiloes = new ArrayList<>();
-        String sql = "SELECT * FROM Leilao";
+        String sql = "SELECT * FROM Leilao WHERE inativo = 0";
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -131,9 +139,18 @@ public class LeilaoDAO implements ILeilaoDAO {
                 leilao.setValorMinimo(rs.getBigDecimal("valorMinimo"));
                 leilao.setValorMaximo(rs.getBigDecimal("valorMaximo"));
                 leilao.setMultiploLance(rs.getBigDecimal("multiploLance"));
+                leilao.setInativo(rs.getBoolean("inativo"));
                 leiloes.add(leilao);
             }
         }
         return leiloes;
+    }
+
+    public void desativarLeilao(int id) throws SQLException {
+        String sql = "UPDATE Leilao SET inativo = 1 WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
     }
 }

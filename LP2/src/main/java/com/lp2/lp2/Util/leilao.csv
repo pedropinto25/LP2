@@ -1,3 +1,15 @@
 ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 0,teste csv,teste csv,Online,2025-03-12,2025-03-21,1,123333,1
 9,tste id,teste id,Online,2025-02-25,2025-03-14,1,2222,1
+10,asjidaijdsas,asddasds,Carta Fechada,2025-04-02,2025-04-03,10,15,1.2
+14,Casa t3,casa com divida por pagar,Venda Direta,2025-04-03,2025-05-08,80000,150000,1.1
+15,wqqew,sadasd,Venda Direta,2025-04-03,2025-04-24,11111,111111,1.2
+16,asdasd,asdsadds,Online,2025-04-03,2025-05-01,11111.00,111111.00,1.10,false
+17,asdasd,asdad,Venda Direta,2025-04-03,2025-04-24,1111,111111,1,false
+18,Casa,piscina e spa,Carta Fechada,2025-04-03,2025-04-24,11134.00,1321412.00,1.10,false
+22,sdaasd,asdsaddas,Venda Direta,2025-04-03,2025-04-17,11111,111111,,false
+23,Casa,resort,Carta Fechada,2025-04-03,2025-04-17,11111.00,111111.00,,false
+24,Casa com Piscina,4 quartos", 1 suite", 1 sala", 1 piscina", 4 wc's,Online,2025-04-03,2025-05-08,168000,1000000.00,1.20,false
+25,casa,piscina,Carta Fechada,2025-04-03,2025-05-08,15000,150000,,false
+26,Carro,gt3,Venda Direta,2025-04-10,2025-05-01,35000,35000,,false
+27,Chrome Hearts,Anel raro,Carta Fechada,2025-04-03,2025-04-10,1200,10000,,false
