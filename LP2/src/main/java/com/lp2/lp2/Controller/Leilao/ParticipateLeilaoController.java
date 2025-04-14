@@ -48,6 +48,9 @@ public class ParticipateLeilaoController {
     private TableColumn<Leilao, Boolean> inativoColumn;
 
     @FXML
+    private TableColumn<Leilao, Boolean> vendidoColumn;
+
+    @FXML
     private Button btnParticipar;
     @FXML
     private Button btnBack;
@@ -74,6 +77,7 @@ public class ParticipateLeilaoController {
         valorMaximoColumn.setCellValueFactory(new PropertyValueFactory<>("valorMaximo"));
         multiploLanceColumn.setCellValueFactory(new PropertyValueFactory<>("multiploLance"));
         inativoColumn.setCellValueFactory(new PropertyValueFactory<>("inativo"));
+        vendidoColumn.setCellValueFactory(new PropertyValueFactory<>("vendido"));
         leilaoTableView.setItems(loadLeiloes());
     }
 
@@ -91,6 +95,11 @@ public class ParticipateLeilaoController {
         Leilao selectedLeilao = leilaoTableView.getSelectionModel().getSelectedItem();
 
         if (selectedLeilao != null) {
+            if (selectedLeilao.getVendido()) {
+                mostrarMensagemErro("Este leilão já foi vendido e não aceita mais lances.");
+                return;
+            }
+
             try {
                 BigDecimal valorLance = new BigDecimal(valorLanceField.getText());
                 LeilaoParticipacao participacao = new LeilaoParticipacao();
@@ -120,7 +129,7 @@ public class ParticipateLeilaoController {
                     if (selectedLeilao.getValorMaximo() != null) {
                         if (valorLance.compareTo(selectedLeilao.getValorMaximo()) == 0) {
                             // Marcar o leilão como vendido
-                            selectedLeilao.setInativo(true);
+                            selectedLeilao.setVendido(true);
                             leilaoDAO.updateLeilao(selectedLeilao);
                             mostrarMensagemSucesso("Leilão vendido pelo valor máximo!");
                             return;
@@ -162,7 +171,7 @@ public class ParticipateLeilaoController {
                         return;
                     }
                     // Marcar o leilão como vendido
-                    selectedLeilao.setInativo(true);
+                    selectedLeilao.setVendido(true);
                     leilaoDAO.updateLeilao(selectedLeilao);
                     mostrarMensagemSucesso("Leilão vendido pelo valor mínimo!");
                     return;

@@ -17,7 +17,8 @@ CREATE TABLE Leilao (
     valorMinimo DECIMAL(10, 2),
     valorMaximo DECIMAL(10, 2),
     multiploLance DECIMAL(10, 2),
-	inativo BIT
+	inativo BIT,
+	vendido BIT
 );
 GO
 -- Criar a tabela Cliente
