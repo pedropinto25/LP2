@@ -118,6 +118,7 @@ public class CreateLeilaoController {
             }
 
             leilao.setInativo(false); // Definir como ativo por padrão
+            leilao.setVendido(false); // define o leilão como não vendido!
             leilaoDAO.addLeilao(leilao);
             mostrarMensagemSucesso("Leilão adicionado com sucesso!");
         } catch (Exception e) {

@@ -28,3 +28,8 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 44,sadasdas,asdasda,Carta Fechada,2025-04-14,,10000,,,false
 45,asdasdasdsa,dsadsasada,Carta Fechada,2025-04-14,,400,,,false
 46,prédio 10 apartamentos,10 apartamentos t2,Online,2025-04-14,,2000000,10000000,1.1,false
+47,casa com piscina,t4,Online,2025-04-14,2025-05-05,100000,5000000,1.4,false
+48,testevendaOnl,asdads,Online,2025-04-14,,1111,11111,1.1,false
+49,testevendaDire,asdads,Venda Direta,2025-04-14,,1111,,,false
+50,Onlinetest1,asdaqdsas,Online,2025-04-14,,111,1111,1.1,false
+51,vendatest1,asdaqdsas,Venda Direta,2025-04-14,,111,,,false
