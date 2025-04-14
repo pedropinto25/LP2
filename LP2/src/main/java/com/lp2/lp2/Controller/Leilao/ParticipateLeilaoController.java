@@ -4,6 +4,7 @@ import com.lp2.lp2.DAO.LeilaoDAO;
 import com.lp2.lp2.DAO.LeilaoParticipacaoDAO;
 import com.lp2.lp2.Model.Leilao;
 import com.lp2.lp2.Model.LeilaoParticipacao;
+import com.lp2.lp2.Session.Session;
 import com.lp2.lp2.Util.LoaderFXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -73,7 +74,6 @@ public class ParticipateLeilaoController {
         valorMaximoColumn.setCellValueFactory(new PropertyValueFactory<>("valorMaximo"));
         multiploLanceColumn.setCellValueFactory(new PropertyValueFactory<>("multiploLance"));
         inativoColumn.setCellValueFactory(new PropertyValueFactory<>("inativo"));
-
         leilaoTableView.setItems(loadLeiloes());
     }
 
@@ -95,21 +95,41 @@ public class ParticipateLeilaoController {
                 BigDecimal valorLance = new BigDecimal(valorLanceField.getText());
                 LeilaoParticipacao participacao = new LeilaoParticipacao();
                 participacao.setLeilaoId(selectedLeilao.getId());
-                participacao.setClienteId(1); // Substituir pelo ID do cliente logado
+                participacao.setClienteId(Session.getLoggedUserId()); // Use the logged-in client's ID
                 participacao.setValorLance(valorLance);
 
                 if ("Online".equals(selectedLeilao.getTipo())) {
                     // Lógica para um leilão online / eletrónico
-                    // Verificar se o valor do lance é múltiplo do valor configurado
-                    if (valorLance.remainder(selectedLeilao.getMultiploLance()).compareTo(BigDecimal.ZERO) != 0) {
-                        mostrarMensagemErro("O valor do lance deve ser múltiplo de " + selectedLeilao.getMultiploLance());
+                    BigDecimal valorMinimo = selectedLeilao.getValorMinimo();
+                    BigDecimal multiploLance = selectedLeilao.getMultiploLance();
+
+                    // Verificar se o valor do lance é maior ou igual ao valor mínimo multiplicado pelo múltiplo
+                    BigDecimal valorMinimoMultiplicado = valorMinimo.multiply(multiploLance);
+                    if (valorLance.compareTo(valorMinimoMultiplicado) < 0) {
+                        mostrarMensagemErro("O valor do lance deve ser maior ou igual a " + valorMinimoMultiplicado);
                         return;
                     }
-                    // Verificar se o valor do lance é igual ao valor mínimo
-                    if (valorLance.compareTo(selectedLeilao.getValorMinimo()) == 0) {
-                        mostrarMensagemErro("O valor do lance não pode ser igual ao valor mínimo.");
+
+                    // Verificar se o valor do lance é múltiplo do valor configurado ou superior ao múltiplo
+                    if (valorLance.remainder(multiploLance).compareTo(BigDecimal.ZERO) != 0 && valorLance.compareTo(valorMinimoMultiplicado) < 0) {
+                        mostrarMensagemErro("O valor do lance deve ser múltiplo de " + multiploLance + " e maior ou igual a " + valorMinimoMultiplicado);
                         return;
                     }
+
+                    // Verificar se o valor do lance é igual ao valor máximo
+                    if (selectedLeilao.getValorMaximo() != null) {
+                        if (valorLance.compareTo(selectedLeilao.getValorMaximo()) == 0) {
+                            // Marcar o leilão como vendido
+                            selectedLeilao.setInativo(true);
+                            leilaoDAO.updateLeilao(selectedLeilao);
+                            mostrarMensagemSucesso("Leilão vendido pelo valor máximo!");
+                            return;
+                        } else if (valorLance.compareTo(selectedLeilao.getValorMaximo()) > 0) {
+                            mostrarMensagemErro("O valor do lance não pode ser superior ao valor máximo de " + selectedLeilao.getValorMaximo());
+                            return;
+                        }
+                    }
+
                     // Atualizar o valor mínimo do leilão
                     selectedLeilao.setValorMinimo(valorLance);
                     leilaoDAO.updateLeilao(selectedLeilao);
@@ -118,7 +138,7 @@ public class ParticipateLeilaoController {
                     // Cada cliente só pode participar uma vez!
                     List<LeilaoParticipacao> participacoes = leilaoParticipacaoDAO.getParticipacoesByLeilaoId(selectedLeilao.getId());
                     for (LeilaoParticipacao p : participacoes) {
-                        if (p.getClienteId() == 1) { // Substituir pelo ID do cliente logado
+                        if (p.getClienteId() == Session.getLoggedUserId()) { // Use the logged-in client's ID
                             mostrarMensagemErro("Você já participou neste leilão.");
                             return;
                         }
@@ -131,7 +151,7 @@ public class ParticipateLeilaoController {
                 } else if ("Venda Direta".equals(selectedLeilao.getTipo())) {
                     // Lógica para leilão venda direta
                     // O valor do lance deve ser igual ao valor mínimo
-                    if (valorLance.compareTo(selectedLeilao.getValorMinimo()) != 0) {
+                    if (selectedLeilao.getValorMinimo() != null && valorLance.compareTo(selectedLeilao.getValorMinimo()) != 0) {
                         mostrarMensagemErro("O valor do lance deve ser igual ao valor mínimo de " + selectedLeilao.getValorMinimo());
                         return;
                     }
@@ -141,6 +161,11 @@ public class ParticipateLeilaoController {
                         mostrarMensagemErro("Venda já feita.");
                         return;
                     }
+                    // Marcar o leilão como vendido
+                    selectedLeilao.setInativo(true);
+                    leilaoDAO.updateLeilao(selectedLeilao);
+                    mostrarMensagemSucesso("Leilão vendido pelo valor mínimo!");
+                    return;
                 }
 
                 leilaoParticipacaoDAO.addParticipacao(participacao);
@@ -154,6 +179,8 @@ public class ParticipateLeilaoController {
             mostrarMensagemErro("Por favor, selecione um leilão antes de participar.");
         }
     }
+
+
 
     private void mostrarMensagemSucesso(String mensagem) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
