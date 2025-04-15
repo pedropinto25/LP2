@@ -2,6 +2,7 @@ package com.lp2.lp2.Controller.Leilao;
 
 import com.lp2.lp2.DAO.LeilaoDAO;
 import com.lp2.lp2.DAO.LeilaoParticipacaoDAO;
+import com.lp2.lp2.DAO.PontosDAO;
 import com.lp2.lp2.Model.Leilao;
 import com.lp2.lp2.Model.LeilaoParticipacao;
 import com.lp2.lp2.Session.Session;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -34,7 +36,7 @@ public class ParticipateLeilaoController {
     @FXML
     private TableColumn<Leilao, String> descricaoColumn;
     @FXML
-    private TableColumn<Leilao, String> tipoColumn;
+    TableColumn<Leilao, String> tipoColumn;
     @FXML
     private TableColumn<Leilao, String> dataInicioColumn;
     @FXML
@@ -47,7 +49,6 @@ public class ParticipateLeilaoController {
     private TableColumn<Leilao, String> multiploLanceColumn;
     @FXML
     private TableColumn<Leilao, Boolean> inativoColumn;
-
     @FXML
     private TableColumn<Leilao, Boolean> vendidoColumn;
 
@@ -57,16 +58,21 @@ public class ParticipateLeilaoController {
     private Button btnBack;
     @FXML
     private TextField valorLanceField;
-
     @FXML
     private Button btnTerminar;
+    @FXML
+    private Label pontosLabel;
+    @FXML
+    private Button btnAddPontos;
 
     private LeilaoDAO leilaoDAO;
     private LeilaoParticipacaoDAO leilaoParticipacaoDAO;
+    private PontosDAO pontosDAO;
 
     public ParticipateLeilaoController() throws SQLException {
         leilaoDAO = new LeilaoDAO();
         leilaoParticipacaoDAO = new LeilaoParticipacaoDAO();
+        pontosDAO = new PontosDAO();
     }
 
     @FXML
@@ -86,8 +92,10 @@ public class ParticipateLeilaoController {
 
         // Verificar leilões com data final
         verificarLeiloesComDataFinal();
-    }
 
+        // Atualizar pontos do cliente logado
+        atualizarPontosCliente();
+    }
 
     private ObservableList<Leilao> loadLeiloes() {
         try {
@@ -95,6 +103,15 @@ public class ParticipateLeilaoController {
         } catch (SQLException e) {
             mostrarMensagemErro("Erro ao carregar leilões: " + e.getMessage());
             return FXCollections.observableArrayList();
+        }
+    }
+
+    private void atualizarPontosCliente() {
+        try {
+            int pontos = pontosDAO.verificarPontos(Session.getLoggedUserId());
+            pontosLabel.setText("Pontos: " + pontos);
+        } catch (SQLException e) {
+            mostrarMensagemErro("Erro ao carregar pontos do cliente: " + e.getMessage());
         }
     }
 
@@ -116,6 +133,13 @@ public class ParticipateLeilaoController {
                 participacao.setValorLance(valorLance);
 
                 if ("Online".equals(selectedLeilao.getTipo())) {
+                    // Verificar se o cliente tem pontos suficientes
+                    int pontos = pontosDAO.verificarPontos(Session.getLoggedUserId());
+                    if (pontos < 5) {
+                        mostrarMensagemErro("Você precisa de pelo menos 5 pontos para participar neste leilão.");
+                        return;
+                    }
+
                     // Lógica para um leilão online / eletrónico
                     BigDecimal valorMinimo = selectedLeilao.getValorMinimo();
                     BigDecimal multiploLance = selectedLeilao.getMultiploLance();
@@ -150,6 +174,10 @@ public class ParticipateLeilaoController {
                     // Atualizar o valor mínimo do leilão
                     selectedLeilao.setValorMinimo(valorLance);
                     leilaoDAO.updateLeilao(selectedLeilao);
+
+                    // Remover pontos do cliente
+                    pontosDAO.removerPontos(Session.getLoggedUserId(), 5);
+                    atualizarPontosCliente();
                 } else if ("Carta Fechada".equals(selectedLeilao.getTipo())) {
                     // Lógica para leilão de carta fechada
                     // Cada cliente só pode participar uma vez!
@@ -198,35 +226,6 @@ public class ParticipateLeilaoController {
     }
 
 
-
-    private void mostrarMensagemSucesso(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Sucesso");
-        alert.setHeaderText(null);
-        alert.setContentText(mensagem);
-        alert.showAndWait();
-    }
-
-    private void mostrarMensagemErro(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erro");
-        alert.setHeaderText(null);
-        alert.setContentText(mensagem);
-        alert.showAndWait();
-    }
-
-    @FXML
-    void handleBtnBack(ActionEvent actionEvent) {
-        Stage currentStage = (Stage) btnBack.getScene().getWindow();
-        LoaderFXML loader = new LoaderFXML(currentStage);
-        loader.loadMainMenu();
-    }
-
-    @FXML
-    void handleBtnMenu(ActionEvent event) {
-        // Implementar lógica para o botão de menu
-    }
-
     @FXML
     void handleBtnTerminar(ActionEvent event) {
         Leilao selectedLeilao = leilaoTableView.getSelectionModel().getSelectedItem();
@@ -263,7 +262,6 @@ public class ParticipateLeilaoController {
         }
     }
 
-
     public void verificarLeiloesComDataFinal() {
         try {
             List<Leilao> leiloes = leilaoDAO.getAllLeiloes();
@@ -296,5 +294,44 @@ public class ParticipateLeilaoController {
         }
     }
 
+    private void mostrarMensagemSucesso(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sucesso");
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
 
+    private void mostrarMensagemErro(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erro");
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+
+    @FXML
+    void handleBtnBack(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) btnBack.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadMainMenu();
+    }
+
+    @FXML
+    void handleBtnMenu(ActionEvent event) {
+        // Implementar lógica para o botão de menu
+    }
+
+    @FXML
+    void handleBtnAddPontos(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            LoaderFXML loader = new LoaderFXML(stage);
+            loader.loadAddPontos();
+            // Atualizar pontos do cliente após fechar a janela
+            stage.setOnHiding(windowEvent -> atualizarPontosCliente());
+        } catch (Exception e) {
+            mostrarMensagemErro("Erro ao abrir a janela de adicionar pontos: " + e.getMessage());
+        }
+    }
 }

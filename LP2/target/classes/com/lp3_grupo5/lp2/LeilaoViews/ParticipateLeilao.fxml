@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="743.0" prefWidth="1237.0" style="-fx-background-color: #18191A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Leilao.ParticipateLeilaoController">
+<AnchorPane fx:id="anchorPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="743.0" prefWidth="1237.0" style="-fx-background-color: #18191A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Leilao.ParticipateLeilaoController">
     <children>
         <Pane prefHeight="120.0" prefWidth="1200.0" style="-fx-background-color: #242526;" AnchorPane.topAnchor="0.0">
             <children>
@@ -41,6 +41,11 @@
                         }
                     </style>
                 </Button>
+                <Label fx:id="pontosLabel" layoutX="927.0" layoutY="36.0" prefHeight="53.0" prefWidth="137.0" style="-fx-font-weight: BOLD;" text="Pontos: 0" textFill="#FFFFFF">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
             </children>
         </Pane>
 
@@ -88,17 +93,28 @@
                         }
                     </style>
                 </Button>
-            <Button fx:id="btnTerminar" layoutX="1050.0" layoutY="554.0" onAction="#handleBtnTerminar" style="-fx-background-color: none; -fx-border-color: white;" text="Terminar Leilão" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-                <style>
-                    .button:hover {
-                    -fx-background-color: #4A4B4C;
-                    -fx-cursor: hand;
-                    }
-                </style>
-            </Button>
+                <Button fx:id="btnTerminar" layoutX="1050.0" layoutY="554.0" onAction="#handleBtnTerminar" style="-fx-background-color: none; -fx-border-color: white;" text="Terminar Leilão" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                    <style>
+                        .button:hover {
+                        -fx-background-color: #4A4B4C;
+                        -fx-cursor: hand;
+                        }
+                    </style>
+                </Button>
+                <Button fx:id="btnAddPontos" layoutX="856.0" layoutY="555.0" onAction="#handleBtnAddPontos" prefHeight="40.0" prefWidth="178.0" style="-fx-background-color: none; -fx-border-color: white;" text="Adicionar Pontos" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                    <style>
+                        .button:hover {
+                        -fx-background-color: #4A4B4C;
+                        -fx-cursor: hand;
+                        }
+                    </style>
+                </Button>
             </children>
         </Pane>
     </children>
