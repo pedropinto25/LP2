@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public class ParticipateLeilaoController {
@@ -57,6 +58,9 @@ public class ParticipateLeilaoController {
     @FXML
     private TextField valorLanceField;
 
+    @FXML
+    private Button btnTerminar;
+
     private LeilaoDAO leilaoDAO;
     private LeilaoParticipacaoDAO leilaoParticipacaoDAO;
 
@@ -79,7 +83,11 @@ public class ParticipateLeilaoController {
         inativoColumn.setCellValueFactory(new PropertyValueFactory<>("inativo"));
         vendidoColumn.setCellValueFactory(new PropertyValueFactory<>("vendido"));
         leilaoTableView.setItems(loadLeiloes());
+
+        // Verificar leilões com data final
+        verificarLeiloesComDataFinal();
     }
+
 
     private ObservableList<Leilao> loadLeiloes() {
         try {
@@ -218,4 +226,75 @@ public class ParticipateLeilaoController {
     void handleBtnMenu(ActionEvent event) {
         // Implementar lógica para o botão de menu
     }
+
+    @FXML
+    void handleBtnTerminar(ActionEvent event) {
+        Leilao selectedLeilao = leilaoTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedLeilao != null) {
+            try {
+                if ("Online".equals(selectedLeilao.getTipo()) || "Carta Fechada".equals(selectedLeilao.getTipo())) {
+                    List<LeilaoParticipacao> participacoes = leilaoParticipacaoDAO.getParticipacoesByLeilaoId(selectedLeilao.getId());
+                    if (!participacoes.isEmpty()) {
+                        LeilaoParticipacao maiorParticipacao = participacoes.stream()
+                                .max((p1, p2) -> p1.getValorLance().compareTo(p2.getValorLance()))
+                                .orElse(null);
+
+                        if (maiorParticipacao != null) {
+                            selectedLeilao.setVendido(true);
+                            leilaoDAO.updateLeilao(selectedLeilao);
+                            mostrarMensagemSucesso("Leilão terminado e vendido ao cliente com o maior lance!\n" +
+                                    "Valor vendido: " + maiorParticipacao.getValorLance() + "\n" +
+                                    "Cliente ID: " + maiorParticipacao.getClienteId());
+                        }
+                    } else {
+                        mostrarMensagemErro("Nenhuma participação encontrada para este leilão.");
+                    }
+                } else if ("Venda Direta".equals(selectedLeilao.getTipo())) {
+                    selectedLeilao.setInativo(true);
+                    leilaoDAO.updateLeilao(selectedLeilao);
+                    mostrarMensagemSucesso("Leilão de Venda Direta terminado e marcado como inativo.");
+                }
+            } catch (SQLException e) {
+                mostrarMensagemErro("Erro ao terminar leilão: " + e.getMessage());
+            }
+        } else {
+            mostrarMensagemErro("Por favor, selecione um leilão antes de terminar.");
+        }
+    }
+
+
+    public void verificarLeiloesComDataFinal() {
+        try {
+            List<Leilao> leiloes = leilaoDAO.getAllLeiloes();
+            for (Leilao leilao : leiloes) {
+                if (leilao.getDataFim() != null && leilao.getDataFim().before(new Date())) {
+                    if ("Online".equals(leilao.getTipo()) || "Carta Fechada".equals(leilao.getTipo())) {
+                        List<LeilaoParticipacao> participacoes = leilaoParticipacaoDAO.getParticipacoesByLeilaoId(leilao.getId());
+                        if (!participacoes.isEmpty()) {
+                            LeilaoParticipacao maiorParticipacao = participacoes.stream()
+                                    .max((p1, p2) -> p1.getValorLance().compareTo(p2.getValorLance()))
+                                    .orElse(null);
+
+                            if (maiorParticipacao != null) {
+                                leilao.setVendido(true);
+                                leilaoDAO.updateLeilao(leilao);
+                                mostrarMensagemSucesso("Leilão terminado e vendido ao cliente com o maior lance!\n" +
+                                        "Valor vendido: " + maiorParticipacao.getValorLance() + "\n" +
+                                        "Cliente ID: " + maiorParticipacao.getClienteId());
+                            }
+                        }
+                    } else if ("Venda Direta".equals(leilao.getTipo())) {
+                        leilao.setInativo(true);
+                        leilaoDAO.updateLeilao(leilao);
+                        mostrarMensagemSucesso("Leilão de Venda Direta " + leilao.getId() + " sem comprador! Foi terminado e marcado como inativo.");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            mostrarMensagemErro("Erro ao verificar leilões com data final: " + e.getMessage());
+        }
+    }
+
+
 }

@@ -33,3 +33,14 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 49,testevendaDire,asdads,Venda Direta,2025-04-14,,1111,,,false
 50,Onlinetest1,asdaqdsas,Online,2025-04-14,,111,1111,1.1,false
 51,vendatest1,asdaqdsas,Venda Direta,2025-04-14,,111,,,false
+52,testeEstat,saxdsads,Online,2025-04-15,2025-05-06,1000,50000,1.2,false
+53,OnlineTeste,teste,Online,2025-04-15,,100,10000,1.1,false
+54,cartaTeste,teste,Carta Fechada,2025-04-15,,100,,,false
+55,asdasdas,sadas,Online,2025-04-15,,1213,11111,1.2,false
+56,testedata,teste,Online,2025-04-15,2025-04-15,11111,111111,1,false
+57,testeCarta,123,Carta Fechada,2025-04-15,2025-04-16,500,,,false
+58,testeOnline,123,Online,2025-04-15,2025-04-16,500,50000,1,false
+59,testeVenda,123,Venda Direta,2025-04-15,2025-04-16,500,,,false
+60,testeVenda,direta sem coimprador,Venda Direta,2025-04-15,,111111,,,false
+61,vendateste,123,Venda Direta,2025-04-15,2025-04-15,11111,,,false
+62,Casa Com piscina,t4,Online,2025-05-13,,100000,10000000,1.5,false
