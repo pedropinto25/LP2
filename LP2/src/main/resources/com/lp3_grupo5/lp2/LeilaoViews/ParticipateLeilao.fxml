@@ -88,6 +88,17 @@
                         }
                     </style>
                 </Button>
+            <Button fx:id="btnTerminar" layoutX="1050.0" layoutY="554.0" onAction="#handleBtnTerminar" style="-fx-background-color: none; -fx-border-color: white;" text="Terminar Leilão" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+                <style>
+                    .button:hover {
+                    -fx-background-color: #4A4B4C;
+                    -fx-cursor: hand;
+                    }
+                </style>
+            </Button>
             </children>
         </Pane>
     </children>
