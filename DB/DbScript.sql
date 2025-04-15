@@ -67,6 +67,18 @@ CREATE TABLE LeilaoParticipacao (
 );
 GO
 
+-- Criar a tabela Pontos
+CREATE TABLE Pontos (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    cliente_id INT NOT NULL,
+    pontos INT NOT NULL,
+    leilao_id INT,
+    FOREIGN KEY (cliente_id) REFERENCES Cliente(id),
+    FOREIGN KEY (leilao_id) REFERENCES Leilao(id)
+);
+GO
+
+
 -- Criar o trigger para popular a tabela Users
 CREATE TRIGGER trg_InsertUsers
 ON Cliente

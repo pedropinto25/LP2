@@ -44,3 +44,7 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 60,testeVenda,direta sem coimprador,Venda Direta,2025-04-15,,111111,,,false
 61,vendateste,123,Venda Direta,2025-04-15,2025-04-15,11111,,,false
 62,Casa Com piscina,t4,Online,2025-05-13,,100000,10000000,1.5,false
+63,testeXD,asdasda,Online,2025-04-15,,1000,50000,1.1,false
+64,YOIyoyoy,asdads,Venda Direta,2025-04-15,2025-04-15,1111,,,false
+65,YOIyoyoy123132,asdads,Carta Fechada,2025-04-15,2025-04-15,1111,,,false
+66,teste,asdasd,Online,2025-04-15,2025-04-29,1111,11111,1.1,false
