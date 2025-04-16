@@ -9,6 +9,7 @@ public class Cliente {
     private Date dataNascimento;
     private String email;
     private String senha;
+    private Boolean approved;
 
     public Cliente( String nome, String morada, Date dataNascimento, String email, String senha) {
         this.nome = nome;
@@ -21,6 +22,7 @@ public class Cliente {
     public Cliente() {
 
     }
+
 
 
     public int getId() {
@@ -69,5 +71,13 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
     }
 }

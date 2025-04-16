@@ -14,8 +14,9 @@ public class Leilao {
     private BigDecimal valorMaximo;
     private BigDecimal multiploLance;
     private boolean inativo;
+    private boolean vendido;
 
-    public Leilao(String nome, String descricao, String tipo, Date dataInicio, Date dataFim, BigDecimal valorMinimo, BigDecimal valorMaximo, BigDecimal multiploLance, boolean inativo) {
+    public Leilao(String nome, String descricao, String tipo, Date dataInicio, Date dataFim, BigDecimal valorMinimo, BigDecimal valorMaximo, BigDecimal multiploLance, boolean inativo, boolean vendido) {
         this.nome = nome;
         this.descricao = descricao;
         this.tipo = tipo;
@@ -25,10 +26,16 @@ public class Leilao {
         this.valorMaximo = valorMaximo;
         this.multiploLance = multiploLance;
         this.inativo = inativo;
+        this.vendido = vendido;
     }
 
     public Leilao() {
 
+    }
+
+    @Override
+    public String toString(){
+        return  id + " - " + nome;
     }
 
     public int getId() {
@@ -107,8 +114,15 @@ public class Leilao {
         return inativo;
     }
 
-
     public void setInativo(boolean inativo) {
         this.inativo = inativo;
+    }
+
+    public boolean getVendido() {
+        return vendido;
+    }
+
+    public void setVendido(boolean vendido) {
+        this.vendido = vendido;
     }
 }

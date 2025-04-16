@@ -7,3 +7,50 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 16,asdasd,asdsadds,Online,2025-04-03,2025-05-01,11111.00,111111.00,1.10,false
 17,asdasd,asdad,Venda Direta,2025-04-03,2025-04-24,1111,111111,1,false
 18,Casa,piscina e spa,Carta Fechada,2025-04-03,2025-04-24,11134.00,1321412.00,1.10,false
+22,sdaasd,asdsaddas,Venda Direta,2025-04-03,2025-04-17,11111,111111,,false
+23,Casa,resort,Carta Fechada,2025-04-03,2025-04-17,11111.00,111111.00,,false
+24,Casa com Piscina,4 quartos", 1 suite", 1 sala", 1 piscina", 4 wc's",Online",2025-04-03",2025-05-08",168000",1000000.00",1.20",false"
+25",casa",piscina",Carta Fechada",2025-04-03",2025-05-08",15000",150000",",false"
+26",Carro",gt3",Venda Direta",2025-04-10",2025-05-01",35000",35000",",false"
+27",Chrome Hearts",Anel raro",Carta Fechada",2025-04-03",2025-04-10",1200",10000",",false"
+28",asdads",asddasds",Online",2025-04-14",2025-04-16",12321",121111",1.1",false"
+29",asdads",asd",Online",2025-04-14",2025-04-16",12321",121",1.1",false"
+30",CASA",T4",Carta Fechada",2025-04-14",",50000",",",false"
+31",CASA",T2+1",Online",2025-04-14",",999999",1000000.00",1.10",false"
+32",CASA",t3+2",Online",2025-04-03",",1000000",1000000.00",10.00",false"
+33",Apartamento",T3",Carta Fechada",2025-04-14",",80000",",",false"
+34",Apartamento",T3+1",Online",2025-04-14",2025-04-28",85000",420000",1.3",false"
+39",Porsche GT4",100km, 2024", 670 cv",Venda Direta",2025-04-14",2025-05-05",100000.00",",",true"
+40",Supra 1980",12000km",Online",2025-04-14",",20000",175000",1.1",false"
+41",nintendo switch 2",nova em caixa",Online",2025-04-14",",10",700",1.1",false"
+42",nintendo switch",NOVA",Online",2025-04-14",2025-04-28",25",360",1.2",false"
+43",pc gaming",rtx 4090, i9 13900k", ddr5 5000MHz, 2 tb hdd", 1 tb sdd, plat 900w,Online,2025-04-14,,500,5000,1.12,false
+44,sadasdas,asdasda,Carta Fechada,2025-04-14,,10000,,,false
+45,asdasdasdsa,dsadsasada,Carta Fechada,2025-04-14,,400,,,false
+46,prédio 10 apartamentos,10 apartamentos t2,Online,2025-04-14,,2000000,10000000,1.1,false
+47,casa com piscina,t4,Online,2025-04-14,2025-05-05,100000,5000000,1.4,false
+48,testevendaOnl,asdads,Online,2025-04-14,,1111,11111,1.1,false
+49,testevendaDire,asdads,Venda Direta,2025-04-14,,1111,,,false
+50,Onlinetest1,asdaqdsas,Online,2025-04-14,,111,1111,1.1,false
+51,vendatest1,asdaqdsas,Venda Direta,2025-04-14,,111,,,false
+52,testeEstat,saxdsads,Online,2025-04-15,2025-05-06,1000,50000,1.2,false
+53,OnlineTeste,teste,Online,2025-04-15,,100,10000,1.1,false
+54,cartaTeste,teste,Carta Fechada,2025-04-15,,100,,,false
+55,asdasdas,sadas,Online,2025-04-15,,1213,11111,1.2,false
+56,testedata,teste,Online,2025-04-15,2025-04-15,11111,111111,1,false
+57,testeCarta,123,Carta Fechada,2025-04-15,2025-04-16,500,,,false
+58,testeOnline,123,Online,2025-04-15,2025-04-16,500,50000,1,false
+59,testeVenda,123,Venda Direta,2025-04-15,2025-04-16,500,,,false
+60,testeVenda,direta sem coimprador,Venda Direta,2025-04-15,,111111,,,false
+61,vendateste,123,Venda Direta,2025-04-15,2025-04-15,11111,,,false
+62,Casa Com piscina,t4,Online,2025-05-13,,100000,10000000,1.5,false
+63,testeXD,asdasda,Online,2025-04-15,,1000,50000,1.1,false
+64,YOIyoyoy,asdads,Venda Direta,2025-04-15,2025-04-15,1111,,,false
+65,YOIyoyoy123132,asdads,Carta Fechada,2025-04-15,2025-04-15,1111,,,false
+66,teste,asdasd,Online,2025-04-15,2025-04-29,1111,11111,1.1,false
+67,bacalhau,teste,Venda Direta,2025-04-16,,100,,,false
+68,testeemail,123,Venda Direta,2025-04-16,,15,,,false
+69,gayzolas,ahahaha,Online,2025-04-16,,100,2000,1.1,false
+70,DILDO Plastico gta SA,ahahaha,Online,2025-04-16,2025-04-17,100,2000,1.1,false
+71,TerminarLeilao,1123,Online,2025-04-16,,1231,11111,1.1,false
+72,testeterminar,123,Online,2025-04-16,,1111,11111,10,false

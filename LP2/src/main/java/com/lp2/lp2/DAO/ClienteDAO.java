@@ -51,7 +51,7 @@ public class ClienteDAO implements IClienteDAO {
 
     @Override
     public void updateCliente(Cliente cliente) throws SQLException {
-        String sql = "UPDATE Cliente SET nome = ?, morada = ?, dataNascimento = ?, email = ?, senha = ? WHERE id = ?";
+        String sql = "UPDATE Cliente SET nome = ?, morada = ?, dataNascimento = ?, email = ?, senha = ?, encrypted = 0 WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getMorada());
@@ -60,6 +60,14 @@ public class ClienteDAO implements IClienteDAO {
             stmt.setString(5, cliente.getSenha());
             stmt.setInt(6, cliente.getId());
             stmt.executeUpdate();
+        }
+
+        String sqlUpdateUsers = "UPDATE Users SET email = ?, password_hash = ?, encrypted = 0 WHERE id = ?";
+        try (PreparedStatement stmtUsers = connection.prepareStatement(sqlUpdateUsers)) {
+            stmtUsers.setString(1, cliente.getEmail());
+            stmtUsers.setString(2, cliente.getSenha());
+            stmtUsers.setInt(3, cliente.getId());
+            stmtUsers.executeUpdate();
         }
 
         // Atualizar também no CSV
@@ -76,6 +84,21 @@ public class ClienteDAO implements IClienteDAO {
     public void deleteCliente(int id) throws SQLException {
         String sql = "DELETE FROM Cliente WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    @Override
+    public void AproveCliente(int id) throws SQLException {
+        String sql = "UPDATE Cliente set approved = 1 WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+
+        String updtUser = "UPDATE Users SET approved = 1 WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(updtUser)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
@@ -116,6 +139,27 @@ public class ClienteDAO implements IClienteDAO {
                 cliente.setDataNascimento(rs.getDate("dataNascimento"));
                 cliente.setEmail(rs.getString("email"));
                 cliente.setSenha(rs.getString("senha"));
+                clientes.add(cliente);
+            }
+        }
+        return clientes;
+    }
+
+    @Override
+    public List<Cliente> getAllClientesToAprove() throws SQLException {
+        List<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT * FROM Cliente WHERE approved = 0";
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setMorada(rs.getString("morada"));
+                cliente.setDataNascimento(rs.getDate("dataNascimento"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setSenha(rs.getString("senha"));
+                cliente.setApproved(rs.getBoolean("approved"));
                 clientes.add(cliente);
             }
         }

@@ -42,6 +42,25 @@ public class CreateLeilaoController {
     @FXML
     public void initialize() {
         tipoField.getItems().addAll("Online", "Carta Fechada", "Venda Direta");
+        tipoField.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if ("Online".equals(newValue)) {
+                multiploLanceField.setDisable(false);
+                valorMaximoField.setDisable(false);
+                valorMinimoField.setDisable(false);
+            } else if ("Carta Fechada".equals(newValue)) {
+                multiploLanceField.setDisable(true);
+                multiploLanceField.clear();
+                valorMaximoField.setDisable(true);
+                valorMaximoField.clear();
+                valorMinimoField.setDisable(false);
+            } else if ("Venda Direta".equals(newValue)) {
+                multiploLanceField.setDisable(true);
+                multiploLanceField.clear();
+                valorMaximoField.setDisable(true);
+                valorMaximoField.clear();
+                valorMinimoField.setDisable(false);
+            }
+        });
     }
 
     @FXML
@@ -52,11 +71,54 @@ public class CreateLeilaoController {
             leilao.setDescricao(descricaoField.getText());
             leilao.setTipo(tipoField.getValue());
             leilao.setDataInicio(Date.valueOf(dataInicioField.getValue()));
-            leilao.setDataFim(Date.valueOf(dataFimField.getValue()));
-            leilao.setValorMinimo(new BigDecimal(valorMinimoField.getText()));
-            leilao.setValorMaximo(new BigDecimal(valorMaximoField.getText()));
-            leilao.setMultiploLance(new BigDecimal(multiploLanceField.getText()));
+
+            // Verificar se a data de fim foi definida
+            if (dataFimField.getValue() != null) {
+                leilao.setDataFim(Date.valueOf(dataFimField.getValue()));
+            } else {
+                leilao.setDataFim(null); // Data de fim indefinida
+            }
+
+            // Verificar se o valor mínimo foi definido
+            BigDecimal valorMinimo = null;
+            if (!valorMinimoField.getText().isEmpty()) {
+                valorMinimo = new BigDecimal(valorMinimoField.getText());
+                leilao.setValorMinimo(valorMinimo);
+            } else if (!"Venda Direta".equals(tipoField.getValue())) {
+                mostrarMensagemErro("O valor mínimo é obrigatório para este tipo de leilão.");
+                return;
+            }
+
+            // Verificar se o valor máximo foi definido
+            BigDecimal valorMaximo = null;
+            if (!valorMaximoField.getText().isEmpty()) {
+                valorMaximo = new BigDecimal(valorMaximoField.getText());
+                // Verificar se o valor máximo é maior que o valor mínimo, se ambos forem definidos
+                if (valorMinimo != null && valorMaximo.compareTo(valorMinimo) <= 0) {
+                    mostrarMensagemErro("O valor máximo deve ser maior que o valor mínimo.");
+                    return;
+                }
+                leilao.setValorMaximo(valorMaximo);
+            } else {
+                leilao.setValorMaximo(null); // Valor máximo indefinido
+            }
+
+            // Verificar o múltiplo de lance se o tipo for "Online"
+            if ("Online".equals(tipoField.getValue())) {
+                BigDecimal multiploLance = new BigDecimal(multiploLanceField.getText());
+                leilao.setMultiploLance(multiploLance);
+
+                // Verificar se o valor mínimo x múltiplo de lance excede o valor máximo
+                if (valorMaximo != null && valorMinimo != null && valorMinimo.multiply(multiploLance).compareTo(valorMaximo) > 0) {
+                    mostrarMensagemErro("O valor mínimo x o múltiplo de lance excede o valor máximo.");
+                    return;
+                }
+            } else {
+                leilao.setMultiploLance(null); // Definir como null para outros tipos de leilão
+            }
+
             leilao.setInativo(false); // Definir como ativo por padrão
+            leilao.setVendido(false); // define o leilão como não vendido!
             leilaoDAO.addLeilao(leilao);
             mostrarMensagemSucesso("Leilão adicionado com sucesso!");
         } catch (Exception e) {
@@ -64,6 +126,7 @@ public class CreateLeilaoController {
             System.out.println(e.getMessage());
         }
     }
+
 
     private void mostrarMensagemSucesso(String mensagem) {
         Alert alert = new Alert(AlertType.INFORMATION);

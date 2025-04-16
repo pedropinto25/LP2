@@ -59,6 +59,18 @@ public class LoaderFXML {
     public void loadListLeilao() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/ReadLeilao.fxml", "Listar Leilões"); }
 
     public void loadEditLeilao() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/EditLeilao.fxml", "Editar Leilões"); }
+
+    public void loadParticipateLeilao() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/ParticipateLeilao.fxml", "Participar em Leilões");}
+
+    public void loadLogin() {loadView("/com/lp3_grupo5/lp2/Login/Login.fxml", "Voltar ao login");}
+
+    public void loadRegistar() {loadView("/com/lp3_grupo5/lp2/Login/Registar.fxml", "Registar");}
+
+    public void loadAprovar() {loadView("/com/lp3_grupo5/lp2/ClienteViews/AproveCliente.fxml" , "Aprovar Clientes");}
+
+    public void loadAddPontos() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/AddPontos.fxml", "Adicionar Pontos");}
+
+    public void loadEnunciado() {loadView("/com/lp3_grupo5/lp2/Menus/Enunciado1.fxml", "Enunciado");}
 /** ************************************************************************************************************************************************************************ */
     /**
      * Carrega e exibe uma tela específica (view) definida pelo caminho do arquivo FXML.

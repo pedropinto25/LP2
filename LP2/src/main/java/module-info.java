@@ -14,6 +14,9 @@ module com.lp2.lp2 {
     requires com.zaxxer.hikari;
     requires java.dotenv;
     requires com.opencsv;
+    requires com.mailjet.api;
+    requires org.json;
+    requires java.mail;
     opens com.lp2.lp2.Model;
     opens com.lp2.lp2.Controller to javafx.fxml;
     opens com.lp2.lp2 to javafx.fxml;
@@ -23,4 +26,6 @@ module com.lp2.lp2 {
     opens com.lp2.lp2.Controller.Cliente to javafx.fxml;
     exports com.lp2.lp2.Controller.Leilao;
     opens com.lp2.lp2.Controller.Leilao to javafx.fxml;
+    exports com.lp2.lp2.Controller.Login;
+    opens com.lp2.lp2.Controller.Login to javafx.fxml;
 }

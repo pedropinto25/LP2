@@ -1,5 +1,6 @@
 package com.lp2.lp2.Controller.Cliente;
 
+import com.lp2.lp2.Controller.Login.UserEncryption;
 import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.DAO.ClienteDAO;
 import com.lp2.lp2.Util.LoaderFXML;
@@ -47,6 +48,9 @@ public class CreateClienteController {
             cliente.setSenha(senhaField.getText());
             clienteDAO.addCliente(cliente);
             mostrarMensagemSucesso("Cliente adicionado com sucesso!");
+            UserEncryption encryptionService = new UserEncryption();
+            encryptionService.encryptPasswords();
+            encryptionService.encryptPasswordsCliente();
         } catch (Exception e) {
             mostrarMensagemErro("Erro ao adicionar cliente: " + e.getMessage());
             System.out.println(e.getMessage());

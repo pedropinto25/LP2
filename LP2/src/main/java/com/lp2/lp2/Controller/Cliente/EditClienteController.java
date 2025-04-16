@@ -1,5 +1,6 @@
 package com.lp2.lp2.Controller.Cliente;
 
+import com.lp2.lp2.Controller.Login.UserEncryption;
 import com.lp2.lp2.DAO.ClienteDAO;
 import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.Util.LoaderFXML;
@@ -86,7 +87,7 @@ public class EditClienteController {
                 moradaField.setText(cliente.getMorada());
                 dataNascimentoField.setValue(cliente.getDataNascimento().toLocalDate());
                 emailField.setText(cliente.getEmail());
-                senhaField.setText(cliente.getSenha());
+                //senhaField.setText(cliente.getSenha());
             } else {
                 mostrarMensagemErro("Cliente não encontrado!");
             }
@@ -108,6 +109,9 @@ public class EditClienteController {
                 cliente.setSenha(senhaField.getText());
                 clienteDAO.updateCliente(cliente);
                 mostrarMensagemSucesso("Cliente atualizado com sucesso!");
+                UserEncryption encryptionService = new UserEncryption();
+                encryptionService.encryptPasswords();
+                encryptionService.encryptPasswordsCliente();
             } else {
                 mostrarMensagemErro("Cliente não encontrado!");
             }
