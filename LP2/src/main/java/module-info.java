@@ -16,6 +16,7 @@ module com.lp2.lp2 {
     requires com.opencsv;
     requires com.mailjet.api;
     requires org.json;
+    requires java.mail;
     opens com.lp2.lp2.Model;
     opens com.lp2.lp2.Controller to javafx.fxml;
     opens com.lp2.lp2 to javafx.fxml;
