@@ -13,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
 import java.sql.Date;
 import java.sql.SQLException;
 
@@ -30,6 +31,8 @@ public class RegistarClienteController {
     private TextField senhaField;
     @FXML
     private Button btnBack;
+    @FXML
+    private Button btnSair;
 
     private ClienteDAO clienteDAO;
 
@@ -83,12 +86,10 @@ public class RegistarClienteController {
     public void handleBtnMenu(ActionEvent actionEvent) {
         // Implementar lógica para o botão de menu
     }
-
     @FXML
-    void handleBtnBack(ActionEvent actionEvent) {
-        Stage currentStage = (Stage) btnBack.getScene().getWindow();
+    private void handleBtnSair(ActionEvent actionEvent){
+        Stage currentStage = (Stage) btnSair.getScene().getWindow();
         LoaderFXML loader = new LoaderFXML(currentStage);
-        loader.loadMainMenu();
+        loader.loadLogin();
     }
-
-}
+      }

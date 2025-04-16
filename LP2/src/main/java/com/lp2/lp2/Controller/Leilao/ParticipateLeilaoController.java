@@ -1,12 +1,19 @@
 package com.lp2.lp2.Controller.Leilao;
 
+import com.lp2.lp2.DAO.ClienteDAO;
 import com.lp2.lp2.DAO.LeilaoDAO;
 import com.lp2.lp2.DAO.LeilaoParticipacaoDAO;
 import com.lp2.lp2.DAO.PontosDAO;
+import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.Model.Leilao;
 import com.lp2.lp2.Model.LeilaoParticipacao;
 import com.lp2.lp2.Session.Session;
 import com.lp2.lp2.Util.LoaderFXML;
+import com.mailjet.client.MailjetClient;
+import com.mailjet.client.MailjetRequest;
+import com.mailjet.client.MailjetResponse;
+import com.mailjet.client.resource.Emailv31;
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,11 +26,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+
+
 
 public class ParticipateLeilaoController {
 
@@ -68,6 +79,8 @@ public class ParticipateLeilaoController {
     private LeilaoDAO leilaoDAO;
     private LeilaoParticipacaoDAO leilaoParticipacaoDAO;
     private PontosDAO pontosDAO;
+    private ClienteDAO clienteDAO;
+    private static final Dotenv dotenv = Dotenv.load();
 
     public ParticipateLeilaoController() throws SQLException {
         leilaoDAO = new LeilaoDAO();
@@ -164,6 +177,10 @@ public class ParticipateLeilaoController {
                             selectedLeilao.setVendido(true);
                             leilaoDAO.updateLeilao(selectedLeilao);
                             mostrarMensagemSucesso("Leilão vendido pelo valor máximo!");
+
+                            /** Lógica para enviar e-mails / comentado pq é muito powerful para o programa
+                            sendWinnerEmail(Session.getLoggedUserId(), getUserNameById(Session.getLoggedUserId()),
+                            selectedLeilao.getId(), selectedLeilao.getNome()); */
                             return;
                         } else if (valorLance.compareTo(selectedLeilao.getValorMaximo()) > 0) {
                             mostrarMensagemErro("O valor do lance não pode ser superior ao valor máximo de " + selectedLeilao.getValorMaximo());
@@ -210,7 +227,11 @@ public class ParticipateLeilaoController {
                     selectedLeilao.setVendido(true);
                     leilaoDAO.updateLeilao(selectedLeilao);
                     mostrarMensagemSucesso("Leilão vendido pelo valor mínimo!");
-                    return;
+
+                    /** Lógica para enviar e-mails / comentado pq é muito powerful para o programa
+                    sendWinnerEmail(Session.getLoggedUserId(), getUserNameById(Session.getLoggedUserId()),
+                    selectedLeilao.getId(), selectedLeilao.getNome());
+                    return; */
                 }
 
                 leilaoParticipacaoDAO.addParticipacao(participacao);
@@ -245,6 +266,13 @@ public class ParticipateLeilaoController {
                             mostrarMensagemSucesso("Leilão terminado e vendido ao cliente com o maior lance!\n" +
                                     "Valor vendido: " + maiorParticipacao.getValorLance() + "\n" +
                                     "Cliente ID: " + maiorParticipacao.getClienteId());
+
+
+                            /** Lógica para enviar e-mails / comentado pq é muito powerful para o programa
+                            sendWinnerEmail(maiorParticipacao.getClienteId(), getUserNameById(maiorParticipacao.getClienteId()),
+                            selectedLeilao.getId(), selectedLeilao.getNome()); */
+
+
                         }
                     } else {
                         mostrarMensagemErro("Nenhuma participação encontrada para este leilão.");
@@ -280,6 +308,14 @@ public class ParticipateLeilaoController {
                                 mostrarMensagemSucesso("Leilão terminado e vendido ao cliente com o maior lance!\n" +
                                         "Valor vendido: " + maiorParticipacao.getValorLance() + "\n" +
                                         "Cliente ID: " + maiorParticipacao.getClienteId());
+
+
+
+                                /** Lógica para enviar e-mails / comentado pq é muito powerful para o programa
+                                sendWinnerEmail(maiorParticipacao.getClienteId(), getUserNameById(maiorParticipacao.getClienteId()),
+                                leilao.getId(), leilao.getNome()); */
+
+
                             }
                         }
                     } else if ("Venda Direta".equals(leilao.getTipo())) {
@@ -334,4 +370,54 @@ public class ParticipateLeilaoController {
             mostrarMensagemErro("Erro ao abrir a janela de adicionar pontos: " + e.getMessage());
         }
     }
+
+    private void sendWinnerEmail(int id, String userName, int leilaoId, String leilaoNome) throws SQLException {
+        String apiKey = dotenv.get("MAILJET_API_KEY");
+        String apiSecret = dotenv.get("MAILJET_API_SECRET");
+
+        MailjetClient client = new MailjetClient(apiKey, apiSecret);
+        MailjetRequest request = new MailjetRequest(Emailv31.resource)
+                .property(Emailv31.MESSAGES, new JSONArray()
+                        .put(new JSONObject()
+                                .put(Emailv31.Message.FROM, new JSONObject()
+                                        .put("Email", "lp3sendmail@gmail.com")
+                                        .put("Name", "Leilões Express"))
+                                .put(Emailv31.Message.TO, new JSONArray()
+                                        .put(new JSONObject()
+                                                .put("Email", getEmailByUserId(id))
+                                                .put("Name", userName)))
+                                .put(Emailv31.Message.SUBJECT, "Parabéns! Você ganhou o leilão")
+                                .put(Emailv31.Message.TEXTPART, "PARABÉNS!!!! " + userName + ", informamos que hoje é um dia de sorte! Você é o vencedor do leilão " + leilaoNome + " com o id " + leilaoId + "! Para mais informações, contacte lp2sendmail@gmail.com")
+                                .put(Emailv31.Message.HTMLPART,
+                                        "<div style='font-family: Arial, sans-serif; color: #333;'>"
+                                                + "<h3>PARABÉNS!!!! " + userName + ",</h3>"
+                                                + "<p>Informamos que hoje é um dia de sorte! Você é o vencedor do leilão <strong>" + leilaoNome + "</strong> com o id <strong>" + leilaoId + "</strong>!</p>"
+                                                + "<p>Para mais informações, contacte <a href='mailto:lp2sendmail@gmail.com'>lp2sendmail@gmail.com</a>.</p>"
+                                                + "<br>"
+                                                + "<p>Atenciosamente,</p>"
+                                                + "<p><strong>Leilões Express</strong></p>"
+                                                + "</div>")));
+
+        try {
+            MailjetResponse response = client.post(request);
+            System.out.println(response.getStatus());
+            System.out.println(response.getData());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private String getEmailByUserId(int id) throws SQLException {
+        ClienteDAO clienteDAO = new ClienteDAO();
+        Cliente cliente = clienteDAO.getClienteById(id);
+        return cliente != null ? cliente.getEmail() : "Email não disponível";
+    }
+
+    private String getUserNameById(int id) throws SQLException {
+        ClienteDAO clienteDAO = new ClienteDAO();
+        Cliente cliente = clienteDAO.getClienteById(id);
+        return cliente != null ? cliente.getNome() : "Nome não disponível";
+    }
+
 }

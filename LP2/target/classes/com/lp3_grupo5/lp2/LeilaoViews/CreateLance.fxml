@@ -2,23 +2,23 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="649.0" prefWidth="560.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.CreateLanceController">
+<Pane prefHeight="649.0" prefWidth="1166.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.CreateLanceController">
     <children>
-        <TextField fx:id="valorField" layoutX="180.0" layoutY="181.0" prefWidth="200.0" promptText="Valor do Lance" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
-        <DatePicker fx:id="dataHoraField" layoutX="180.0" layoutY="240.0" prefWidth="200.0" promptText="Data e Hora" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
-        <TextField fx:id="clienteIdField" layoutX="180.0" layoutY="299.0" prefWidth="200.0" promptText="ID do Cliente" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
-        <TextField fx:id="leilaoIdField" layoutX="182.0" layoutY="360.0" prefWidth="200.0" promptText="ID do Leilão" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
-        <Button fx:id="btnAdd" layoutX="228.0" layoutY="544.0" onAction="#adicionarLance" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Adicionar" textFill="WHITE" />
-        <Button fx:id="btnMenu" layoutX="429.0" layoutY="29.0" onAction="#handleBtnMenu" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Menu" textFill="WHITE" />
-        <Button fx:id="btnBack" layoutX="34.0" layoutY="29.0" onAction="#handleBtnBack" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Retroceder" textFill="WHITE" />
-        <Label layoutX="181.0" layoutY="216.0" text="Data e Hora :" textFill="#FFFFFF" />
-        <Label layoutX="179.0" layoutY="276.0" text="ID do Cliente :" textFill="#FFFFFF" />
-        <Label layoutX="182.0" layoutY="337.0" text="ID do Leilão :" textFill="#FFFFFF" />
-        <Text fill="WHITE" layoutX="233.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Criação de Lance" wrappingWidth="97.0" />
+        <TextField fx:id="valorField" layoutX="482.0" layoutY="174.0" prefWidth="200.0" promptText="Valor do Lance" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
+        <DatePicker fx:id="dataHoraField" layoutX="482.0" layoutY="233.0" prefWidth="200.0" promptText="Data e Hora" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
+        <TextField fx:id="clienteIdField" layoutX="482.0" layoutY="292.0" prefWidth="200.0" promptText="ID do Cliente" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
+        <TextField fx:id="leilaoIdField" layoutX="484.0" layoutY="353.0" prefWidth="200.0" promptText="ID do Leilão" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
+        <Button fx:id="btnAdd" layoutX="530.0" layoutY="407.0" onAction="#adicionarLance" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Adicionar" textFill="WHITE" />
+        <Button fx:id="btnMenu" layoutX="1009.0" layoutY="29.0" onAction="#handleBtnMenu" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Menu" textFill="WHITE" />
+        <Button fx:id="btnBack" layoutX="44.0" layoutY="29.0" onAction="#handleBtnBack" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Retroceder" textFill="WHITE" />
+        <Text fill="WHITE" layoutX="371.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Criação de Lance" wrappingWidth="426.0">
+         <font>
+            <Font size="56.0" />
+         </font></Text>
     </children>
 </Pane>

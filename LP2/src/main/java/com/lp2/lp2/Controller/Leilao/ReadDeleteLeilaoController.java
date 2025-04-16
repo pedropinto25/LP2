@@ -40,7 +40,10 @@ public class ReadDeleteLeilaoController {
     @FXML
     private TableColumn<Leilao, String> multiploLanceColumn;
     @FXML
-    private TableColumn<Leilao, Boolean> inativoColumn; // Nova coluna
+    private TableColumn<Leilao, Boolean> inativoColumn;
+    @FXML
+    private TableColumn<Leilao, Boolean> vendidoColumn;
+
 
     @FXML
     private Button btnMenu;
@@ -66,7 +69,8 @@ public class ReadDeleteLeilaoController {
         valorMinimoColumn.setCellValueFactory(new PropertyValueFactory<>("valorMinimo"));
         valorMaximoColumn.setCellValueFactory(new PropertyValueFactory<>("valorMaximo"));
         multiploLanceColumn.setCellValueFactory(new PropertyValueFactory<>("multiploLance"));
-        inativoColumn.setCellValueFactory(new PropertyValueFactory<>("inativo")); // Configurar nova coluna
+        inativoColumn.setCellValueFactory(new PropertyValueFactory<>("inativo"));
+        vendidoColumn.setCellValueFactory(new PropertyValueFactory<>("vendido"));
 
         leilaoTableView.setItems(loadLeiloes());
     }

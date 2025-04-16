@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="743.0" prefWidth="1237.0" style="-fx-background-color: #18191A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Leilao.ReadDeleteLeilaoController">
     <children>
-        <Pane prefHeight="120.0" prefWidth="1200.0" style="-fx-background-color: #242526;" AnchorPane.topAnchor="0.0">
+        <Pane prefHeight="120.0" prefWidth="1237.0" style="-fx-background-color: #242526;" AnchorPane.topAnchor="0.0">
             <children>
                 <Label layoutX="354.0" layoutY="29.0" prefHeight="66.0" prefWidth="492.0" style="-fx-font-weight: BOLD;" text="Gestão de Leilões" textFill="#FFFFFF">
                     <font>
@@ -44,27 +44,23 @@
             </children>
         </Pane>
 
-        <Pane layoutY="114.0" prefHeight="630.0" prefWidth="1232.0">
+              <Pane layoutY="114.0" prefHeight="630.0" prefWidth="1232.0">
             <children>
                 <TableView fx:id="leilaoTableView" layoutX="51.0" layoutY="38.0" prefHeight="505.0" prefWidth="1157.0" styleClass="tabela1">
                     <columns>
                         <TableColumn fx:id="idColumn" prefWidth="37.0" styleClass="table-column" text="ID" />
-                        <TableColumn fx:id="nomeColumn" prefWidth="133.0" styleClass="table-column" text="Nome" />
-                        <TableColumn fx:id="descricaoColumn" prefWidth="120.80006408691406" styleClass="table-column" text="Descrição" />
-                        <TableColumn fx:id="tipoColumn" prefWidth="94.39996337890625" styleClass="table-column" text="Tipo" />
-                        <TableColumn fx:id="dataInicioColumn" prefWidth="123.199951171875" styleClass="table-column" text="Data de Início" />
-                        <TableColumn fx:id="dataFimColumn" prefWidth="116.79998779296875" styleClass="table-column" text="Data de Fim" />
-                        <TableColumn fx:id="valorMinimoColumn" prefWidth="129.5999755859375" styleClass="table-column" text="Valor Mínimo" />
-                        <TableColumn fx:id="valorMaximoColumn" prefWidth="136.79998779296875" styleClass="table-column" text="Valor Máximo" />
-                        <TableColumn fx:id="multiploLanceColumn" prefWidth="130.39990234375" styleClass="table-column" text="Múltiplo de Lance" />
-                        <TableColumn fx:id="inativoColumn" prefWidth="100.0" styleClass="table-column" text="Inativo" /> <!-- Nova coluna -->
+                        <TableColumn fx:id="nomeColumn" prefWidth="119.0" styleClass="table-column" text="Nome" />
+                        <TableColumn fx:id="descricaoColumn" prefWidth="115.0" styleClass="table-column" text="Descrição" />
+                        <TableColumn fx:id="tipoColumn" prefWidth="93.0" styleClass="table-column" text="Tipo" />
+                        <TableColumn fx:id="dataInicioColumn" prefWidth="103.0" styleClass="table-column" text="Data de Início" />
+                        <TableColumn fx:id="dataFimColumn" prefWidth="116.0" styleClass="table-column" text="Data de Fim" />
+                        <TableColumn fx:id="valorMinimoColumn" prefWidth="98.0" styleClass="table-column" text="Valor Mínimo" />
+                        <TableColumn fx:id="valorMaximoColumn" prefWidth="124.0" styleClass="table-column" text="Valor Máximo" />
+                        <TableColumn fx:id="multiploLanceColumn" prefWidth="113.0" styleClass="table-column" text="Múltiplo de Lance" />
+                        <TableColumn fx:id="inativoColumn" prefWidth="115.0" styleClass="table-column" text="Inativo" />
+                        <TableColumn fx:id="vendidoColumn" prefWidth="99.0" styleClass="table-column" text="Vendido" />
                     </columns>
                 </TableView>
-                <Text fill="#FFFFFF" layoutX="51.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de Leilões">
-                    <font>
-                        <Font name="Century Gothic Bold" size="25.0" />
-                    </font>
-                </Text>
                 <Button fx:id="btnDelete" layoutX="1113.0" layoutY="554.0" mnemonicParsing="false" onAction="#handleBtnDelete" style="-fx-background-color: none; -fx-border-color: white;" text="Eliminar" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="18.0" />
@@ -109,6 +105,11 @@
                         }
                     </style>
                 </Button>
+                <Text fill="#FFFFFF" layoutX="51.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de Leilões">
+                    <font>
+                        <Font name="Century Gothic Bold" size="25.0" />
+                    </font>
+                </Text>
             </children>
         </Pane>
     </children>

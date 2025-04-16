@@ -109,4 +109,11 @@ public class MenuController {
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadLogin();
     }
+
+    @FXML
+    private void handleBtnEnunciado(ActionEvent event){
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadEnunciado();
+    }
 }

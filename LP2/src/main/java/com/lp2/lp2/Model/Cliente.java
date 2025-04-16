@@ -24,6 +24,7 @@ public class Cliente {
     }
 
 
+
     public int getId() {
         return id;
     }
