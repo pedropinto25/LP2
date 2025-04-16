@@ -4,6 +4,7 @@ import com.lp2.lp2.DAO.ClienteDAO;
 import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.Session.Session;
 import com.lp2.lp2.Model.User;
+import com.lp2.lp2.Util.GmailSender;
 import com.lp2.lp2.Util.LoaderFXML;
 import com.mailjet.client.MailjetClient;
 import com.mailjet.client.MailjetRequest;
@@ -130,44 +131,31 @@ public class AproveClienteController {
     }
 
     private void sendDeactivationEmail(String recipientEmail, String recipientName) {
-        String apiKey = dotenv.get("MAILJET_API_KEY");
-        String apiSecret = dotenv.get("MAILJET_API_SECRET");
-
         // Obter o número de identificação do gestor da sessão
         User loggedUser = Session.getUser();
         String managerIdNumber = loggedUser != null ? String.valueOf(loggedUser.getId()) : "ID não disponível";
 
-        MailjetClient client = new MailjetClient(apiKey, apiSecret);
-        MailjetRequest request = new MailjetRequest(Emailv31.resource)
-                .property(Emailv31.MESSAGES, new JSONArray()
-                        .put(new JSONObject()
-                                .put(Emailv31.Message.FROM, new JSONObject()
-                                        .put("Email", "lp3sendmail@gmail.com")
-                                        .put("Name", "Leilões Express"))
-                                .put(Emailv31.Message.TO, new JSONArray()
-                                        .put(new JSONObject()
-                                                .put("Email", recipientEmail)
-                                                .put("Name", recipientName)))
-                                .put(Emailv31.Message.SUBJECT, "Conta Ativada")
-                                .put(Emailv31.Message.TEXTPART, "Olá " + recipientName + ",\n\nA sua conta foi Ativada pelo gestor: " + managerIdNumber + ".\n\nPara mais informações, contacte lp2sendmail@gmail.com")
-                                .put(Emailv31.Message.HTMLPART,
-                                        "<div style='font-family: Arial, sans-serif; color: #333;'>"
-                                                + "<h3>Olá " + recipientName + ",</h3>"
-                                                + "<p>A sua conta foi ativada pelo gestor: <strong>" + managerIdNumber + "</strong>.</p>"
-                                                + "<p>Para mais informações, contacte <a href='mailto:lp2sendmail@gmail.com'>lp2sendmail@gmail.com</a>.</p>"
-                                                + "<br>"
-                                                + "<p>Atenciosamente,</p>"
-                                                + "<p><strong>Leilões Express</strong></p>"
-                                                + "</div>")));
+        // Criar o assunto e o corpo do e-mail
+        String subject = "Conta Ativada";
+        String body = "Olá " + recipientName + ",\n\n" +
+                "A sua conta foi ativada pelo gestor: " + managerIdNumber + ".\n\n" +
+                "Para mais informações, contacte lp2sendmail@gmail.com";
 
-        try {
-            MailjetResponse response = client.post(request);
-            System.out.println(response.getStatus());
-            System.out.println(response.getData());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Corpo em HTML
+        String htmlBody = "<div style='font-family: Arial, sans-serif; color: #333;'>"
+                + "<h3>Olá " + recipientName + ",</h3>"
+                + "<p>A sua conta foi ativada pelo gestor: <strong>" + managerIdNumber + "</strong>.</p>"
+                + "<p>Para mais informações, contacte <a href='mailto:lp2sendmail@gmail.com'>lp2sendmail@gmail.com</a>.</p>"
+                + "<br>"
+                + "<p>Atenciosamente,</p>"
+                + "<p><strong>Leilões Express</strong></p>"
+                + "</div>";
+
+        // Chamar o método de envio de e-mail utilizando Gmail
+        String emailBody = body; // ou use htmlBody se quiser o e-mail em formato HTML
+        GmailSender.sendEmail(recipientEmail, subject, emailBody);
     }
+
 
     private void mostrarMensagemSucesso(String mensagem) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
