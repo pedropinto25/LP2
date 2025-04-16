@@ -8,6 +8,7 @@ import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.Model.Leilao;
 import com.lp2.lp2.Model.LeilaoParticipacao;
 import com.lp2.lp2.Session.Session;
+import com.lp2.lp2.Util.GmailSender;
 import com.lp2.lp2.Util.LoaderFXML;
 import com.mailjet.client.MailjetClient;
 import com.mailjet.client.MailjetRequest;
@@ -178,9 +179,9 @@ public class ParticipateLeilaoController {
                             leilaoDAO.updateLeilao(selectedLeilao);
                             mostrarMensagemSucesso("Leilão vendido pelo valor máximo!");
 
-                            /** Lógica para enviar e-mails / comentado pq é muito powerful para o programa
+                            // Lógica para enviar e-mails / comentado pq é muito powerful para o programa
                             sendWinnerEmail(Session.getLoggedUserId(), getUserNameById(Session.getLoggedUserId()),
-                            selectedLeilao.getId(), selectedLeilao.getNome()); */
+                            selectedLeilao.getId(), selectedLeilao.getNome());
                             return;
                         } else if (valorLance.compareTo(selectedLeilao.getValorMaximo()) > 0) {
                             mostrarMensagemErro("O valor do lance não pode ser superior ao valor máximo de " + selectedLeilao.getValorMaximo());
@@ -228,10 +229,10 @@ public class ParticipateLeilaoController {
                     leilaoDAO.updateLeilao(selectedLeilao);
                     mostrarMensagemSucesso("Leilão vendido pelo valor mínimo!");
 
-                    /** Lógica para enviar e-mails / comentado pq é muito powerful para o programa
+                    // Lógica para enviar e-mails / comentado pq é muito powerful para o programa
                     sendWinnerEmail(Session.getLoggedUserId(), getUserNameById(Session.getLoggedUserId()),
                     selectedLeilao.getId(), selectedLeilao.getNome());
-                    return; */
+                    return;
                 }
 
                 leilaoParticipacaoDAO.addParticipacao(participacao);
@@ -268,9 +269,9 @@ public class ParticipateLeilaoController {
                                     "Cliente ID: " + maiorParticipacao.getClienteId());
 
 
-                            /** Lógica para enviar e-mails / comentado pq é muito powerful para o programa
+                            // Lógica para enviar e-mails / comentado pq é muito powerful para o programa
                             sendWinnerEmail(maiorParticipacao.getClienteId(), getUserNameById(maiorParticipacao.getClienteId()),
-                            selectedLeilao.getId(), selectedLeilao.getNome()); */
+                            selectedLeilao.getId(), selectedLeilao.getNome());
 
 
                         }
@@ -311,9 +312,9 @@ public class ParticipateLeilaoController {
 
 
 
-                                /** Lógica para enviar e-mails / comentado pq é muito powerful para o programa
+                                // Lógica para enviar e-mails / comentado pq é muito powerful para o programa
                                 sendWinnerEmail(maiorParticipacao.getClienteId(), getUserNameById(maiorParticipacao.getClienteId()),
-                                leilao.getId(), leilao.getNome()); */
+                                leilao.getId(), leilao.getNome());
 
 
                             }
@@ -372,40 +373,32 @@ public class ParticipateLeilaoController {
     }
 
     private void sendWinnerEmail(int id, String userName, int leilaoId, String leilaoNome) throws SQLException {
-        String apiKey = dotenv.get("MAILJET_API_KEY");
-        String apiSecret = dotenv.get("MAILJET_API_SECRET");
+        // Buscar e-mail do usuário a partir do ID
+        String recipientEmail = getEmailByUserId(id);
 
-        MailjetClient client = new MailjetClient(apiKey, apiSecret);
-        MailjetRequest request = new MailjetRequest(Emailv31.resource)
-                .property(Emailv31.MESSAGES, new JSONArray()
-                        .put(new JSONObject()
-                                .put(Emailv31.Message.FROM, new JSONObject()
-                                        .put("Email", "lp3sendmail@gmail.com")
-                                        .put("Name", "Leilões Express"))
-                                .put(Emailv31.Message.TO, new JSONArray()
-                                        .put(new JSONObject()
-                                                .put("Email", getEmailByUserId(id))
-                                                .put("Name", userName)))
-                                .put(Emailv31.Message.SUBJECT, "Parabéns! Você ganhou o leilão")
-                                .put(Emailv31.Message.TEXTPART, "PARABÉNS!!!! " + userName + ", informamos que hoje é um dia de sorte! Você é o vencedor do leilão " + leilaoNome + " com o id " + leilaoId + "! Para mais informações, contacte lp2sendmail@gmail.com")
-                                .put(Emailv31.Message.HTMLPART,
-                                        "<div style='font-family: Arial, sans-serif; color: #333;'>"
-                                                + "<h3>PARABÉNS!!!! " + userName + ",</h3>"
-                                                + "<p>Informamos que hoje é um dia de sorte! Você é o vencedor do leilão <strong>" + leilaoNome + "</strong> com o id <strong>" + leilaoId + "</strong>!</p>"
-                                                + "<p>Para mais informações, contacte <a href='mailto:lp2sendmail@gmail.com'>lp2sendmail@gmail.com</a>.</p>"
-                                                + "<br>"
-                                                + "<p>Atenciosamente,</p>"
-                                                + "<p><strong>Leilões Express</strong></p>"
-                                                + "</div>")));
+        // Assunto do e-mail
+        String subject = "Parabéns! Você ganhou o leilão";
 
-        try {
-            MailjetResponse response = client.post(request);
-            System.out.println(response.getStatus());
-            System.out.println(response.getData());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Corpo do e-mail (texto simples)
+        String body = "PARABÉNS!!!! " + userName + ",\n\n" +
+                "Informamos que hoje é um dia de sorte! Você é o vencedor do leilão '" + leilaoNome + "' com o id " + leilaoId + "!\n\n" +
+                "Para mais informações, contacte lp2sendmail@gmail.com\n\n" +
+                "Atenciosamente,\nLeilões Express";
+
+        // Corpo do e-mail (HTML)
+        String htmlBody = "<div style='font-family: Arial, sans-serif; color: #333;'>"
+                + "<h3>PARABÉNS!!!! " + userName + ",</h3>"
+                + "<p>Informamos que hoje é um dia de sorte! Você é o vencedor do leilão <strong>" + leilaoNome + "</strong> com o id <strong>" + leilaoId + "</strong>!</p>"
+                + "<p>Para mais informações, contacte <a href='mailto:lp2sendmail@gmail.com'>lp2sendmail@gmail.com</a>.</p>"
+                + "<br>"
+                + "<p>Atenciosamente,</p>"
+                + "<p><strong>Leilões Express</strong></p>"
+                + "</div>";
+
+        // Enviar o e-mail (pode usar htmlBody se sua função suportar HTML)
+        GmailSender.sendEmail(recipientEmail, subject, htmlBody);
     }
+
 
 
     private String getEmailByUserId(int id) throws SQLException {

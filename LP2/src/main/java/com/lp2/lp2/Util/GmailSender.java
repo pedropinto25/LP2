@@ -21,7 +21,7 @@ public class GmailSender {
         // Autenticação no servidor SMTP
         Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("lp3sendmail@gmail.com", "ewlh wtbc zugp btyw"); // Use a senha gerada para o app
+                return new PasswordAuthentication("lp3sendmail@gmail.com", "ewlh wtbc zugp btyw"); // Senha de app
             }
         });
 
@@ -30,10 +30,14 @@ public class GmailSender {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject(subject); // Define o assunto do e-mail
+            message.setSubject(subject);
 
-            // Define o corpo do e-mail
-            message.setText(body); // Corpo do e-mail
+            // Detecta se é HTML e usa o tipo correto
+            if (body.contains("<") && body.contains(">")) {
+                message.setContent(body, "text/html; charset=utf-8");
+            } else {
+                message.setText(body); // Texto puro
+            }
 
             // Enviar e-mail
             Transport.send(message);
@@ -44,7 +48,8 @@ public class GmailSender {
     }
 
     public static void main(String[] args) {
-        // Exemplo de chamada para enviar um e-mail
-        sendEmail("destinatario@example.com", "Assunto do E-mail", "Este é o corpo do e-mail.");
+        // Exemplo de uso com HTML
+        String htmlContent = "<h2>Olá!</h2><p>Este é um teste de <strong>e-mail com HTML</strong>.</p>";
+        sendEmail("destinatario@example.com", "Teste com HTML", htmlContent);
     }
 }
