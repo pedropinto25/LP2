@@ -12,9 +12,9 @@
 
 <AnchorPane fx:id="anchorPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="743.0" prefWidth="1237.0" style="-fx-background-color: #18191A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Leilao.ParticipateLeilaoController">
     <children>
-        <Pane prefHeight="120.0" prefWidth="1200.0" style="-fx-background-color: #242526;" AnchorPane.topAnchor="0.0">
+        <Pane prefHeight="120.0" prefWidth="1237.0" style="-fx-background-color: #242526;" AnchorPane.topAnchor="0.0">
             <children>
-                <Label layoutX="354.0" layoutY="29.0" prefHeight="66.0" prefWidth="492.0" style="-fx-font-weight: BOLD;" text="Leilões Ativos" textFill="#FFFFFF">
+                <Label layoutX="373.0" layoutY="30.0" prefHeight="66.0" prefWidth="492.0" style="-fx-font-weight: BOLD;" text="Leilões Ativos" textFill="#FFFFFF">
                     <font>
                         <Font name="Century Gothic Bold" size="50.0" />
                     </font>
@@ -41,7 +41,7 @@
                         }
                     </style>
                 </Button>
-                <Label fx:id="pontosLabel" layoutX="927.0" layoutY="36.0" prefHeight="53.0" prefWidth="137.0" style="-fx-font-weight: BOLD;" text="Pontos: 0" textFill="#FFFFFF">
+                <Label fx:id="pontosLabel" layoutX="905.0" layoutY="36.0" prefHeight="53.0" prefWidth="137.0" style="-fx-font-weight: BOLD;" text="Pontos: 0" textFill="#FFFFFF">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
@@ -57,13 +57,13 @@
                         <TableColumn fx:id="nomeColumn" prefWidth="133.0" styleClass="table-column" text="Nome" />
                         <TableColumn fx:id="descricaoColumn" prefWidth="120.80006408691406" styleClass="table-column" text="Descrição" />
                         <TableColumn fx:id="tipoColumn" prefWidth="94.39996337890625" styleClass="table-column" text="Tipo" />
-                        <TableColumn fx:id="dataInicioColumn" prefWidth="123.199951171875" styleClass="table-column" text="Data de Início" />
-                        <TableColumn fx:id="dataFimColumn" prefWidth="116.79998779296875" styleClass="table-column" text="Data de Fim" />
-                        <TableColumn fx:id="valorMinimoColumn" prefWidth="129.5999755859375" styleClass="table-column" text="Valor Mínimo" />
-                        <TableColumn fx:id="valorMaximoColumn" prefWidth="136.79998779296875" styleClass="table-column" text="Valor Máximo" />
-                        <TableColumn fx:id="multiploLanceColumn" prefWidth="130.39990234375" styleClass="table-column" text="Múltiplo de Lance" />
-                        <TableColumn fx:id="inativoColumn" prefWidth="100.0" styleClass="table-column" text="Inativo" />
-                        <TableColumn fx:id="vendidoColumn" prefWidth="100.0" styleClass="table-column" text="Vendido" />
+                        <TableColumn fx:id="dataInicioColumn" prefWidth="113.0" styleClass="table-column" text="Data de Início" />
+                        <TableColumn fx:id="dataFimColumn" prefWidth="116.0" styleClass="table-column" text="Data de Fim" />
+                        <TableColumn fx:id="valorMinimoColumn" prefWidth="109.0" styleClass="table-column" text="Valor Mínimo" />
+                        <TableColumn fx:id="valorMaximoColumn" prefWidth="121.0" styleClass="table-column" text="Valor Máximo" />
+                        <TableColumn fx:id="multiploLanceColumn" prefWidth="114.0" styleClass="table-column" text="Múltiplo de Lance" />
+                        <TableColumn fx:id="inativoColumn" prefWidth="98.0" styleClass="table-column" text="Inativo" />
+                        <TableColumn fx:id="vendidoColumn" prefWidth="99.0" styleClass="table-column" text="Vendido" />
                     </columns>
                 </TableView>
                 <Text fill="#FFFFFF" layoutX="51.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de Leilões Ativos">

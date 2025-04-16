@@ -5,20 +5,23 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="649.0" prefWidth="560.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Cliente.EditClienteController">
+<Pane prefHeight="649.0" prefWidth="1166.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Cliente.EditClienteController">
    <children>
-      <Text fill="WHITE" layoutX="182.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID do Cliente:" wrappingWidth="167.7366943359375" />
-      <ChoiceBox fx:id="idChoiceBox" layoutX="182.0" layoutY="170.0" prefHeight="25.0" prefWidth="200.0" />
-      <TextField fx:id="nomeField" layoutX="182.0" layoutY="202.0" prefWidth="200.0" promptText="Nome" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
-      <TextField fx:id="moradaField" layoutX="180.0" layoutY="237.0" prefWidth="200.0" promptText="Morada" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
-      <DatePicker fx:id="dataNascimentoField" layoutX="180.0" layoutY="283.0" prefWidth="200.0" promptText="Data de Nascimento" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
-      <TextField fx:id="emailField" layoutX="180.0" layoutY="325.0" prefWidth="200.0" promptText="Email" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
-      <TextField fx:id="senhaField" layoutX="182.0" layoutY="368.0" prefWidth="200.0" promptText="Senha" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
-      <Button fx:id="btnAdd" layoutX="228.0" layoutY="460.0" onAction="#editarCliente" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Atualizar" textFill="WHITE" />
-      <Button fx:id="btnMenu" layoutX="429.0" layoutY="29.0" onAction="#handleBtnMenu" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Menu" textFill="WHITE" />
-      <Button fx:id="btnBack" layoutX="34.0" layoutY="29.0" onAction="#handleBtnBack" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Retroceder" textFill="WHITE" />
-      <Text fill="WHITE" layoutX="232.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edição de Cliente" wrappingWidth="97.0" />
+      <ChoiceBox fx:id="idChoiceBox" layoutX="483.0" layoutY="158.0" prefHeight="25.0" prefWidth="200.0" />
+      <TextField fx:id="nomeField" layoutX="484.0" layoutY="197.0" prefWidth="200.0" promptText="Nome" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
+      <TextField fx:id="moradaField" layoutX="482.0" layoutY="234.0" prefWidth="200.0" promptText="Morada" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
+      <DatePicker fx:id="dataNascimentoField" layoutX="482.0" layoutY="277.0" prefWidth="200.0" promptText="Data de Nascimento" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
+      <TextField fx:id="emailField" layoutX="482.0" layoutY="318.0" prefWidth="200.0" promptText="Email" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
+      <TextField fx:id="senhaField" layoutX="482.0" layoutY="360.0" prefWidth="200.0" promptText="Senha" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
+      <Button fx:id="btnAdd" layoutX="530.0" layoutY="413.0" onAction="#editarCliente" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Atualizar" textFill="WHITE" />
+      <Button fx:id="btnMenu" layoutX="1010.0" layoutY="29.0" onAction="#handleBtnMenu" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Menu" textFill="WHITE" />
+      <Button fx:id="btnBack" layoutX="48.0" layoutY="29.0" onAction="#handleBtnBack" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Retroceder" textFill="WHITE" />
+      <Text fill="WHITE" layoutX="369.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edição de Cliente" wrappingWidth="431.0">
+         <font>
+            <Font size="56.0" />
+         </font></Text>
    </children>
 </Pane>

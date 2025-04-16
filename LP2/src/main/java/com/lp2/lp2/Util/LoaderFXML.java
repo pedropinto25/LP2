@@ -69,6 +69,8 @@ public class LoaderFXML {
     public void loadAprovar() {loadView("/com/lp3_grupo5/lp2/ClienteViews/AproveCliente.fxml" , "Aprovar Clientes");}
 
     public void loadAddPontos() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/AddPontos.fxml", "Adicionar Pontos");}
+
+    public void loadEnunciado() {loadView("/com/lp3_grupo5/lp2/Menus/Enunciado1.fxml", "Enunciado");}
 /** ************************************************************************************************************************************************************************ */
     /**
      * Carrega e exibe uma tela específica (view) definida pelo caminho do arquivo FXML.

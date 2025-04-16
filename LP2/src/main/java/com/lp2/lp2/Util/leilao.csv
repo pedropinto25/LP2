@@ -48,3 +48,9 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 64,YOIyoyoy,asdads,Venda Direta,2025-04-15,2025-04-15,1111,,,false
 65,YOIyoyoy123132,asdads,Carta Fechada,2025-04-15,2025-04-15,1111,,,false
 66,teste,asdasd,Online,2025-04-15,2025-04-29,1111,11111,1.1,false
+67,bacalhau,teste,Venda Direta,2025-04-16,,100,,,false
+68,testeemail,123,Venda Direta,2025-04-16,,15,,,false
+69,gayzolas,ahahaha,Online,2025-04-16,,100,2000,1.1,false
+70,DILDO Plastico gta SA,ahahaha,Online,2025-04-16,2025-04-17,100,2000,1.1,false
+71,TerminarLeilao,1123,Online,2025-04-16,,1231,11111,1.1,false
+72,testeterminar,123,Online,2025-04-16,,1111,11111,10,false

@@ -18,8 +18,8 @@
         <TextField fx:id="valorMinimoField" layoutX="482.0" layoutY="376.0" prefWidth="200.0" promptText="Valor Mínimo" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
         <TextField fx:id="valorMaximoField" layoutX="482.0" layoutY="421.0" prefWidth="200.0" promptText="Valor Máximo" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
         <TextField fx:id="multiploLanceField" layoutX="482.0" layoutY="470.0" prefWidth="200.0" promptText="Múltiplo de Lance" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;" />
-        <Button fx:id="btnAdd" layoutX="530.0" layoutY="546.0" onAction="#adicionarLeilao" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Adicionar" textFill="WHITE" />
-        <Button fx:id="btnMenu" layoutX="998.0" layoutY="38.0" onAction="#handleBtnMenu" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Menu" textFill="WHITE" />
+        <Button fx:id="btnAdd" layoutX="530.0" layoutY="523.0" onAction="#adicionarLeilao" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Adicionar" textFill="WHITE" />
+        <Button fx:id="btnMenu" layoutX="996.0" layoutY="29.0" onAction="#handleBtnMenu" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Menu" textFill="WHITE" />
         <Button fx:id="btnBack" layoutX="58.0" layoutY="29.0" onAction="#handleBtnBack" prefHeight="53.0" prefWidth="104.0" style="-fx-background-color: none; -fx-border-color: white;" text="Retroceder" textFill="WHITE" />
         <Text fill="WHITE" layoutX="373.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Criação de Leilão" wrappingWidth="421.0">
          <font>
