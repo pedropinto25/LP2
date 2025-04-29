@@ -4,6 +4,7 @@ import com.lp2.lp2.DAO.IDAO.ILeilaoParticipacaoDAO;
 import com.lp2.lp2.Model.LeilaoParticipacao;
 import com.lp2.lp2.Infrastucture.Connection.DBConnection;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -123,5 +124,35 @@ public class LeilaoParticipacaoDAO implements ILeilaoParticipacaoDAO {
             }
         }
         return participacoes;
+    }
+
+    @Override
+    public List<LeilaoParticipacao> getClientesComMaisLancesPorLeilao() {
+        List<LeilaoParticipacao> clientesLances = new ArrayList<>();
+        String sql = "SELECT lp.leilao_id, lp.cliente_id, COUNT(lp.id) AS total_lances, MAX(lp.valor_lance) AS maior_lance " +
+                "FROM LeilaoParticipacao lp " +
+                "GROUP BY lp.leilao_id, lp.cliente_id " +
+                "ORDER BY lp.leilao_id, maior_lance DESC";
+
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                int leilaoId = rs.getInt("leilao_id");
+                int clienteId = rs.getInt("cliente_id");
+                BigDecimal maiorLance = rs.getBigDecimal("maior_lance");
+
+                LeilaoParticipacao clienteLances = new LeilaoParticipacao();
+                clienteLances.setLeilaoId(leilaoId);
+                clienteLances.setClienteId(clienteId);
+                clienteLances.setValorLance(maiorLance);
+
+                clientesLances.add(clienteLances);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return clientesLances;
     }
 }

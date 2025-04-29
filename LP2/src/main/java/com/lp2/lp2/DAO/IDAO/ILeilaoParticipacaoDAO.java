@@ -12,4 +12,7 @@ public interface ILeilaoParticipacaoDAO {
     LeilaoParticipacao getParticipacaoById(int id) throws SQLException;
     List<LeilaoParticipacao> getParticipacoesByLeilaoId(int leilaoId) throws SQLException;
     List<LeilaoParticipacao> getAllParticipacoes() throws SQLException;
+   // List<LeilaoParticipacao> getClientesComMaisLancesPorLeilao(int leilaoId) throws SQLException;
+
+    List<LeilaoParticipacao> getClientesComMaisLancesPorLeilao();
 }

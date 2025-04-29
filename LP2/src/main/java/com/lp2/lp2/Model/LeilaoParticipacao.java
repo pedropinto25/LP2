@@ -10,6 +10,11 @@ public class LeilaoParticipacao {
     private Timestamp dataParticipacao;
     private BigDecimal valorLance;
 
+    public LeilaoParticipacao(int leilaoId, int clienteId, int totalLances, BigDecimal maiorLance) {
+    }
+    public LeilaoParticipacao(){
+
+    }
     // Getters e Setters
     public int getId() {
         return id;

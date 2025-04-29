@@ -93,7 +93,8 @@ public class MenuController {
     private void handleBtnEditLeilao(ActionEvent event) {
         Stage currentStage = getStage();
         LoaderFXML loader = new LoaderFXML(currentStage);
-        loader.loadEditLeilao();
+        //loader.loadEditLeilao();
+        loader.loadEstatistica();
             }
 
     @FXML
