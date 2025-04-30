@@ -109,6 +109,20 @@ public class ParticipateLeilaoController {
 
         // Atualizar pontos do cliente logado
         atualizarPontosCliente();
+
+        leilaoTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                if ("Online".equals(newSelection.getTipo())) {
+                    valorLanceField.setDisable(true); // Desativa o campo
+                    valorLanceField.clear(); // Opcional: limpa o campo!
+                } else {
+                    valorLanceField.setDisable(false); // Ativa o campo
+                }
+            } else {
+                valorLanceField.setDisable(false);
+            }
+        });
+
     }
 
     private ObservableList<Leilao> loadLeiloes() {
@@ -123,9 +137,9 @@ public class ParticipateLeilaoController {
     private void atualizarPontosCliente() {
         try {
             int pontos = pontosDAO.verificarPontos(Session.getLoggedUserId());
-            pontosLabel.setText("Pontos: " + pontos);
+            pontosLabel.setText("Créditos: " + pontos);
         } catch (SQLException e) {
-            mostrarMensagemErro("Erro ao carregar pontos do cliente: " + e.getMessage());
+            mostrarMensagemErro("Erro ao carregar créditos do cliente: " + e.getMessage());
         }
     }
 
@@ -146,16 +160,18 @@ public class ParticipateLeilaoController {
                 participacao.setClienteId(clienteId);
 
                 if ("Online".equals(selectedLeilao.getTipo())) {
-                    int pontos = pontosDAO.verificarPontos(clienteId);
-                    if (pontos < 5) {
-                        mostrarMensagemErro("Você precisa de pelo menos 5 pontos para participar neste leilão.");
+                    // Substituir validação anterior por esta:
+                    BigDecimal multiploLance = selectedLeilao.getMultiploLance();
+                    BigDecimal pontos = new BigDecimal(pontosDAO.verificarPontos(clienteId)); // Assume que retorna int ou BigDecimal
+
+                    if (pontos.compareTo(multiploLance) < 0) {
+                        mostrarMensagemErro("Você não tem créditos suficientes para cobrir o múltiplo de lance (" + multiploLance + ").");
                         return;
                     }
 
-                    // Buscar todas as participações deste leilão
+                    // Validar cliente não ser o último a licitar
                     List<LeilaoParticipacao> participacoes = leilaoParticipacaoDAO.getParticipacoesByLeilaoId(selectedLeilao.getId());
                     if (!participacoes.isEmpty()) {
-                        // Buscar a última participação (maior dataParticipacao)
                         participacoes.sort((p1, p2) -> p2.getDataParticipacao().compareTo(p1.getDataParticipacao()));
                         LeilaoParticipacao ultimaParticipacao = participacoes.get(0);
                         if (ultimaParticipacao.getClienteId() == clienteId) {
@@ -165,12 +181,8 @@ public class ParticipateLeilaoController {
                     }
 
                     BigDecimal valorMinimo = selectedLeilao.getValorMinimo();
-                    BigDecimal multiploLance = selectedLeilao.getMultiploLance();
-
-                    // Aqui aplica a lógica correta: novo valor MÍNIMO = valorMinimo atual + múltiplo
                     BigDecimal valorLance = valorMinimo.add(multiploLance);
 
-                    // Verifica se existe valor máximo e faz as verificações necessárias
                     if (selectedLeilao.getValorMaximo() != null) {
                         if (valorLance.compareTo(selectedLeilao.getValorMaximo()) == 0) {
                             selectedLeilao.setValorMinimo(valorLance);
@@ -185,17 +197,18 @@ public class ParticipateLeilaoController {
                         }
                     }
 
-                    // Atualiza o lance e o valor mínimo do leilão
                     participacao.setValorLance(valorLance);
                     selectedLeilao.setValorMinimo(valorLance);
                     leilaoDAO.updateLeilao(selectedLeilao);
 
-                    // Regista a participação e remove pontos
                     leilaoParticipacaoDAO.addParticipacao(participacao);
-                    pontosDAO.removerPontos(clienteId, 5);
+
+                    // Tira créditos no valor do múltiplo de lance
+                    pontosDAO.removerPontos(clienteId, multiploLance.intValue());
                     atualizarPontosCliente();
 
                     mostrarMensagemSucesso("Lance efetuado com sucesso! Novo valor mínimo: " + valorLance);
+
 
                 } else if ("Carta Fechada".equals(selectedLeilao.getTipo())) {
                     // Lógica já existente para carta fechada (mantém igual)
@@ -373,7 +386,7 @@ public class ParticipateLeilaoController {
             // Atualizar pontos do cliente após fechar a janela
             stage.setOnHiding(windowEvent -> atualizarPontosCliente());
         } catch (Exception e) {
-            mostrarMensagemErro("Erro ao abrir a janela de adicionar pontos: " + e.getMessage());
+            mostrarMensagemErro("Erro ao abrir a janela de adicionar créditos: " + e.getMessage());
         }
     }
 
