@@ -45,7 +45,8 @@ public class CreateLeilaoController {
         tipoField.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if ("Online".equals(newValue)) {
                 multiploLanceField.setDisable(false);
-                valorMaximoField.setDisable(false);
+                valorMaximoField.setDisable(true);
+                valorMaximoField.clear();
                 valorMinimoField.setDisable(false);
             } else if ("Carta Fechada".equals(newValue)) {
                 multiploLanceField.setDisable(true);

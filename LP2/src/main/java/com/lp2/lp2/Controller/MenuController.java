@@ -24,6 +24,9 @@ public class MenuController {
     private Button btnAprovar;
 
     @FXML
+    private Button btnEstatisticas;
+
+    @FXML
     void handleBtnAprovar(ActionEvent event) {
         Stage currentStage = getStage();
         LoaderFXML loader = new LoaderFXML(currentStage);
@@ -93,8 +96,7 @@ public class MenuController {
     private void handleBtnEditLeilao(ActionEvent event) {
         Stage currentStage = getStage();
         LoaderFXML loader = new LoaderFXML(currentStage);
-        //loader.loadEditLeilao();
-        loader.loadEstatistica();
+        loader.loadEditLeilao();
             }
 
     @FXML
@@ -117,4 +119,11 @@ public class MenuController {
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadEnunciado();
     }
+    @FXML
+    private void handleBtnEstatisticas(ActionEvent event) {
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadEstatistica();
+    }
+
 }

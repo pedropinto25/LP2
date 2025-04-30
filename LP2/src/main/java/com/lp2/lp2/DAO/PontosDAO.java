@@ -17,22 +17,20 @@ public class PontosDAO implements IPontosDAO {
 
     @Override
     public void addPontos(Pontos pontos) throws SQLException {
-        String sql = "INSERT INTO Pontos (cliente_id, pontos, leilao_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Pontos (cliente_id, pontos) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, pontos.getClienteId());
             stmt.setInt(2, pontos.getPontos());
-            stmt.setInt(3, pontos.getLeilaoId());
             stmt.executeUpdate();
         }
     }
 
     @Override
     public void updatePontos(Pontos pontos) throws SQLException {
-        String sql = "UPDATE Pontos SET pontos = ?, leilao_id = ? WHERE id = ?";
+        String sql = "UPDATE Pontos SET pontos = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, pontos.getPontos());
-            stmt.setInt(2, pontos.getLeilaoId());
-            stmt.setInt(3, pontos.getId());
+            stmt.setInt(2, pontos.getId());
             stmt.executeUpdate();
         }
     }
@@ -57,7 +55,6 @@ public class PontosDAO implements IPontosDAO {
                     pontos.setId(rs.getInt("id"));
                     pontos.setClienteId(rs.getInt("cliente_id"));
                     pontos.setPontos(rs.getInt("pontos"));
-                    pontos.setLeilaoId(rs.getInt("leilao_id"));
                     return pontos;
                 }
             }
@@ -76,7 +73,6 @@ public class PontosDAO implements IPontosDAO {
                 pontos.setId(rs.getInt("id"));
                 pontos.setClienteId(rs.getInt("cliente_id"));
                 pontos.setPontos(rs.getInt("pontos"));
-                pontos.setLeilaoId(rs.getInt("leilao_id"));
                 pontosList.add(pontos);
             }
         }
@@ -126,7 +122,6 @@ public class PontosDAO implements IPontosDAO {
         }
     }
 
-
     @Override
     public void removerPontos(int clienteId, int pontos) throws SQLException {
         String sql = "UPDATE Pontos SET pontos = pontos - ? WHERE cliente_id = ?";
@@ -136,5 +131,4 @@ public class PontosDAO implements IPontosDAO {
             stmt.executeUpdate();
         }
     }
-
 }

@@ -71,11 +71,9 @@ GO
 CREATE TABLE Pontos (
     id INT PRIMARY KEY IDENTITY(1,1),
     cliente_id INT NOT NULL,
-    pontos INT NOT NULL,
-    leilao_id INT,
+    pontos INT NOT NULL
     FOREIGN KEY (cliente_id) REFERENCES Cliente(id),
-    FOREIGN KEY (leilao_id) REFERENCES Leilao(id)
-);
+    );
 GO
 
 

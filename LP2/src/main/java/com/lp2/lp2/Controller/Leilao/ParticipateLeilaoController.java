@@ -140,103 +140,107 @@ public class ParticipateLeilaoController {
             }
 
             try {
-                BigDecimal valorLance = new BigDecimal(valorLanceField.getText());
+                int clienteId = Session.getLoggedUserId();
                 LeilaoParticipacao participacao = new LeilaoParticipacao();
                 participacao.setLeilaoId(selectedLeilao.getId());
-                participacao.setClienteId(Session.getLoggedUserId()); // Use the logged-in client's ID
-                participacao.setValorLance(valorLance);
+                participacao.setClienteId(clienteId);
 
                 if ("Online".equals(selectedLeilao.getTipo())) {
-                    // Verificar se o cliente tem pontos suficientes
-                    int pontos = pontosDAO.verificarPontos(Session.getLoggedUserId());
+                    int pontos = pontosDAO.verificarPontos(clienteId);
                     if (pontos < 5) {
                         mostrarMensagemErro("Você precisa de pelo menos 5 pontos para participar neste leilão.");
                         return;
                     }
 
-                    // Lógica para um leilão online / eletrónico
-                    BigDecimal valorMinimo = selectedLeilao.getValorMinimo();
-                    BigDecimal multiploLance = selectedLeilao.getMultiploLance();
-
-                    // Verificar se o valor do lance é maior ou igual ao valor mínimo multiplicado pelo múltiplo
-                    BigDecimal valorMinimoMultiplicado = valorMinimo.multiply(multiploLance);
-                    if (valorLance.compareTo(valorMinimoMultiplicado) < 0) {
-                        mostrarMensagemErro("O valor do lance deve ser maior ou igual a " + valorMinimoMultiplicado);
-                        return;
-                    }
-
-                    // Verificar se o valor do lance é múltiplo do valor configurado ou superior ao múltiplo
-                    if (valorLance.remainder(multiploLance).compareTo(BigDecimal.ZERO) != 0 && valorLance.compareTo(valorMinimoMultiplicado) < 0) {
-                        mostrarMensagemErro("O valor do lance deve ser múltiplo de " + multiploLance + " e maior ou igual a " + valorMinimoMultiplicado);
-                        return;
-                    }
-
-                    // Verificar se o valor do lance é igual ao valor máximo
-                    if (selectedLeilao.getValorMaximo() != null) {
-                        if (valorLance.compareTo(selectedLeilao.getValorMaximo()) == 0) {
-                            // Marcar o leilão como vendido
-                            selectedLeilao.setVendido(true);
-                            leilaoDAO.updateLeilao(selectedLeilao);
-                            mostrarMensagemSucesso("Leilão vendido pelo valor máximo!");
-
-                            // Lógica para enviar e-mails / comentado pq é muito powerful para o programa
-                            sendWinnerEmail(Session.getLoggedUserId(), getUserNameById(Session.getLoggedUserId()),
-                            selectedLeilao.getId(), selectedLeilao.getNome());
-                            return;
-                        } else if (valorLance.compareTo(selectedLeilao.getValorMaximo()) > 0) {
-                            mostrarMensagemErro("O valor do lance não pode ser superior ao valor máximo de " + selectedLeilao.getValorMaximo());
+                    // Buscar todas as participações deste leilão
+                    List<LeilaoParticipacao> participacoes = leilaoParticipacaoDAO.getParticipacoesByLeilaoId(selectedLeilao.getId());
+                    if (!participacoes.isEmpty()) {
+                        // Buscar a última participação (maior dataParticipacao)
+                        participacoes.sort((p1, p2) -> p2.getDataParticipacao().compareTo(p1.getDataParticipacao()));
+                        LeilaoParticipacao ultimaParticipacao = participacoes.get(0);
+                        if (ultimaParticipacao.getClienteId() == clienteId) {
+                            mostrarMensagemErro("Você já possui o último lance neste leilão. Aguarde outro participante!");
                             return;
                         }
                     }
 
-                    // Atualizar o valor mínimo do leilão
+                    BigDecimal valorMinimo = selectedLeilao.getValorMinimo();
+                    BigDecimal multiploLance = selectedLeilao.getMultiploLance();
+
+                    // Aqui aplica a lógica correta: novo valor MÍNIMO = valorMinimo atual + múltiplo
+                    BigDecimal valorLance = valorMinimo.add(multiploLance);
+
+                    // Verifica se existe valor máximo e faz as verificações necessárias
+                    if (selectedLeilao.getValorMaximo() != null) {
+                        if (valorLance.compareTo(selectedLeilao.getValorMaximo()) == 0) {
+                            selectedLeilao.setValorMinimo(valorLance);
+                            selectedLeilao.setVendido(true);
+                            leilaoDAO.updateLeilao(selectedLeilao);
+                            mostrarMensagemSucesso("Leilão vendido pelo valor máximo!");
+                            //sendWinnerEmail(clienteId, getUserNameById(clienteId), selectedLeilao.getId(), selectedLeilao.getNome());
+                            return;
+                        } else if (valorLance.compareTo(selectedLeilao.getValorMaximo()) > 0) {
+                            mostrarMensagemErro("Não pode licitar acima do valor máximo de " + selectedLeilao.getValorMaximo());
+                            return;
+                        }
+                    }
+
+                    // Atualiza o lance e o valor mínimo do leilão
+                    participacao.setValorLance(valorLance);
                     selectedLeilao.setValorMinimo(valorLance);
                     leilaoDAO.updateLeilao(selectedLeilao);
 
-                    // Remover pontos do cliente
-                    pontosDAO.removerPontos(Session.getLoggedUserId(), 5);
+                    // Regista a participação e remove pontos
+                    leilaoParticipacaoDAO.addParticipacao(participacao);
+                    pontosDAO.removerPontos(clienteId, 5);
                     atualizarPontosCliente();
+
+                    mostrarMensagemSucesso("Lance efetuado com sucesso! Novo valor mínimo: " + valorLance);
+
                 } else if ("Carta Fechada".equals(selectedLeilao.getTipo())) {
-                    // Lógica para leilão de carta fechada
-                    // Cada cliente só pode participar uma vez!
+                    // Lógica já existente para carta fechada (mantém igual)
+                    BigDecimal valorLance = new BigDecimal(valorLanceField.getText());
+                    participacao.setValorLance(valorLance);
+
                     List<LeilaoParticipacao> participacoes = leilaoParticipacaoDAO.getParticipacoesByLeilaoId(selectedLeilao.getId());
                     for (LeilaoParticipacao p : participacoes) {
-                        if (p.getClienteId() == Session.getLoggedUserId()) { // Use the logged-in client's ID
+                        if (p.getClienteId() == clienteId) {
                             mostrarMensagemErro("Você já participou neste leilão.");
                             return;
                         }
                     }
-                    // Verificar se o valor do lance é maior ou igual ao valor mínimo
                     if (valorLance.compareTo(selectedLeilao.getValorMinimo()) < 0) {
                         mostrarMensagemErro("O valor do lance deve ser maior ou igual ao valor mínimo de " + selectedLeilao.getValorMinimo());
                         return;
                     }
+
+                    leilaoParticipacaoDAO.addParticipacao(participacao);
+
                 } else if ("Venda Direta".equals(selectedLeilao.getTipo())) {
-                    // Lógica para leilão venda direta
-                    // O valor do lance deve ser igual ao valor mínimo
+                    BigDecimal valorLance = new BigDecimal(valorLanceField.getText());
+                    participacao.setValorLance(valorLance);
+
                     if (selectedLeilao.getValorMinimo() != null && valorLance.compareTo(selectedLeilao.getValorMinimo()) != 0) {
                         mostrarMensagemErro("O valor do lance deve ser igual ao valor mínimo de " + selectedLeilao.getValorMinimo());
                         return;
                     }
-                    // Verificar se o leilão já foi vendido
                     List<LeilaoParticipacao> participacoes = leilaoParticipacaoDAO.getParticipacoesByLeilaoId(selectedLeilao.getId());
                     if (!participacoes.isEmpty()) {
                         mostrarMensagemErro("Venda já feita.");
                         return;
                     }
-                    // Marcar o leilão como vendido
+
                     selectedLeilao.setVendido(true);
                     leilaoDAO.updateLeilao(selectedLeilao);
+                    leilaoParticipacaoDAO.addParticipacao(participacao);
                     mostrarMensagemSucesso("Leilão vendido pelo valor mínimo!");
-
-                    // Lógica para enviar e-mails / comentado pq é muito powerful para o programa
-                    sendWinnerEmail(Session.getLoggedUserId(), getUserNameById(Session.getLoggedUserId()),
-                    selectedLeilao.getId(), selectedLeilao.getNome());
+                    //sendWinnerEmail(clienteId, getUserNameById(clienteId), selectedLeilao.getId(), selectedLeilao.getNome());
                     return;
                 }
 
-                leilaoParticipacaoDAO.addParticipacao(participacao);
-                mostrarMensagemSucesso("Participação registrada com sucesso!");
+                if (!"Online".equals(selectedLeilao.getTipo())) {
+                    mostrarMensagemSucesso("Participação registrada com sucesso!");
+                }
             } catch (SQLException e) {
                 mostrarMensagemErro("Erro ao registrar participação: " + e.getMessage());
             } catch (NumberFormatException e) {
@@ -246,6 +250,7 @@ public class ParticipateLeilaoController {
             mostrarMensagemErro("Por favor, selecione um leilão antes de participar.");
         }
     }
+
 
 
     @FXML
@@ -270,8 +275,8 @@ public class ParticipateLeilaoController {
 
 
                             // Lógica para enviar e-mails / comentado pq é muito powerful para o programa
-                            sendWinnerEmail(maiorParticipacao.getClienteId(), getUserNameById(maiorParticipacao.getClienteId()),
-                            selectedLeilao.getId(), selectedLeilao.getNome());
+                            /*sendWinnerEmail(maiorParticipacao.getClienteId(), getUserNameById(maiorParticipacao.getClienteId()),
+                            selectedLeilao.getId(), selectedLeilao.getNome());*/
 
 
                         }
@@ -313,8 +318,8 @@ public class ParticipateLeilaoController {
 
 
                                 // Lógica para enviar e-mails / comentado pq é muito powerful para o programa
-                                sendWinnerEmail(maiorParticipacao.getClienteId(), getUserNameById(maiorParticipacao.getClienteId()),
-                                leilao.getId(), leilao.getNome());
+                                /*sendWinnerEmail(maiorParticipacao.getClienteId(), getUserNameById(maiorParticipacao.getClienteId()),
+                                leilao.getId(), leilao.getNome());*/
 
 
                             }
