@@ -29,7 +29,8 @@ CREATE TABLE Cliente (
     dataNascimento DATE,
     email VARCHAR(255),
     senha VARCHAR(255),
-    encrypted BIT DEFAULT 0
+    encrypted BIT DEFAULT 0,
+    approved BIT DEFAULT 0
 );
 GO
 
@@ -39,7 +40,8 @@ CREATE TABLE Users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     encrypted BIT DEFAULT 0,
-    role VARCHAR(50) DEFAULT 'cliente'
+    role VARCHAR(50) DEFAULT 'cliente',
+    approved BIT DEFAULT 0
 );
 GO
 
@@ -90,3 +92,17 @@ BEGIN
     FROM inserted;
 END;
 GO
+
+insert into Cliente (nome, morada, dataNascimento, email, senha)
+VALUES('Pedro','rua 2',null, 'pintop2003@gmail.com', '123');
+
+GO
+
+Update Users
+set approved = 1;
+
+GO
+
+Update Cliente
+set approved = 1;
+
