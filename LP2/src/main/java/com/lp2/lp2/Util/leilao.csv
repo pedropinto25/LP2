@@ -5,4 +5,4 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 91,vaso,vaso,Venda Direta,2025-04-20,,50.00,,,false
 92,carro super,lambo,Online,2025-04-20,2025-04-21,1690.00,1000000.00,1.30,false
 1063,asdads,asdads,Online,2025-04-01,2025-04-30,1300.00,,150.00,false
-1064,wtf,asdasdsa,Online,2025-04-30,2025-05-09,2200.00,,150.00,false
+1064,wtf,asdasdsa,Online,2025-04-30,2025-05-09,2350.00,,150.00,false
