@@ -41,7 +41,7 @@
                         }
                     </style>
                 </Button>
-                <Label fx:id="pontosLabel" layoutX="905.0" layoutY="36.0" prefHeight="53.0" prefWidth="137.0" style="-fx-font-weight: BOLD;" text="Pontos: 0" textFill="#FFFFFF">
+                <Label fx:id="pontosLabel" layoutX="905.0" layoutY="36.0" prefHeight="53.0" prefWidth="137.0" style="-fx-font-weight: BOLD;" text="Créditos: 0" textFill="#FFFFFF">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
@@ -104,7 +104,7 @@
                         }
                     </style>
                 </Button>
-                <Button fx:id="btnAddPontos" layoutX="856.0" layoutY="555.0" onAction="#handleBtnAddPontos" prefHeight="40.0" prefWidth="178.0" style="-fx-background-color: none; -fx-border-color: white;" text="Adicionar Pontos" textFill="WHITE">
+                <Button fx:id="btnAddPontos" layoutX="834.0" layoutY="555.0" onAction="#handleBtnAddPontos" prefHeight="41.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: white;" text="Adicionar Créditos" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>

@@ -4,7 +4,7 @@ public class Pontos {
     private int id;
     private int clienteId;
     private int pontos;
-    private int leilaoId;
+
 
     // Getters e setters
     public int getId() { return id; }
@@ -18,8 +18,4 @@ public class Pontos {
     public int getPontos() {return pontos;}
 
     public void setPontos(int pontos) {this.pontos = pontos;}
-
-    public int getLeilaoId() {return leilaoId;}
-
-    public void setLeilaoId(int leilaoId) {this.leilaoId = leilaoId;}
 }
