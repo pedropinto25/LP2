@@ -6,3 +6,4 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 92,carro super,lambo,Online,2025-04-20,2025-04-21,1690.00,1000000.00,1.30,false
 1063,asdads,asdads,Online,2025-04-01,2025-04-30,1300.00,,150.00,false
 1064,wtf,asdasdsa,Online,2025-04-30,2025-05-09,2350.00,,150.00,false
+1,switch,usada,Online,2025-05-23,2025-05-30,105.00,,5.00,false
