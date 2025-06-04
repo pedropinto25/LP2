@@ -2,6 +2,7 @@ package com.lp2.lp2.Controller.Leilao;
 
 import com.lp2.lp2.DAO.LeilaoDAO;
 import com.lp2.lp2.DAO.LeilaoParticipacaoDAO;
+import com.lp2.lp2.Model.Leilao;
 import com.lp2.lp2.Model.LeilaoParticipacao;
 import com.lp2.lp2.Infrastucture.Connection.DBConnection;
 import com.lp2.lp2.Util.LoaderFXML;
@@ -32,6 +33,8 @@ public class GraficoLeilaoController {
     private NumberAxis yAxis;
     @FXML
     private Button btnLoadData;
+    @FXML
+    private Button btnLeiloesInativos;
 
     private LeilaoParticipacaoDAO leilaoParticipacaoDAO;
 
@@ -83,6 +86,162 @@ public class GraficoLeilaoController {
         barChart.setData(barChartData);
         System.out.println("Dados carregados no gráfico.");
     }
+
+    @FXML
+    private void handleBtnLeiloesInativos() {
+        try {
+            int totalInativos = leilaoParticipacaoDAO.contarLeiloesInativos(); // novo método no DAO
+            barChart.getData().clear(); // limpa o gráfico
+
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName("Leilões Inativos");
+
+            XYChart.Data<String, Number> data = new XYChart.Data<>("Inativos", totalInativos);
+            series.getData().add(data);
+
+            barChart.getData().add(series);
+
+            System.out.println("Total de leilões inativos: " + totalInativos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleBtnLeiloesMaisLances() {
+        List<LeilaoParticipacao> leiloes = leilaoParticipacaoDAO.getLeiloesComMaisLances();
+
+        if (!leiloes.isEmpty()) {
+            barChart.getData().clear();
+
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName("Leilões com mais lances");
+
+            for (LeilaoParticipacao lp : leiloes) {
+                String label = "Leilão " + lp.getLeilaoId();
+                int total = lp.getTotalLances();
+
+                XYChart.Data<String, Number> data = new XYChart.Data<>(label, total);
+                series.getData().add(data);
+            }
+
+            barChart.getData().add(series);
+            System.out.println("Leilões com mais lances carregados.");
+        } else {
+            System.out.println("Nenhum leilão com lances encontrado.");
+        }
+    }
+
+    @FXML
+    private void handleBtnLeilaoMaisTempoAtivo() {
+        Leilao leilao = leilaoParticipacaoDAO.getLeilaoMaisTempoAtivo();
+
+        if (leilao != null) {
+            barChart.getData().clear();
+
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName("Leilão com mais tempo ativo");
+
+            XYChart.Data<String, Number> data = new XYChart.Data<>("Leilão " + leilao.getId(), leilao.getDiasAtivos());
+            series.getData().add(data);
+
+            barChart.getData().add(series);
+
+            System.out.println("Leilão mais ativo: ID = " + leilao.getId() + ", Dias Ativo = " + leilao.getDiasAtivos());
+        } else {
+            System.out.println("Nenhum leilão com datas válidas encontrado.");
+        }
+    }
+
+    @FXML
+    private void handleBtnMediaIdadeClientes() {
+        Double mediaIdade = leilaoParticipacaoDAO.getMediaIdadeClientes();
+
+        if (mediaIdade != null) {
+            barChart.getData().clear();
+
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName("Média de Idade");
+
+            XYChart.Data<String, Number> data = new XYChart.Data<>("Clientes", mediaIdade);
+            series.getData().add(data);
+
+            barChart.getData().add(series);
+
+            System.out.println("Média de idade dos clientes: " + mediaIdade);
+        } else {
+            System.out.println("Não foi possível calcular a média de idade.");
+        }
+    }
+
+    @FXML
+    private void handleBtnPercentagemDominioEmail() {
+        Double percentagem = leilaoParticipacaoDAO.getPercentagemMaiorDominioEmail();
+
+        if (percentagem != null) {
+            barChart.getData().clear();
+
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName("Domínio Mais Usado");
+
+            XYChart.Data<String, Number> data = new XYChart.Data<>("Percentagem", percentagem);
+            series.getData().add(data);
+
+            barChart.getData().add(series);
+
+            System.out.println("Percentagem de clientes com o domínio mais comum: " + percentagem + "%");
+        } else {
+            System.out.println("Não foi possível calcular a percentagem.");
+        }
+    }
+    @FXML
+    private void handleBtnTotalClientes() {
+        int totalClientes = leilaoParticipacaoDAO.getTotalClientes();
+
+        barChart.getData().clear(); // Limpa os dados anteriores
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Total de Clientes");
+
+        XYChart.Data<String, Number> data = new XYChart.Data<>("Total", totalClientes);
+        series.getData().add(data);
+
+        barChart.getData().add(series);
+
+        System.out.println("Total de clientes registados: " + totalClientes);
+    }
+
+    @FXML
+    private void handleBtnLeiloesSemLances() {
+        int totalSemLances = leilaoParticipacaoDAO.getTotalLeiloesSemLances();
+
+        barChart.getData().clear();
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Leilões sem lances");
+
+        XYChart.Data<String, Number> data = new XYChart.Data<>("Total", totalSemLances);
+        series.getData().add(data);
+
+        barChart.getData().add(series);
+
+        System.out.println("Total de leilões sem lances: " + totalSemLances);
+    }
+
+    @FXML
+    private void handleBtnMediaTempoPrimeiroLance() {
+        Double mediaMinutos = leilaoParticipacaoDAO.getMediaTempoPrimeiroLance();
+
+        if (mediaMinutos != null) {
+            System.out.println("Média de tempo para o primeiro lance acontecer: " + mediaMinutos + " minutos");
+            // Podes adicionar a um gráfico ou UI aqui
+        } else {
+            System.out.println("Não foi possível calcular a média.");
+        }
+    }
+
+
+
 
 
     @FXML

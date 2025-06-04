@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="743.0" prefWidth="1237.0" style="-fx-background-color: #18191A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Leilao.GraficoLeilaoController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="743.0" prefWidth="1237.0" style="-fx-background-color: #18191A;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Leilao.GraficoLeilaoController">
     <children>
         <Pane prefHeight="120.0" prefWidth="1237.0" style="-fx-background-color: #242526;" AnchorPane.topAnchor="0.0">
             <children>
@@ -43,27 +43,72 @@
             </children>
         </Pane>
 
-        <Pane layoutY="114.0" prefHeight="630.0" prefWidth="1232.0">
+        <Pane layoutX="3.0" layoutY="113.0" prefHeight="630.0" prefWidth="1232.0">
             <children>
                 <BarChart fx:id="barChart" layoutX="51.0" layoutY="38.0" prefHeight="505.0" prefWidth="1157.0">
                     <xAxis>
-                        <CategoryAxis fx:id="xAxis" label="Leilão" />
+                        <CategoryAxis label="Leilão" fx:id="xAxis" />
                     </xAxis>
                     <yAxis>
                         <NumberAxis fx:id="yAxis" label="Valor do Lance" />
                     </yAxis>
                 </BarChart>
-                <Button fx:id="btnLoadData" layoutX="51.0" layoutY="554.0" onAction="#handleBtnLoadData" style="-fx-background-color: none; -fx-border-color: white;" text="Carregar Dados" textFill="WHITE">
+                <Button fx:id="btnLoadData" layoutX="51.0" layoutY="563.0" onAction="#handleBtnLoadData" style="-fx-background-color: none; -fx-border-color: white;" text="Carregar Dados" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
-                    <style>
-                        .button:hover {
-                        -fx-background-color: #4A4B4C;
-                        -fx-cursor: hand;
-                        }
-                    </style>
                 </Button>
+
+                <Button fx:id="btnLeiloesInativos" layoutX="210.0" layoutY="563.0" onAction="#handleBtnLeiloesInativos" style="-fx-background-color: none; -fx-border-color: white;" text="Leilões Inativos" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnLeilaoMaisLances" layoutX="575.0" layoutY="563.0" onAction="#handleBtnLeiloesMaisLances" style="-fx-background-color: transparent; -fx-border-color: white;" text="Leilão + Lances" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+
+                
+
+                <Button fx:id="btnLeilaoMaisTempoAtivo" layoutX="364.0" layoutY="563.0" onAction="#handleBtnLeilaoMaisTempoAtivo" style="-fx-background-color: none; -fx-border-color: white;" text="Leilão + Tempo Ativo" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+
+                <Button fx:id="btnMediaIdadeClientes" layoutX="746.0" layoutY="563.0" onAction="#handleBtnMediaIdadeClientes" style="-fx-background-color: none; -fx-border-color: white;" text="Média Idade Clientes" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+
+                <Button fx:id="btnPercentagemDominioEmail" layoutX="949.0" layoutY="563.0" onAction="#handleBtnPercentagemDominioEmail" style="-fx-background-color: none; -fx-border-color: white;" text="Domínio Email + Usado (%)" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+
+                <Button fx:id="btnclientesregist" layoutX="1070.0" layoutY="517.0" onAction="#handleBtnTotalClientes" style="-fx-background-color: none; -fx-border-color: white;" text="Nª Clientes" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+
+                <Button fx:id="btnleilaosemlance" layoutX="916.0" layoutY="517.0" onAction="#handleBtnLeiloesSemLances" style="-fx-background-color: none; -fx-border-color: white;" text="Leilões S/lance" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+
+                <Button fx:id="btnmediatempolance" layoutX="726.0" layoutY="517.0" onAction="#handleBtnMediaTempoPrimeiroLance" style="-fx-background-color: none; -fx-border-color: white;" text="Media tempo 1 lance" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+
+
             </children>
         </Pane>
     </children>
