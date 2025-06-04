@@ -15,6 +15,7 @@ public class Leilao {
     private BigDecimal multiploLance;
     private boolean inativo;
     private boolean vendido;
+    private int diasAtivos;
 
     public Leilao(String nome, String descricao, String tipo, Date dataInicio, Date dataFim, BigDecimal valorMinimo, BigDecimal valorMaximo, BigDecimal multiploLance, boolean inativo, boolean vendido) {
         this.nome = nome;
@@ -124,5 +125,13 @@ public class Leilao {
 
     public void setVendido(boolean vendido) {
         this.vendido = vendido;
+    }
+
+    public int getDiasAtivos() {
+        return diasAtivos;
+    }
+
+    public void setDiasAtivos(int diasAtivos) {
+        this.diasAtivos = diasAtivos;
     }
 }
