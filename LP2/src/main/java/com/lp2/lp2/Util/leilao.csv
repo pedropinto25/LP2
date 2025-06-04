@@ -10,3 +10,6 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 2,asdas,adsasd,Carta Fechada,2025-05-06,2025-05-13,11111.00,,,false
 3,asdfdas,asdasd,Online,2025-06-11,2025-06-19,11116.00,,5.00,false
 4,casa,t4,Venda Direta,2025-06-04,2025-06-12,50000.00,,,false
+5,asda,dsada,Venda Direta,2025-06-04,2025-06-11,1500,,,false
+6,yoo,yaaa,Online,2025-06-04,2025-06-05,1500.00,,100.00,false
+7,a,aaa,Online,2025-06-04,2025-06-04,1401.00,,1400.00,false
