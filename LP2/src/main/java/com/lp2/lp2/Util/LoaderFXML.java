@@ -41,8 +41,12 @@ public class LoaderFXML {
      * Esse método é utilizado para exibir a tela inicial de navegação.
      */
     public void loadMainMenu() {
-        loadView("/com/lp3_grupo5/lp2/Menus/Menu_Inicial.fxml", "Menu Principal");
+        loadView("/com/lp3_grupo5/lp2/Menus/Menu_Inicial.fxml", "Menu Manager");
     }
+
+    public void loadMenuCliente() {loadView("/com/lp3_grupo5/lp2/Menus/Menu_Cliente.fxml", "Menu Cliente");}
+
+    public void loadAprovarPontos() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/AprovePontos.fxml", "Aprovar Créditos");}
 
     public void loadCreateClient() {
         loadView("/com/lp3_grupo5/lp2/ClienteViews/AddCliente.fxml", "Criar Cliente");

@@ -57,6 +57,8 @@ public interface IUserDAO {
     List<User> getAllUClientes();
 
     boolean updatePasswordAndIncriptedCliente(int userId, String newPasswordHash, int incripted);
+
+
 }
 
 

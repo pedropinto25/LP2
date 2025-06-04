@@ -6,10 +6,6 @@ import com.lp2.lp2.Session.Session;
 import com.lp2.lp2.Model.User;
 import com.lp2.lp2.Util.GmailSender;
 import com.lp2.lp2.Util.LoaderFXML;
-import com.mailjet.client.MailjetClient;
-import com.mailjet.client.MailjetRequest;
-import com.mailjet.client.MailjetResponse;
-import com.mailjet.client.resource.Emailv31;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,9 +14,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.sql.SQLException;
 
@@ -75,9 +68,6 @@ public class AproveClienteController {
     }
 
 
-
-
-
     private ObservableList<Cliente> loadClientes() {
         try {
             return FXCollections.observableArrayList(clienteDAO.getAllClientesToAprove());
@@ -113,7 +103,7 @@ public class AproveClienteController {
     }
 
     @FXML
-    void handleBtnDelete(ActionEvent event) {
+    void handleBtnAprovar(ActionEvent event) {
         Cliente selectedCliente = clienteTableView.getSelectionModel().getSelectedItem();
 
         if (selectedCliente != null) {
@@ -121,7 +111,7 @@ public class AproveClienteController {
                 clienteDAO.AproveCliente(selectedCliente.getId());
                 clienteTableView.getItems().remove(selectedCliente);
                 mostrarMensagemSucesso("Cliente Aprovado com sucesso!");
-                sendDeactivationEmail(selectedCliente.getEmail(), selectedCliente.getNome());
+                sendActivationEmail(selectedCliente.getEmail(), selectedCliente.getNome());
             } catch (SQLException e) {
                 mostrarMensagemErro("Erro ao aprovar cliente: " + e.getMessage());
             }
@@ -130,7 +120,7 @@ public class AproveClienteController {
         }
     }
 
-    private void sendDeactivationEmail(String recipientEmail, String recipientName) {
+    private void sendActivationEmail(String recipientEmail, String recipientName) {
         // Obter o número de identificação do gestor da sessão
         User loggedUser = Session.getUser();
         String managerIdNumber = loggedUser != null ? String.valueOf(loggedUser.getId()) : "ID não disponível";
