@@ -146,7 +146,7 @@ public class LoginController {
 
             // Carrega a tela correspondente ao papel do usuário
             if ("cliente".equalsIgnoreCase(role)) {
-                loader = new FXMLLoader(getClass().getResource("/com/lp3_grupo5/lp2/Menus/Menu_Inicial.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/com/lp3_grupo5/lp2/Menus/Menu_Cliente.fxml"));
                 System.out.println(role);
             } else if ("manager".equalsIgnoreCase(role)) {
                 loader = new FXMLLoader(getClass().getResource("/com/lp3_grupo5/lp2/Menus/Menu_Inicial.fxml"));
