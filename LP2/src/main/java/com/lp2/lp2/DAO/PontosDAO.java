@@ -192,5 +192,19 @@ public class PontosDAO implements IPontosDAO {
         }
     }
 
+    public List<Integer> getClientesComPedidosPontos() throws SQLException {
+        String sql = "SELECT DISTINCT cliente_id FROM Pontos WHERE approved = 1";
+        List<Integer> clientes = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    clientes.add(rs.getInt("cliente_id"));
+                }
+            }
+        }
+        return clientes;
+    }
+
+
 
 }

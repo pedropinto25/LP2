@@ -4,6 +4,7 @@ import com.lp2.lp2.DAO.IDAO.IUserDAO;
 import com.lp2.lp2.DAO.UserDAO;
 import com.lp2.lp2.Model.User;
 import com.lp2.lp2.Service.Inatividade3Meses;
+import com.lp2.lp2.Service.SemCreditos;
 import com.lp2.lp2.Session.Session;
 import com.lp2.lp2.Util.LoaderFXML;
 import javafx.application.Platform;
@@ -50,6 +51,8 @@ public class LoginController {
     public static User loggedUser;
 
     private static boolean inatividadeVerificada = false;
+    private static boolean verificadoSemCreditos = false;
+
 
     @FXML
     public void initialize() {
@@ -58,7 +61,18 @@ public class LoginController {
             checker.inatividade3meses();
             inatividadeVerificada = true;
         }
+        // Verificação de clientes sem créditos
+        if (!verificadoSemCreditos) {
+            try {
+                SemCreditos semCreditos = new SemCreditos();
+                semCreditos.clientesSemCreditos();
+                verificadoSemCreditos = true;
+            } catch (Exception ex) {
+                ex.printStackTrace(); // loga se necessário.
+            }
+        }
     }
+
     /**
      * Método chamado quando o botão de login é clicado.
      * Realiza a autenticação do usuário com base no nome de usuário e senha fornecidos.
