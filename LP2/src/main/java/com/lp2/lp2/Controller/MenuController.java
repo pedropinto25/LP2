@@ -46,6 +46,9 @@ public class MenuController {
     private Button btnSair;
 
     @FXML
+    private Button btnApvCreditos;
+
+    @FXML
     void handleBtnAprovar(ActionEvent actionEvent) {
         Stage currentStage = (Stage) btnAprovar.getScene().getWindow();
         LoaderFXML loader = new LoaderFXML(currentStage);
@@ -139,6 +142,13 @@ public class MenuController {
         Stage currentStage = (Stage) btnEstatisticas.getScene().getWindow();
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadEstatistica();
+    }
+
+    @FXML
+    private void handleBtnApvCreditos(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) btnApvCreditos.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadAprovarPontos();
     }
 
 }

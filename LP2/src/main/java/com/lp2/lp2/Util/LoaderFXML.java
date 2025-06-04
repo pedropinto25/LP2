@@ -46,6 +46,8 @@ public class LoaderFXML {
 
     public void loadMenuCliente() {loadView("/com/lp3_grupo5/lp2/Menus/Menu_Cliente.fxml", "Menu Cliente");}
 
+    public void loadAprovarPontos() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/AprovePontos.fxml", "Aprovar Créditos");}
+
     public void loadCreateClient() {
         loadView("/com/lp3_grupo5/lp2/ClienteViews/AddCliente.fxml", "Criar Cliente");
     }

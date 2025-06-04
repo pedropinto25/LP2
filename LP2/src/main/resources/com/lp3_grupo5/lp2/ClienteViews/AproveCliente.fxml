@@ -62,7 +62,7 @@
                         <Font name="Century Gothic Bold" size="25.0" />
                     </font>
                 </Text>
-                <Button fx:id="btnDelete" layoutX="1095.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleBtnDelete" style="-fx-background-color: none; -fx-border-color: white;" text="Aprovar" textFill="WHITE">
+                <Button fx:id="btnAprovar" layoutX="1095.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleBtnAprovar" style="-fx-background-color: none; -fx-border-color: white;" text="Aprovar" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>

@@ -41,7 +41,7 @@
                         }
                     </style>
                 </Button>
-                <Label fx:id="pontosLabel" layoutX="905.0" layoutY="36.0" prefHeight="53.0" prefWidth="137.0" style="-fx-font-weight: BOLD;" text="Créditos: 0" textFill="#FFFFFF">
+                <Label fx:id="pontosLabel" layoutX="825.0" layoutY="36.0" prefHeight="53.0" prefWidth="137.0" style="-fx-font-weight: BOLD;" text="Créditos: 0" textFill="#FFFFFF">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>

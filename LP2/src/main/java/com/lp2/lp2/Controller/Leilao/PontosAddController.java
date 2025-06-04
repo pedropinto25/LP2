@@ -25,18 +25,19 @@ public class PontosAddController {
     void handleBtnAdicionar(ActionEvent event) {
         try {
             int pontos = Integer.parseInt(pontosField.getText());
-            pontosDAO.adicionarPontos(Session.getLoggedUserId(), pontos);
-            mostrarMensagemSucesso("Pontos adicionados com sucesso!");
+            pontosDAO.pedirPontos(Session.getLoggedUserId(), pontos); // <--- NOVO MÉTODO!
+            mostrarMensagemSucesso("Pedido de pontos enviado para aprovação!");
 
             // Fechar a janela
             Stage stage = (Stage) pontosField.getScene().getWindow();
             stage.close();
         } catch (SQLException e) {
-            mostrarMensagemErro("Erro ao adicionar pontos: " + e.getMessage());
+            mostrarMensagemErro("Erro ao pedir pontos: " + e.getMessage());
         } catch (NumberFormatException e) {
             mostrarMensagemErro("Quantidade de pontos inválida.");
         }
     }
+
 
     private void mostrarMensagemSucesso(String mensagem) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

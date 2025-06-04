@@ -31,7 +31,7 @@ CREATE TABLE Cliente (
     senha VARCHAR(255),
     encrypted BIT DEFAULT 0,
     approved BIT DEFAULT 0
-);
+	);
 GO
 
 -- Criar a tabela Users
@@ -41,7 +41,8 @@ CREATE TABLE Users (
     password_hash VARCHAR(255) NOT NULL,
     encrypted BIT DEFAULT 0,
     role VARCHAR(50) DEFAULT 'cliente',
-    approved BIT DEFAULT 0
+    approved BIT DEFAULT 0,
+    ultimoLogin DATETIME NULL 
 );
 GO
 
@@ -73,7 +74,8 @@ GO
 CREATE TABLE Pontos (
     id INT PRIMARY KEY IDENTITY(1,1),
     cliente_id INT NOT NULL,
-    pontos INT NOT NULL
+    pontos INT NOT NULL,
+	approved BIT DEFAULT 0
     FOREIGN KEY (cliente_id) REFERENCES Cliente(id),
     );
 GO
