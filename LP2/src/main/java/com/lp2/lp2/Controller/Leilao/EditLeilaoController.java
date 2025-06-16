@@ -56,12 +56,17 @@ public class EditLeilaoController {
 
     @FXML
     public void initialize() {
-        tipoField.getItems().addAll("Online", "Carta Fechada", "Venda Direta");
+        tipoField.getItems().addAll("Online", "Carta Fechada", "Venda Direta", "Negociação");
         tipoField.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if ("Online".equals(newValue)) {
                 multiploLanceField.setDisable(false);
                 valorMaximoField.setDisable(false);
             } else if ("Venda Direta".equals(newValue)) {
+                multiploLanceField.setDisable(true);
+                multiploLanceField.clear();
+                valorMaximoField.setDisable(true);
+                valorMaximoField.clear();
+            } else if ("Negociação".equals(newValue)) {
                 multiploLanceField.setDisable(true);
                 multiploLanceField.clear();
                 valorMaximoField.setDisable(true);
@@ -134,13 +139,18 @@ public class EditLeilaoController {
                     leilao.setNome(nomeField.getText());
                     leilao.setDescricao(descricaoField.getText());
                     leilao.setTipo(tipoField.getValue());
-                    leilao.setDataInicio(Date.valueOf(dataInicioField.getValue()));
+                    if ("Negociação".equals(tipoField.getValue())) {
+                        leilao.setDataInicio(new Date(System.currentTimeMillis()));
+                        leilao.setDataFim(null);
+                    } else {
 
                     // Verificar se a data de fim foi definida
-                    if (dataFimField.getValue() != null) {
-                        leilao.setDataFim(Date.valueOf(dataFimField.getValue()));
-                    } else {
-                        leilao.setDataFim(null); // Data de fim indefinida
+                        leilao.setDataInicio(Date.valueOf(dataInicioField.getValue()));
+                        if (dataFimField.getValue() != null) {
+                            leilao.setDataFim(Date.valueOf(dataFimField.getValue()));
+                        } else {
+                            leilao.setDataFim(null); // Data de fim indefinida
+                        }
                     }
 
                     // Verificar se o valor mínimo foi definido

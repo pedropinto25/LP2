@@ -136,7 +136,18 @@ INSERT INTO Categoria (nome) VALUES
 ('Têxteis'),
 ('Imóveis');
 GO
-
+-- Tabela para propostas de negociação
+CREATE TABLE NegociacaoProposta (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    leilao_id INT NOT NULL,
+    cliente_id INT NOT NULL,
+    valor DECIMAL(10,2),
+    estado VARCHAR(20),
+    data TIMESTAMP,
+    FOREIGN KEY (leilao_id) REFERENCES Leilao(id),
+    FOREIGN KEY (cliente_id) REFERENCES Cliente(id)
+);
+GO
 -- Criar o trigger para popular a tabela Users
 CREATE TRIGGER trg_InsertUsers
 ON Cliente

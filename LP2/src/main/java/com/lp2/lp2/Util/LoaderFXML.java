@@ -81,6 +81,8 @@ public class LoaderFXML {
     public void loadRaiting() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/RatingDialog.fxml", "Avaliação do Raiting");}
 
     public void loadCategorias() {loadView("/com/lp3_grupo5/lp2/CategoriaViews/ManageCategorias.fxm.fxml", "Categorias");}
+    public void loadnegoGestor() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/NegociacaoGestor.fxml", "Categorias");}
+    public void loadnegoCliente() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/NegociacaoCliente.fxml", "Categorias");}
 /** ************************************************************************************************************************************************************************ */
     /**
      * Carrega e exibe uma tela específica (view) definida pelo caminho do arquivo FXML.

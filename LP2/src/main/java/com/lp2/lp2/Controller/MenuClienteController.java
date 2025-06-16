@@ -47,5 +47,10 @@ public class MenuClienteController {
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadLogin();
     }
-
+    @FXML
+    private void handleBtnNegociar(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) btnParticipate.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadnegoCliente();
+    }
 }

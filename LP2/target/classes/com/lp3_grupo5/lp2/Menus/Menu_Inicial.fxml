@@ -13,7 +13,7 @@
          </font></Text>
         <Button fx:id="btnLeilao" layoutX="91.0" layoutY="141.0" onAction="#handleBtnLeilao" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Leilão" textFill="WHITE" />
         <Button fx:id="btnCliente" layoutX="876.0" layoutY="141.0" onAction="#handleBtnCliente" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Criar Cliente" textFill="WHITE" />
-        <Button fx:id="btnLance" layoutX="1075.0" layoutY="644.0" onAction="#handleBtnLance" prefHeight="47.0" prefWidth="90.0" style="-fx-background-color: none; -fx-border-color: white;" text="só estou aqui" textFill="WHITE" />
+        <Button fx:id="btnNegociar" layoutX="1075.0" layoutY="644.0" onAction="#handleBtnNegoc" prefHeight="47.0" prefWidth="90.0" style="-fx-background-color: none; -fx-border-color: white;" text="só estou aqui" textFill="WHITE" />
         <Button fx:id="btnSair" layoutX="514.0" layoutY="594.0" onAction="#handleBtnSair" prefHeight="69.0" prefWidth="139.0" style="-fx-background-color: none; -fx-border-color: white;" text="Sair" textFill="WHITE">
          <font>
             <Font size="26.0" />
