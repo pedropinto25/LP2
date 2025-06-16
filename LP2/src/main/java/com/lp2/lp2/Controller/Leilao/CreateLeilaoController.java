@@ -8,10 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-
+import com.lp2.lp2.DAO.CategoriaDAO;
+import com.lp2.lp2.Model.Categoria;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CreateLeilaoController {
     @FXML
@@ -31,17 +33,27 @@ public class CreateLeilaoController {
     @FXML
     private TextField multiploLanceField;
     @FXML
+    private ListView<Categoria> categoriaList;
+    @FXML
     private Button btnBack;
 
     private LeilaoDAO leilaoDAO;
+    private CategoriaDAO categoriaDAO;
 
     public CreateLeilaoController() throws SQLException {
         leilaoDAO = new LeilaoDAO();
+        categoriaDAO = new CategoriaDAO();
     }
 
     @FXML
     public void initialize() {
         tipoField.getItems().addAll("Online", "Carta Fechada", "Venda Direta");
+        try {
+                categoriaList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+                    categoriaList.getItems().addAll(categoriaDAO.getAllCategorias());
+               } catch (SQLException e) {
+                  System.err.println("Erro ao carregar categorias: " + e.getMessage());
+               }
         tipoField.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if ("Online".equals(newValue)) {
                 multiploLanceField.setDisable(false);
@@ -117,6 +129,8 @@ public class CreateLeilaoController {
             } else {
                 leilao.setMultiploLance(null); // Definir como null para outros tipos de leilão
             }
+
+            leilao.setCategorias(new ArrayList<>(categoriaList.getSelectionModel().getSelectedItems()));
 
             leilao.setInativo(false); // Definir como ativo por padrão
             leilao.setVendido(false); // define o leilão como não vendido!

@@ -108,6 +108,35 @@ CREATE TABLE LeilaoClassificacao (
 );
 GO
 
+-- Criar tabela de categorias
+CREATE TABLE Categoria (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nome VARCHAR(255) NOT NULL UNIQUE
+);
+GO
+
+-- Tabela de associacao entre leiloes e categorias
+CREATE TABLE LeilaoCategoria (
+    leilao_id INT NOT NULL,
+    categoria_id INT NOT NULL,
+    PRIMARY KEY (leilao_id, categoria_id),
+    FOREIGN KEY (leilao_id) REFERENCES Leilao(id) ,
+    FOREIGN KEY (categoria_id) REFERENCES Categoria(id) 
+);
+GO
+
+-- Categorias base
+INSERT INTO Categoria (nome) VALUES
+('Arte'),
+('Antiguidade'),
+('Mobiliário'),
+('Ourivesaria'),
+('Relojoaria'),
+('Veículos'),
+('Têxteis'),
+('Imóveis');
+GO
+
 -- Criar o trigger para popular a tabela Users
 CREATE TRIGGER trg_InsertUsers
 ON Cliente

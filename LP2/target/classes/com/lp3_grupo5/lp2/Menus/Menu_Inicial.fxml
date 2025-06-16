@@ -22,11 +22,12 @@
       <Button fx:id="btnListCliente" layoutX="876.0" layoutY="433.0" onAction="#handleBtnListCliente" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Listar e Desativar Cliente" textFill="WHITE" />
       <Button fx:id="btnListLeilao" layoutX="91.0" layoutY="433.0" onAction="#handleBtnListLeilao" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Listar e Desativar Leilão" textFill="WHITE" />
       <Button fx:id="btnEditLeilao" layoutX="91.0" layoutY="286.0" onAction="#handleBtnEditLeilao" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Editar Leilão" textFill="WHITE" />
-      <Button fx:id="btnParticipate" layoutX="484.0" layoutY="141.0" onAction="#handleBtnParticipate" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Participar Leilão" textFill="WHITE" />
+      <Button fx:id="btnParticipate" layoutX="374.0" layoutY="141.0" onAction="#handleBtnParticipate" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Participar Leilão" textFill="WHITE" />
       <Button fx:id="btnAprovar" layoutX="374.0" layoutY="286.0" onAction="#handleBtnAprovar" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Aprovar Clientes" textFill="WHITE" />
       <Button fx:id="btnEnunciado" layoutY="644.0" onAction="#handleBtnEnunciado" prefHeight="47.0" prefWidth="90.0" style="-fx-background-color: none; -fx-border-color: white;" text="Enunciado" textFill="WHITE" />
       <Button fx:id="btnEstatisticas" layoutX="374.0" layoutY="433.0" onAction="#handleBtnEstatisticas" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Estatísticas" textFill="WHITE" />
       <Button fx:id="btnApvCreditos" layoutX="615.0" layoutY="286.0" onAction="#handleBtnApvCreditos" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Aprovar Créditos" textFill="WHITE" />
         <Button fx:id="btnImport" layoutX="624.0" layoutY="433.0" onAction="#handleBtnImport" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Importar CSV" textFill="WHITE" />
+      <Button fx:id="btnCat" layoutX="615.0" layoutY="141.0" onAction="#handleBtnCat" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Categorias" textFill="WHITE" />
     </children>
 </Pane>

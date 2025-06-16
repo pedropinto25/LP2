@@ -2,6 +2,7 @@ package com.lp2.lp2.Model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Leilao {
     private int id;
@@ -16,6 +17,7 @@ public class Leilao {
     private boolean inativo;
     private boolean vendido;
     private int diasAtivos;
+    private List<Categoria> categorias;
 
     public Leilao(String nome, String descricao, String tipo, Date dataInicio, Date dataFim, BigDecimal valorMinimo, BigDecimal valorMaximo, BigDecimal multiploLance, boolean inativo, boolean vendido) {
         this.nome = nome;
@@ -138,5 +140,12 @@ public class Leilao {
 
     public void setDiasAtivos(int diasAtivos) {
         this.diasAtivos = diasAtivos;
+    }
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
     }
 }

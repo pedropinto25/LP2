@@ -125,6 +125,13 @@ public class MenuController {
     }
 
     @FXML
+    private void handleBtnCat(ActionEvent actionEvent){
+        Stage currentStage = (Stage) btnParticipate.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadCategorias();
+    }
+
+    @FXML
     private void handleBtnSair(ActionEvent actionEvent){
         Stage currentStage = (Stage) btnSair.getScene().getWindow();
         LoaderFXML loader = new LoaderFXML(currentStage);

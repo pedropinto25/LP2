@@ -1,8 +1,10 @@
 package com.lp2.lp2.Controller.Leilao;
 
 import com.lp2.lp2.DAO.LeilaoDAO;
+import com.lp2.lp2.Model.Categoria;
 import com.lp2.lp2.Model.Leilao;
 import com.lp2.lp2.Util.LoaderFXML;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class ReadDeleteLeilaoController {
 
@@ -39,6 +42,8 @@ public class ReadDeleteLeilaoController {
     private TableColumn<Leilao, String> valorMaximoColumn;
     @FXML
     private TableColumn<Leilao, String> multiploLanceColumn;
+    @FXML
+    private TableColumn<Leilao, String> categoriasColumn;
     @FXML
     private TableColumn<Leilao, Boolean> inativoColumn;
     @FXML
@@ -71,6 +76,11 @@ public class ReadDeleteLeilaoController {
         multiploLanceColumn.setCellValueFactory(new PropertyValueFactory<>("multiploLance"));
         inativoColumn.setCellValueFactory(new PropertyValueFactory<>("inativo"));
         vendidoColumn.setCellValueFactory(new PropertyValueFactory<>("vendido"));
+        categoriasColumn.setCellValueFactory(cellData -> {
+            List<Categoria> categorias = cellData.getValue().getCategorias();
+            String nome = (!categorias.isEmpty()) ? categorias.get(0).getNome() : "";
+            return new SimpleStringProperty(nome);
+        });
 
         leilaoTableView.setItems(loadLeiloes());
     }

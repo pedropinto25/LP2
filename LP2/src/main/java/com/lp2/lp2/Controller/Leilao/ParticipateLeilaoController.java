@@ -4,6 +4,7 @@ import com.lp2.lp2.DAO.ClienteDAO;
 import com.lp2.lp2.DAO.LeilaoDAO;
 import com.lp2.lp2.DAO.LeilaoParticipacaoDAO;
 import com.lp2.lp2.DAO.PontosDAO;
+import com.lp2.lp2.Model.Categoria;
 import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.Model.Leilao;
 import com.lp2.lp2.Model.LeilaoParticipacao;
@@ -11,6 +12,7 @@ import com.lp2.lp2.Session.Session;
 import com.lp2.lp2.Util.GmailSender;
 import com.lp2.lp2.Util.LoaderFXML;
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -58,6 +60,8 @@ public class ParticipateLeilaoController {
     @FXML
     private TableColumn<Leilao, Boolean> inativoColumn;
     @FXML
+    private TableColumn<Leilao, String> categoriasColumn;
+    @FXML
     private TableColumn<Leilao, Boolean> vendidoColumn;
 
     @FXML
@@ -103,6 +107,14 @@ public class ParticipateLeilaoController {
         multiploLanceColumn.setCellValueFactory(new PropertyValueFactory<>("multiploLance"));
         inativoColumn.setCellValueFactory(new PropertyValueFactory<>("inativo"));
         vendidoColumn.setCellValueFactory(new PropertyValueFactory<>("vendido"));
+        categoriasColumn.setCellValueFactory(cellData -> {
+            List<Categoria> categorias = cellData.getValue().getCategorias();
+            String nome = (!categorias.isEmpty()) ? categorias.get(0).getNome() : "";
+            return new SimpleStringProperty(nome);
+        });
+
+
+
         leilaoTableView.setItems(loadLeiloes());
 
         // Verificar leilões com data final

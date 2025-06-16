@@ -80,6 +80,7 @@ public class LoaderFXML {
     public void loadImportador() {loadView("/com/lp3_grupo5/lp2/Impotador/importador.fxml", "Importar CSV");}
     public void loadRaiting() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/RatingDialog.fxml", "Avaliação do Raiting");}
 
+    public void loadCategorias() {loadView("/com/lp3_grupo5/lp2/CategoriaViews/ManageCategorias.fxm.fxml", "Categorias");}
 /** ************************************************************************************************************************************************************************ */
     /**
      * Carrega e exibe uma tela específica (view) definida pelo caminho do arquivo FXML.

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.Pane?>
+<Pane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Categoria.CategoriaController">
+    <children>
+        <TableView fx:id="categoriaTable" layoutX="25" layoutY="14" prefHeight="250" prefWidth="550">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="75" text="ID" />
+                <TableColumn fx:id="nomeColumn" prefWidth="450" text="Nome" />
+            </columns>
+        </TableView>
+        <TextField fx:id="nomeField" layoutX="25" layoutY="281" prefWidth="400" promptText="Nome da categoria" />
+        <Button fx:id="btnAdd" layoutX="435" layoutY="280" text="Adicionar" onAction="#handleAdd" />
+        <Button fx:id="btnDelete" layoutX="435" layoutY="320" text="Eliminar" onAction="#handleDelete" />
+    </children>
+</Pane>

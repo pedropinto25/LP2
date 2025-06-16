@@ -1,6 +1,7 @@
 package com.lp2.lp2.DAO;
 
 import com.lp2.lp2.DAO.IDAO.ILeilaoDAO;
+import com.lp2.lp2.Model.Categoria;
 import com.lp2.lp2.Model.Leilao;
 import com.lp2.lp2.Infrastucture.Connection.DBConnection;
 import com.lp2.lp2.Util.CsvService;
@@ -16,6 +17,45 @@ public class LeilaoDAO implements ILeilaoDAO {
 
     public LeilaoDAO() throws SQLException {
         connection = DBConnection.getConnection();
+    }
+
+
+    private List<Categoria> getCategoriasByLeilaoId(int leilaoId) throws SQLException {
+        List<Categoria> list = new ArrayList<>();
+        String sql = "SELECT c.id, c.nome FROM Categoria c JOIN LeilaoCategoria lc ON c.id = lc.categoria_id WHERE lc.leilao_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, leilaoId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Categoria c = new Categoria();
+                    c.setId(rs.getInt("id"));
+                    c.setNome(rs.getString("nome"));
+                    list.add(c);
+                }
+            }
+        }
+        return list;
+    }
+
+    private void insertLeilaoCategorias(int leilaoId, List<Categoria> categorias) throws SQLException {
+        if (categorias == null) return;
+        String sql = "INSERT INTO LeilaoCategoria (leilao_id, categoria_id) VALUES (?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            for (Categoria c : categorias) {
+                stmt.setInt(1, leilaoId);
+                stmt.setInt(2, c.getId());
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+        }
+    }
+
+    private void deleteLeilaoCategorias(int leilaoId) throws SQLException {
+        String sql = "DELETE FROM LeilaoCategoria WHERE leilao_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, leilaoId);
+            stmt.executeUpdate();
+        }
     }
 
     @Override
@@ -43,7 +83,7 @@ public class LeilaoDAO implements ILeilaoDAO {
                 if (generatedKeys.next()) {
                     int generatedId = generatedKeys.getInt(1);
                     leilao.setId(generatedId); // Define o ID no objeto Leilao
-
+                    insertLeilaoCategorias(generatedId, leilao.getCategorias());
                     // Salvar no CSV
                     try {
                         CsvService csvService = new CsvService();
@@ -84,6 +124,9 @@ public class LeilaoDAO implements ILeilaoDAO {
             stmt.executeUpdate();
         }
 
+        deleteLeilaoCategorias(leilao.getId());
+        insertLeilaoCategorias(leilao.getId(), leilao.getCategorias());
+
         // Atualizar no CSV
         try {
             CsvService csvService = new CsvService();
@@ -95,6 +138,7 @@ public class LeilaoDAO implements ILeilaoDAO {
 
     @Override
     public void deleteLeilao(int id) throws SQLException {
+        deleteLeilaoCategorias(id);
         String sql = "DELETE FROM Leilao WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -121,6 +165,7 @@ public class LeilaoDAO implements ILeilaoDAO {
                     leilao.setMultiploLance(rs.getBigDecimal("multiploLance"));
                     leilao.setInativo(rs.getBoolean("inativo"));
                     leilao.setVendido(rs.getBoolean("vendido"));
+                    leilao.setCategorias(getCategoriasByLeilaoId(id));
                     return leilao;
                 }
             }
@@ -147,11 +192,34 @@ public class LeilaoDAO implements ILeilaoDAO {
                 leilao.setMultiploLance(rs.getBigDecimal("multiploLance"));
                 leilao.setInativo(rs.getBoolean("inativo"));
                 leilao.setVendido(rs.getBoolean("vendido"));
+                leilao.setCategorias(getCategoriasByLeilaoId(leilao.getId()));
                 leiloes.add(leilao);
             }
         }
         return leiloes;
     }
+@Override
+public List<Categoria> getCategoriasByLeilaoId1(int leilaoId) throws SQLException {
+        List<Categoria> categorias = new ArrayList<>();
+        String sql = "SELECT c.id, c.nome " +
+                "FROM Categoria c " +
+                "JOIN LeilaoCategoria lc ON c.id = lc.categoria_id " +
+                "WHERE lc.leilao_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, leilaoId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Categoria categoria = new Categoria();
+                    categoria.setId(rs.getInt("id"));
+                    categoria.setNome(rs.getString("nome"));
+                    categorias.add(categoria); // mesmo que seja só uma, mantemos como lista
+                }
+            }
+        }
+        return categorias;
+    }
+
 
     public void desativarLeilao(int id) throws SQLException {
         String sql = "UPDATE Leilao SET inativo = 1 WHERE id = ?";
