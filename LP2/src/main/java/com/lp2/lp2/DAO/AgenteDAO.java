@@ -119,4 +119,18 @@ public class AgenteDAO implements IAgenteDAO {
         a.setAtivo(rs.getBoolean("ativo"));
         return a;
     }
+
+    public List<Integer> getLeiloesComAgentes() throws SQLException {
+        List<Integer> leiloes = new ArrayList<>();
+        String sql = "SELECT  leilaoId FROM Agente where ativo = 1";
+        try (var conn = com.lp2.lp2.Infrastucture.Connection.DBConnection.getConnection();
+             var stmt = conn.prepareStatement(sql);
+             var rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                leiloes.add(rs.getInt("leilaoId"));
+            }
+        }
+        return leiloes;
+    }
+
 }

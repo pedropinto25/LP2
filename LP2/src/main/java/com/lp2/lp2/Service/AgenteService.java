@@ -32,10 +32,20 @@ public class AgenteService {
         emailService = new EmailNotificationService();
     }
 
-    public void processarLances(int leilaoId) {
+    public void processarTodasAutomacoes() {
+        processarTodasAutomacoesSequencial();
+    }
+
+    public void processarTodasAutomacoesSequencial() {
         new Thread(() -> {
             try {
-                executar(leilaoId);
+                List<Integer> leiloesComAgentes = agenteDAO.getLeiloesComAgentes();
+                for (Integer leilaoId : leiloesComAgentes) {
+                    System.out.println("Processando leilão ID: " + leilaoId);
+                    executar(leilaoId); // processo normal de automação
+                    desativarAgentesDoLeilao(leilaoId); // marca como desativado
+                    Thread.sleep(15000); // espera 15 segundos entre leilões
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -91,5 +101,14 @@ public class AgenteService {
         }
         Leilao leilao = leilaoDAO.getLeilaoById(leilaoId);
         return leilao.getValorMinimo() != null ? leilao.getValorMinimo() : BigDecimal.ZERO;
+    }
+
+    public void desativarAgentesDoLeilao(int leilaoId) throws SQLException {
+        String sql = "UPDATE Agente SET ativo = 0 WHERE leilaoId = ?";
+        try (var conn = com.lp2.lp2.Infrastucture.Connection.DBConnection.getConnection();
+             var stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, leilaoId);
+            stmt.executeUpdate();
+        }
     }
 }

@@ -68,6 +68,7 @@ public class Main extends Application {
         encryptionService.encryptPasswords();
         encryptionService.encryptPasswordsCliente();
         //agenteService.processarLances(lance.getLeilaoId());
+        agenteService.processarTodasAutomacoes();
 
         launch(args);
     }

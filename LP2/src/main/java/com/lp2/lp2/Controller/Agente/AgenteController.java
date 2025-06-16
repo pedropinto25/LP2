@@ -43,9 +43,9 @@ public class AgenteController {
             agente.setLimite(new BigDecimal(limiteField.getText()));
             agente.setAtivo(true);
             agenteDAO.addAgente(agente);
-            showAlert("Agente registrado com sucesso!");
+            showAlert("Agente registado com sucesso!");
         } catch (Exception e) {
-            showAlert("Erro ao registrar agente: " + e.getMessage());
+            showAlert("Erro ao registar agente: " + e.getMessage());
         }
     }
 
