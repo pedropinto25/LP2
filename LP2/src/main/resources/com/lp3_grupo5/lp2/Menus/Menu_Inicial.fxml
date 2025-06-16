@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="691.0" prefWidth="1166.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.MenuController">
+<Pane prefHeight="691.0" prefWidth="1166.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.MenuController">
     <children>
         <Text fill="WHITE" layoutX="260.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leilões Perfeitos 2 - LP2" textAlignment="CENTER" wrappingWidth="648.0">
          <font>
@@ -27,5 +27,6 @@
       <Button fx:id="btnEnunciado" layoutY="644.0" onAction="#handleBtnEnunciado" prefHeight="47.0" prefWidth="90.0" style="-fx-background-color: none; -fx-border-color: white;" text="Enunciado" textFill="WHITE" />
       <Button fx:id="btnEstatisticas" layoutX="374.0" layoutY="433.0" onAction="#handleBtnEstatisticas" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Estatísticas" textFill="WHITE" />
       <Button fx:id="btnApvCreditos" layoutX="615.0" layoutY="286.0" onAction="#handleBtnApvCreditos" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Aprovar Créditos" textFill="WHITE" />
+        <Button fx:id="btnImport" layoutX="624.0" layoutY="433.0" onAction="#handleBtnImport" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Importar CSV" textFill="WHITE" />
     </children>
 </Pane>

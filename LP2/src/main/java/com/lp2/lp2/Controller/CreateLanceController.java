@@ -46,7 +46,7 @@ public class CreateLanceController {
             lance.setDataHora(Timestamp.valueOf(dataHoraField.getValue().atStartOfDay()));
             lance.setClienteId(Integer.parseInt(clienteIdField.getText()));
             lance.setLeilaoId(Integer.parseInt(leilaoIdField.getText()));
-            agenteService.processarLances(lance.getLeilaoId());
+            //agenteService.processarLances(lance.getLeilaoId());
             lanceDAO.addLance(lance);
             mostrarMensagemSucesso("Lance adicionado com sucesso!");
         } catch (Exception e) {

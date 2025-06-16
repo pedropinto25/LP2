@@ -11,4 +11,6 @@ public interface ILeilaoDAO {
     void deleteLeilao(int id) throws SQLException;
     Leilao getLeilaoById(int id) throws SQLException;
     List<Leilao> getAllLeiloes() throws SQLException;
+
+    void inserirLeiloes(List<Leilao> leiloes) throws SQLException;
 }

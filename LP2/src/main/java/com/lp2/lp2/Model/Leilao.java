@@ -79,9 +79,14 @@ public class Leilao {
         this.dataInicio = dataInicio;
     }
 
-    public java.sql.Date getDataFim() {
+    /*public java.sql.Date getDataFim() {
         return (java.sql.Date) dataFim;
+    }*/
+    public java.sql.Date getDataFim() {
+        if (dataFim == null) return null;
+        return new java.sql.Date(dataFim.getTime());
     }
+
 
     public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;

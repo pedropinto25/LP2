@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.lp2.lp2.Controller.Importador.ImportadorController" prefWidth="500" prefHeight="300">
+    <VBox alignment="CENTER" spacing="15" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20"
+          AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+        <Label text="Importador de Dados CSV" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+        <!-- Seleção de ficheiro clientes -->
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Selecionar Clientes CSV" onAction="#selecionarFicheiroClientes"/>
+            <TextField fx:id="txtFicheiroClientes" promptText="Nenhum ficheiro selecionado" editable="false" prefWidth="250"/>
+        </HBox>
+        <Button fx:id="btnImportarClientes" text="Importar Clientes" onAction="#importarClientes" minWidth="200"/>
+
+        <!-- Seleção de ficheiro leilões -->
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Selecionar Leilões CSV" onAction="#selecionarFicheiroLeiloes"/>
+            <TextField fx:id="txtFicheiroLeiloes" promptText="Nenhum ficheiro selecionado" editable="false" prefWidth="250"/>
+        </HBox>
+        <Button fx:id="btnImportarLeiloes" text="Importar Leilões" onAction="#importarLeiloes" minWidth="200"/>
+
+    </VBox>
+</AnchorPane>

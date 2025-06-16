@@ -30,4 +30,6 @@ module com.lp2.lp2 {
     opens com.lp2.lp2.Controller.Login to javafx.fxml;
     exports com.lp2.lp2.Controller.Agente to javafx.fxml;
     opens com.lp2.lp2.Controller.Agente to javafx.fxml;
+    exports com.lp2.lp2.Controller.Importador to javafx.fxml;
+    opens com.lp2.lp2.Controller.Importador to javafx.fxml;
 }

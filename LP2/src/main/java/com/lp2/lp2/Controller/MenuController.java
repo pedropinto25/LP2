@@ -150,5 +150,10 @@ public class MenuController {
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadAprovarPontos();
     }
-
+ @FXML
+    private void handleBtnImport (ActionEvent actionEvent) {
+     Stage currentStage = (Stage) btnApvCreditos.getScene().getWindow();
+     LoaderFXML loader = new LoaderFXML(currentStage);
+     loader.loadImportador();
+ }
 }

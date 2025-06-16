@@ -66,8 +66,11 @@ public class LeilaoDAO implements ILeilaoDAO {
             stmt.setString(1, leilao.getNome());
             stmt.setString(2, leilao.getDescricao());
             stmt.setString(3, leilao.getTipo());
-            stmt.setDate(4, leilao.getDataInicio());
-            stmt.setDate(5, leilao.getDataFim());
+            //stmt.setDate(4, leilao.getDataInicio());
+            //stmt.setDate(5, leilao.getDataFim());
+            stmt.setDate(4, new java.sql.Date(leilao.getDataInicio().getTime()));
+            stmt.setDate(5, new java.sql.Date(leilao.getDataFim().getTime()));
+
             stmt.setBigDecimal(6, leilao.getValorMinimo());
             stmt.setBigDecimal(7, leilao.getValorMaximo());
             if (leilao.getMultiploLance() != null) {
@@ -155,6 +158,26 @@ public class LeilaoDAO implements ILeilaoDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
+        }
+    }
+
+    @Override
+    public void inserirLeiloes(List<Leilao> leiloes) throws SQLException {
+        String sql = "INSERT INTO Leilao (nome, descricao, tipo, dataInicio, dataFim, valorMinimo, valorMaximo, multiploLance) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            for (Leilao l : leiloes) {
+                stmt.setString(1, l.getNome());
+                stmt.setString(2, l.getDescricao());
+                stmt.setString(3, l.getTipo());
+                stmt.setDate(4, l.getDataInicio());
+                stmt.setDate(5, l.getDataFim());
+                stmt.setBigDecimal(6, l.getValorMinimo());
+                stmt.setBigDecimal(7, l.getValorMaximo());
+                stmt.setBigDecimal(8, l.getMultiploLance());
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
         }
     }
 }
