@@ -28,6 +28,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import com.lp2.lp2.Service.EmailNotificationService;
+import com.lp2.lp2.DAO.LeilaoClassificacaoDAO;
 
 
 
@@ -76,6 +77,7 @@ public class ParticipateLeilaoController {
     private LeilaoParticipacaoDAO leilaoParticipacaoDAO;
     private PontosDAO pontosDAO;
     private ClienteDAO clienteDAO;
+    private LeilaoClassificacaoDAO leilaoClassificacaoDAO;
     private static final Dotenv dotenv = Dotenv.load();
 
     private EmailNotificationService emailNotificationService;
@@ -85,6 +87,7 @@ public class ParticipateLeilaoController {
         leilaoParticipacaoDAO = new LeilaoParticipacaoDAO();
         pontosDAO = new PontosDAO();
         emailNotificationService = new EmailNotificationService();
+        leilaoClassificacaoDAO = new LeilaoClassificacaoDAO();
     }
 
     @FXML
@@ -202,6 +205,9 @@ public class ParticipateLeilaoController {
                     selectedLeilao.setValorMinimo(valorLance);
                     leilaoDAO.updateLeilao(selectedLeilao);
                     leilaoParticipacaoDAO.addParticipacao(participacao);
+                    if (!leilaoClassificacaoDAO.existsByClienteLeilao(clienteId, selectedLeilao.getId())) {
+                        showRatingDialog(selectedLeilao.getId());
+                    }
 
                     // Tira créditos no valor do múltiplo de lance
                     pontosDAO.removerPontos(clienteId, multiploLance.intValue());
@@ -227,6 +233,10 @@ public class ParticipateLeilaoController {
                     }
 
                     leilaoParticipacaoDAO.addParticipacao(participacao);
+                    if (!leilaoClassificacaoDAO.existsByClienteLeilao(clienteId, selectedLeilao.getId())) {
+                        showRatingDialog(selectedLeilao.getId());
+                    }
+
 
                 } else if ("Venda Direta".equals(selectedLeilao.getTipo())) {
                     BigDecimal valorLance = new BigDecimal(valorLanceField.getText());
@@ -245,6 +255,9 @@ public class ParticipateLeilaoController {
                     selectedLeilao.setVendido(true);
                     leilaoDAO.updateLeilao(selectedLeilao);
                     leilaoParticipacaoDAO.addParticipacao(participacao);
+                    if (!leilaoClassificacaoDAO.existsByClienteLeilao(clienteId, selectedLeilao.getId())) {
+                        showRatingDialog(selectedLeilao.getId());
+                    }
                     mostrarMensagemSucesso("Leilão vendido pelo valor mínimo!");
                     String email = getEmailByUserId(clienteId);
                     String nome = getUserNameById(clienteId);
@@ -405,5 +418,17 @@ public class ParticipateLeilaoController {
         Cliente cliente = clienteDAO.getClienteById(id);
         return cliente != null ? cliente.getNome() : "Nome não disponível";
     }
-
+    private void showRatingDialog(int leilaoId) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Classificação");
+        alert.setHeaderText(null);
+        alert.setContentText("Por favor classifique o leilão ID: " + leilaoId);
+        alert.showAndWait();
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadRaiting();
+    }
+    private Stage getStage() {
+        return (Stage) btnBack.getScene().getWindow();
+    }
 }

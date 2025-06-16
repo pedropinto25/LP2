@@ -13,3 +13,5 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 5,asda,dsada,Venda Direta,2025-06-04,2025-06-11,1500.00,,,true
 6,yoo,yaaa,Online,2025-06-04,2025-06-05,1500.00,,100.00,false
 7,a,aaa,Online,2025-06-04,2025-06-04,1401.00,,1400.00,false
+28,teste rating,teste,Venda Direta,2025-06-16,2025-06-19,1.00,,,false
+29,teste22,teste33,Online,2025-06-16,2025-06-18,3.00,,1.00,false

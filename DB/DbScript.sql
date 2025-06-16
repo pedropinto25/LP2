@@ -94,6 +94,19 @@ CREATE TABLE Agente (
 );
 GO
 
+-- Criar tabela para classificacao de leiloes
+CREATE TABLE LeilaoClassificacao (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    classificacao INT CHECK (classificacao BETWEEN 1 AND 5),
+    comentario TEXT NULL,
+    data_classificacao DATE,
+    cliente_id INT NOT NULL,
+    leilao_id INT NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES Cliente(id),
+    FOREIGN KEY (leilao_id) REFERENCES Leilao(id),
+    CONSTRAINT UC_LeilaoClassificacao UNIQUE (cliente_id, leilao_id)
+);
+GO
 
 -- Criar o trigger para popular a tabela Users
 CREATE TRIGGER trg_InsertUsers
