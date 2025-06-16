@@ -38,6 +38,17 @@ public class EmailNotificationService {
 
         GmailSender.sendEmail(destinatarioEmail, subject, htmlBody);
     }
+    public void enviarEmailNovaProposta(String email, String nome, int leilaoId) {
+        String subject = "Nova proposta de negociação";
+        String body = "Olá " + nome + ",\n\nRecebemos uma nova proposta para o leilão " + leilaoId + ".";
+        GmailSender.sendEmail(email, subject, body);
+    }
+
+    public void enviarEmailRespostaProposta(String email, String estado, int leilaoId) {
+        String subject = "Resposta à sua proposta";
+        String body = "A sua proposta no leilão " + leilaoId + " foi " + estado + ".";
+        GmailSender.sendEmail(email, subject, body);
+    }
 
     public void enviarEmailAprovacaoPontos(String destinatarioEmail, String nomeCliente, int pontosAprovados) {
         String subject = "Seus créditos foram aprovados!";

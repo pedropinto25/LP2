@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #18191A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Agente.AgenteController">
+    <children>
+        <Label layoutX="200.0" layoutY="30.0" text="Configurar Agente" textFill="WHITE">
+            <font><Font size="24.0"/></font>
+        </Label>
+        <TextField fx:id="leilaoIdField" layoutX="200.0" layoutY="100.0" prefWidth="200.0" promptText="ID do Leilão" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width:0 0 1 0; -fx-text-fill: WHITE;" />
+        <TextField fx:id="incrementoField" layoutX="200.0" layoutY="150.0" prefWidth="200.0" promptText="Incremento" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width:0 0 1 0; -fx-text-fill: WHITE;" />
+        <TextField fx:id="limiteField" layoutX="200.0" layoutY="200.0" prefWidth="200.0" promptText="Limite" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width:0 0 1 0; -fx-text-fill: WHITE;" />
+        <Button fx:id="btnRegistrar" layoutX="260.0" layoutY="260.0" text="Registrar" onAction="#handleRegistrar" style="-fx-background-color: none; -fx-border-color: white;" textFill="WHITE" />
+        <Button fx:id="btnBack" layoutX="20.0" layoutY="20.0" text="Voltar" onAction="#handleBtnBack" style="-fx-background-color: none; -fx-border-color: white;" textFill="WHITE" />
+    </children>
+</AnchorPane>

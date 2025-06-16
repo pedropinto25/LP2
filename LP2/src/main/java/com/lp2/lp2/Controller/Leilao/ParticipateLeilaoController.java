@@ -4,6 +4,7 @@ import com.lp2.lp2.DAO.ClienteDAO;
 import com.lp2.lp2.DAO.LeilaoDAO;
 import com.lp2.lp2.DAO.LeilaoParticipacaoDAO;
 import com.lp2.lp2.DAO.PontosDAO;
+import com.lp2.lp2.Model.Categoria;
 import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.Model.Leilao;
 import com.lp2.lp2.Model.LeilaoParticipacao;
@@ -11,6 +12,7 @@ import com.lp2.lp2.Session.Session;
 import com.lp2.lp2.Util.GmailSender;
 import com.lp2.lp2.Util.LoaderFXML;
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,6 +30,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import com.lp2.lp2.Service.EmailNotificationService;
+import com.lp2.lp2.DAO.LeilaoClassificacaoDAO;
 
 
 
@@ -57,6 +60,8 @@ public class ParticipateLeilaoController {
     @FXML
     private TableColumn<Leilao, Boolean> inativoColumn;
     @FXML
+    private TableColumn<Leilao, String> categoriasColumn;
+    @FXML
     private TableColumn<Leilao, Boolean> vendidoColumn;
 
     @FXML
@@ -76,6 +81,7 @@ public class ParticipateLeilaoController {
     private LeilaoParticipacaoDAO leilaoParticipacaoDAO;
     private PontosDAO pontosDAO;
     private ClienteDAO clienteDAO;
+    private LeilaoClassificacaoDAO leilaoClassificacaoDAO;
     private static final Dotenv dotenv = Dotenv.load();
 
     private EmailNotificationService emailNotificationService;
@@ -85,6 +91,7 @@ public class ParticipateLeilaoController {
         leilaoParticipacaoDAO = new LeilaoParticipacaoDAO();
         pontosDAO = new PontosDAO();
         emailNotificationService = new EmailNotificationService();
+        leilaoClassificacaoDAO = new LeilaoClassificacaoDAO();
     }
 
     @FXML
@@ -100,6 +107,14 @@ public class ParticipateLeilaoController {
         multiploLanceColumn.setCellValueFactory(new PropertyValueFactory<>("multiploLance"));
         inativoColumn.setCellValueFactory(new PropertyValueFactory<>("inativo"));
         vendidoColumn.setCellValueFactory(new PropertyValueFactory<>("vendido"));
+        categoriasColumn.setCellValueFactory(cellData -> {
+            List<Categoria> categorias = cellData.getValue().getCategorias();
+            String nome = (!categorias.isEmpty()) ? categorias.get(0).getNome() : "";
+            return new SimpleStringProperty(nome);
+        });
+
+
+
         leilaoTableView.setItems(loadLeiloes());
 
         // Verificar leilões com data final
@@ -202,6 +217,9 @@ public class ParticipateLeilaoController {
                     selectedLeilao.setValorMinimo(valorLance);
                     leilaoDAO.updateLeilao(selectedLeilao);
                     leilaoParticipacaoDAO.addParticipacao(participacao);
+                    if (!leilaoClassificacaoDAO.existsByClienteLeilao(clienteId, selectedLeilao.getId())) {
+                        showRatingDialog(selectedLeilao.getId());
+                    }
 
                     // Tira créditos no valor do múltiplo de lance
                     pontosDAO.removerPontos(clienteId, multiploLance.intValue());
@@ -227,6 +245,10 @@ public class ParticipateLeilaoController {
                     }
 
                     leilaoParticipacaoDAO.addParticipacao(participacao);
+                    if (!leilaoClassificacaoDAO.existsByClienteLeilao(clienteId, selectedLeilao.getId())) {
+                        showRatingDialog(selectedLeilao.getId());
+                    }
+
 
                 } else if ("Venda Direta".equals(selectedLeilao.getTipo())) {
                     BigDecimal valorLance = new BigDecimal(valorLanceField.getText());
@@ -245,6 +267,9 @@ public class ParticipateLeilaoController {
                     selectedLeilao.setVendido(true);
                     leilaoDAO.updateLeilao(selectedLeilao);
                     leilaoParticipacaoDAO.addParticipacao(participacao);
+                    if (!leilaoClassificacaoDAO.existsByClienteLeilao(clienteId, selectedLeilao.getId())) {
+                        showRatingDialog(selectedLeilao.getId());
+                    }
                     mostrarMensagemSucesso("Leilão vendido pelo valor mínimo!");
                     String email = getEmailByUserId(clienteId);
                     String nome = getUserNameById(clienteId);
@@ -405,5 +430,17 @@ public class ParticipateLeilaoController {
         Cliente cliente = clienteDAO.getClienteById(id);
         return cliente != null ? cliente.getNome() : "Nome não disponível";
     }
-
+    private void showRatingDialog(int leilaoId) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Classificação");
+        alert.setHeaderText(null);
+        alert.setContentText("Por favor classifique o leilão ID: " + leilaoId);
+        alert.showAndWait();
+        Stage currentStage = getStage();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadRaiting();
+    }
+    private Stage getStage() {
+        return (Stage) btnBack.getScene().getWindow();
+    }
 }

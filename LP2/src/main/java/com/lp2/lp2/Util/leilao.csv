@@ -9,7 +9,11 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 1,switch,usada,Online,2025-05-23,2025-05-30,110.00,,5.00,false
 2,asdas,adsasd,Carta Fechada,2025-05-06,2025-05-13,11111.00,,,false
 3,asdfdas,asdasd,Online,2025-06-11,2025-06-19,11116.00,,5.00,false
-4,casa,t4,Venda Direta,2025-06-04,2025-06-12,50000.00,,,false
-5,asda,dsada,Venda Direta,2025-06-04,2025-06-11,1500,,,false
+4,casa,t4,Venda Direta,2025-06-04,2025-06-12,50000.00,,,true
+5,asda,dsada,Venda Direta,2025-06-04,2025-06-11,1500.00,,,true
 6,yoo,yaaa,Online,2025-06-04,2025-06-05,1500.00,,100.00,false
 7,a,aaa,Online,2025-06-04,2025-06-04,1401.00,,1400.00,false
+28,teste rating,teste,Venda Direta,2025-06-16,2025-06-19,1.00,,,false
+29,teste22,teste33,Online,2025-06-16,2025-06-18,3.00,,1.00,false
+30,teste arte,teste,Online,2025-06-18,2025-06-25,1,,1,false
+31,testr,teste,Negociação,2025-06-16,,12,,,false

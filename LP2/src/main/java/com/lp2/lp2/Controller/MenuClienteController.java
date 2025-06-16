@@ -15,6 +15,9 @@ public class MenuClienteController {
     private Button btnParticipate;
 
     @FXML
+    private Button btnAgente;
+
+    @FXML
     private Button btnSair;
 
     @FXML
@@ -25,6 +28,12 @@ public class MenuClienteController {
 
     }
 
+    @FXML
+    private void handleBtnAgente(ActionEvent actionEvent){
+        Stage currentStage = (Stage) btnAgente.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadConfigAgente();
+    }
     @FXML
     private void handleBtnParticipate(ActionEvent actionEvent){
         Stage currentStage = (Stage) btnParticipate.getScene().getWindow();
@@ -38,5 +47,10 @@ public class MenuClienteController {
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadLogin();
     }
-
+    @FXML
+    private void handleBtnNegociar(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) btnParticipate.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadnegoCliente();
+    }
 }

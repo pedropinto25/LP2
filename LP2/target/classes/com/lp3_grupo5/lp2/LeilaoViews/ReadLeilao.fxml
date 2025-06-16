@@ -52,6 +52,7 @@
                         <TableColumn fx:id="nomeColumn" prefWidth="119.0" styleClass="table-column" text="Nome" />
                         <TableColumn fx:id="descricaoColumn" prefWidth="115.0" styleClass="table-column" text="Descrição" />
                         <TableColumn fx:id="tipoColumn" prefWidth="93.0" styleClass="table-column" text="Tipo" />
+                        <TableColumn fx:id="categoriasColumn" prefWidth="120.0" styleClass="table-column" text="Categorias" />
                         <TableColumn fx:id="dataInicioColumn" prefWidth="103.0" styleClass="table-column" text="Data de Início" />
                         <TableColumn fx:id="dataFimColumn" prefWidth="116.0" styleClass="table-column" text="Data de Fim" />
                         <TableColumn fx:id="valorMinimoColumn" prefWidth="98.0" styleClass="table-column" text="Valor Mínimo" />

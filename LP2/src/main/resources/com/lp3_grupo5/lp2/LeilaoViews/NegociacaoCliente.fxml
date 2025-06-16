@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #18191A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Leilao.NegociacaoClienteController">
+    <children>
+        <TextField fx:id="valorField" layoutX="100.0" layoutY="80.0" prefWidth="200.0" promptText="Valor" />
+        <Button fx:id="btnPropor" layoutX="70.0" layoutY="150.0" text="Propor" onAction="#handlePropor" />
+        <Button fx:id="btnAceitar" layoutX="220.0" layoutY="150.0" text="Aceitar" onAction="#handleAceitar" />
+    </children>
+</AnchorPane>

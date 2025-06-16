@@ -28,7 +28,7 @@ public class MenuController {
     private Button btnEstatisticas;
 
     @FXML
-    private Button btnLance;
+    private Button btnNegociar;
 
     @FXML
     private Button btnLeilao;
@@ -71,12 +71,18 @@ public class MenuController {
     }
 
     @FXML
-    private void handleBtnLance(ActionEvent actionEvent) {
+   /* private void handleBtnLance(ActionEvent actionEvent) {
         Stage currentStage = (Stage) btnLance.getScene().getWindow();
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadCreateLance();
 
+    }*/
+    private void handleBtnNegoc(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) btnNegociar.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadnegoGestor();
     }
+
 
     private void mostrarMensagem(String mensagem) {
         Alert alert = new Alert(AlertType.INFORMATION);
@@ -125,6 +131,13 @@ public class MenuController {
     }
 
     @FXML
+    private void handleBtnCat(ActionEvent actionEvent){
+        Stage currentStage = (Stage) btnParticipate.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadCategorias();
+    }
+
+    @FXML
     private void handleBtnSair(ActionEvent actionEvent){
         Stage currentStage = (Stage) btnSair.getScene().getWindow();
         LoaderFXML loader = new LoaderFXML(currentStage);
@@ -150,5 +163,10 @@ public class MenuController {
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadAprovarPontos();
     }
-
+ @FXML
+    private void handleBtnImport (ActionEvent actionEvent) {
+     Stage currentStage = (Stage) btnApvCreditos.getScene().getWindow();
+     LoaderFXML loader = new LoaderFXML(currentStage);
+     loader.loadImportador();
+ }
 }

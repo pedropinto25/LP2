@@ -165,4 +165,21 @@ public class ClienteDAO implements IClienteDAO {
         }
         return clientes;
     }
+
+    @Override
+    public void inserirClientes(List<Cliente> clientes) throws SQLException {
+        String sql = "INSERT INTO Cliente (nome, morada, dataNascimento, email, senha) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            for (Cliente c : clientes) {
+                stmt.setString(1, c.getNome());
+                stmt.setString(2, c.getMorada());
+                stmt.setDate(3, c.getDataNascimento());
+                stmt.setString(4, c.getEmail());
+                stmt.setString(5, c.getSenha());
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+        }
+    }
 }

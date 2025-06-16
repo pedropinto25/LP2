@@ -80,7 +80,74 @@ CREATE TABLE Pontos (
     );
 GO
 
+-- Criar a tabela Agente para registar agentes de licitação automática
+CREATE TABLE Agente (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    clienteId INT NOT NULL,
+    leilaoId INT NOT NULL,
+    ordem INT NOT NULL,
+    incremento DECIMAL(10, 2) NOT NULL,
+    limite DECIMAL(10, 2) NOT NULL,
+    ativo BIT DEFAULT 1,
+    FOREIGN KEY (clienteId) REFERENCES Cliente(id),
+    FOREIGN KEY (leilaoId) REFERENCES Leilao(id)
+);
+GO
 
+-- Criar tabela para classificacao de leiloes
+CREATE TABLE LeilaoClassificacao (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    classificacao INT CHECK (classificacao BETWEEN 1 AND 5),
+    comentario TEXT NULL,
+    data_classificacao DATE,
+    cliente_id INT NOT NULL,
+    leilao_id INT NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES Cliente(id),
+    FOREIGN KEY (leilao_id) REFERENCES Leilao(id),
+    CONSTRAINT UC_LeilaoClassificacao UNIQUE (cliente_id, leilao_id)
+);
+GO
+
+-- Criar tabela de categorias
+CREATE TABLE Categoria (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nome VARCHAR(255) NOT NULL UNIQUE
+);
+GO
+
+-- Tabela de associacao entre leiloes e categorias
+CREATE TABLE LeilaoCategoria (
+    leilao_id INT NOT NULL,
+    categoria_id INT NOT NULL,
+    PRIMARY KEY (leilao_id, categoria_id),
+    FOREIGN KEY (leilao_id) REFERENCES Leilao(id) ,
+    FOREIGN KEY (categoria_id) REFERENCES Categoria(id) 
+);
+GO
+
+-- Categorias base
+INSERT INTO Categoria (nome) VALUES
+('Arte'),
+('Antiguidade'),
+('Mobiliário'),
+('Ourivesaria'),
+('Relojoaria'),
+('Veículos'),
+('Têxteis'),
+('Imóveis');
+GO
+-- Tabela para propostas de negociação
+CREATE TABLE NegociacaoProposta (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    leilao_id INT NOT NULL,
+    cliente_id INT NOT NULL,
+    valor DECIMAL(10,2),
+    estado VARCHAR(20),
+    data TIMESTAMP,
+    FOREIGN KEY (leilao_id) REFERENCES Leilao(id),
+    FOREIGN KEY (cliente_id) REFERENCES Cliente(id)
+);
+GO
 -- Criar o trigger para popular a tabela Users
 CREATE TRIGGER trg_InsertUsers
 ON Cliente
