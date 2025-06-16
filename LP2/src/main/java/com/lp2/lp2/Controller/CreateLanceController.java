@@ -2,6 +2,7 @@ package com.lp2.lp2.Controller;
 
 import com.lp2.lp2.DAO.LanceDAO;
 import com.lp2.lp2.Model.Lance;
+import com.lp2.lp2.Service.AgenteService;
 import com.lp2.lp2.Util.LoaderFXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,9 +30,12 @@ public class CreateLanceController {
     private Button btnBack;
 
     private LanceDAO lanceDAO;
+    private AgenteService agenteService;
 
     public CreateLanceController() throws SQLException {
         lanceDAO = new LanceDAO();
+        agenteService = new AgenteService();
+
     }
 
     @FXML
@@ -42,6 +46,7 @@ public class CreateLanceController {
             lance.setDataHora(Timestamp.valueOf(dataHoraField.getValue().atStartOfDay()));
             lance.setClienteId(Integer.parseInt(clienteIdField.getText()));
             lance.setLeilaoId(Integer.parseInt(leilaoIdField.getText()));
+            agenteService.processarLances(lance.getLeilaoId());
             lanceDAO.addLance(lance);
             mostrarMensagemSucesso("Lance adicionado com sucesso!");
         } catch (Exception e) {

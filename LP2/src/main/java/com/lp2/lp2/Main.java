@@ -1,6 +1,8 @@
 package com.lp2.lp2;
 
 import com.lp2.lp2.Controller.Login.UserEncryption;
+import com.lp2.lp2.DAO.LanceDAO;
+import com.lp2.lp2.Service.AgenteService;
 import com.lp2.lp2.Util.LoaderFXML;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +14,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 
 public class Main extends Application {
     private static Stage mainStage;
+    private AgenteService agenteService;
     @Override
     public void start(Stage primaryStage) throws IOException {
         mainStage = primaryStage;
@@ -57,10 +61,13 @@ public class Main extends Application {
             System.out.println("Erro ao carregar o FXML: " + e.getMessage());
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         UserEncryption encryptionService = new UserEncryption();
+        AgenteService agenteService = new AgenteService();
+
         encryptionService.encryptPasswords();
         encryptionService.encryptPasswordsCliente();
+        //agenteService.processarLances(lance.getLeilaoId());
 
         launch(args);
     }

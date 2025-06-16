@@ -19,5 +19,6 @@
       </Button>
       <Button fx:id="btnListLeilao" layoutX="484.0" layoutY="333.0" onAction="#handleBtnListLeilao" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Listar e Desativar Leilão" textFill="WHITE" />
       <Button fx:id="btnParticipate" layoutX="484.0" layoutY="141.0" onAction="#handleBtnParticipate" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Participar Leilão" textFill="WHITE" />
+      <Button fx:id="btnAgente" layoutX="484.0" layoutY="469.0" onAction="#handleBtnAgente" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Configurar Agente" textFill="WHITE" />
    </children>
 </Pane>

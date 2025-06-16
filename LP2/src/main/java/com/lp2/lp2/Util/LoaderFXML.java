@@ -76,7 +76,7 @@ public class LoaderFXML {
 
     public void loadEnunciado() {loadView("/com/lp3_grupo5/lp2/Menus/Enunciado1.fxml", "Enunciado");}
     public void loadEstatistica() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/estatiticamaislances.fxml", "estatisticamaislances");}
-
+    public void loadConfigAgente() {loadView("/com/lp3_grupo5/lp2/AgenteViews/AgenteConfig.fxml", "Configurar Agente");}
 
 /** ************************************************************************************************************************************************************************ */
     /**

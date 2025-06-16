@@ -80,6 +80,20 @@ CREATE TABLE Pontos (
     );
 GO
 
+-- Criar a tabela Agente para registar agentes de licitação automática
+CREATE TABLE Agente (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    clienteId INT NOT NULL,
+    leilaoId INT NOT NULL,
+    ordem INT NOT NULL,
+    incremento DECIMAL(10, 2) NOT NULL,
+    limite DECIMAL(10, 2) NOT NULL,
+    ativo BIT DEFAULT 1,
+    FOREIGN KEY (clienteId) REFERENCES Cliente(id),
+    FOREIGN KEY (leilaoId) REFERENCES Leilao(id)
+);
+GO
+
 
 -- Criar o trigger para popular a tabela Users
 CREATE TRIGGER trg_InsertUsers
