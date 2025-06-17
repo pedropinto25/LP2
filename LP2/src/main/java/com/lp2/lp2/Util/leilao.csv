@@ -15,5 +15,5 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 7,a,aaa,Online,2025-06-04,2025-06-04,1401.00,,1400.00,false
 28,teste rating,teste,Venda Direta,2025-06-16,2025-06-19,1.00,,,false
 29,teste22,teste33,Online,2025-06-16,2025-06-18,3.00,,1.00,false
-30,teste arte,teste,Online,2025-06-18,2025-06-25,1,,1,false
+30,teste arte,teste,Online,2025-06-18,2025-06-25,3.00,,1.00,false
 31,testr,teste,Negociação,2025-06-16,,12,,,false
