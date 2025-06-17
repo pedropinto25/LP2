@@ -22,5 +22,6 @@
       <Button fx:id="btnAgente" layoutX="709.0" layoutY="297.0" onAction="#handleBtnAgente" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Configurar Agente" textFill="WHITE" />
       <Button fx:id="btnNegociar" layoutX="709.0" layoutY="141.0" onAction="#handleBtnNegociar" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Negociar" textFill="WHITE" />
       <Button fx:id="btnInscritos" layoutX="260.0" layoutY="437.0" onAction="#handleBtnInscritos" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Leilões Inscritos" textFill="WHITE" />
+      <Button fx:id="btnEditarDados" layoutX="709.0" layoutY="437.0" onAction="#handleBtnEditarDados" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Editar Dados" textFill="WHITE" />
    </children>
 </Pane>
