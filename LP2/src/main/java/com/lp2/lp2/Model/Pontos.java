@@ -4,7 +4,7 @@ public class Pontos {
     private int id;
     private int clienteId;
     private int pontos;
-    private int leilaoId;
+    private boolean approved;
 
     // Getters e setters
     public int getId() { return id; }
@@ -19,7 +19,8 @@ public class Pontos {
 
     public void setPontos(int pontos) {this.pontos = pontos;}
 
-    public int getLeilaoId() {return leilaoId;}
+    public boolean isApproved() { return approved; }
 
-    public void setLeilaoId(int leilaoId) {this.leilaoId = leilaoId;}
+    public void setApproved(boolean approved) { this.approved = approved; }
+
 }

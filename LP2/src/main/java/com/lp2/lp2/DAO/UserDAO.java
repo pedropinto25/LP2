@@ -37,6 +37,7 @@ public class UserDAO implements IUserDAO {
                 user.setPasswordHash(rs.getString("password_hash")); // A senha em texto plano do banco
                 user.setRole(rs.getString("role"));
                 user.setApproved(rs.getBoolean("approved"));
+                user.setUltimoLogin(rs.getTimestamp("ultimoLogin"));
                 //user.setInative(rs.getBoolean("inative"));
                 return Optional.of(user);
             }
@@ -66,6 +67,7 @@ public class UserDAO implements IUserDAO {
                 user.setUsername(rs.getString("email"));
                 user.setPasswordHash(rs.getString("password_hash")); // A senha em texto plano do banco
                 user.setRole(rs.getString("role"));
+                user.setUltimoLogin(rs.getTimestamp("ultimoLogin"));
                 //user.setInative(rs.getBoolean("inative"));
                 return Optional.of(user);
             }
@@ -141,22 +143,23 @@ public class UserDAO implements IUserDAO {
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
-            // Percorrer todos os resultados da consulta
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setUsername(rs.getString("email"));
-                user.setPasswordHash(rs.getString("password_hash")); // A senha em texto plano do banco
+                user.setPasswordHash(rs.getString("password_hash"));
                 user.setRole(rs.getString("role"));
-                //user.setInative(rs.getBoolean("inative"));
-                users.add(user); // Adiciona o utilizador à lista
+                user.setIncripted(rs.getBoolean("encrypted"));
+                user.setApproved(rs.getBoolean("approved"));
+                user.setUltimoLogin(rs.getTimestamp("ultimoLogin"));
+                users.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Se necessário, você pode lançar uma exceção personalizada aqui
         }
-        return users; // Retorna a lista de utilizadors
+        return users;
     }
+
 
     /**
      * Retorna o nome do atleta associado a um utilizador.
@@ -221,7 +224,8 @@ public class UserDAO implements IUserDAO {
                 user.setPasswordHash(rs.getString("password_hash")); // A senha em texto plano do banco
                 user.setRole(rs.getString("role"));
                 //user.setInative(rs.getBoolean("inative"));
-                user.setIncripted(rs.getBoolean("encrypted")); // Adiciona o campo incripted
+                user.setIncripted(rs.getBoolean("encrypted"));// Adiciona o campo incripted
+                user.setUltimoLogin(rs.getTimestamp("ultimoLogin"));
                 users.add(user); // Adiciona o utilizador à lista
             }
         } catch (SQLException e) {
@@ -273,5 +277,18 @@ public class UserDAO implements IUserDAO {
             return false;
         }
     }
+
+    public void updateUltimoLogin(int userId, Timestamp timestamp) {
+        String sql = "UPDATE Users SET ultimoLogin = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setTimestamp(1, timestamp);
+            stmt.setInt(2, userId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

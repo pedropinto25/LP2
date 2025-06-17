@@ -3,6 +3,8 @@ package com.lp2.lp2.Controller.Login;
 import com.lp2.lp2.DAO.IDAO.IUserDAO;
 import com.lp2.lp2.DAO.UserDAO;
 import com.lp2.lp2.Model.User;
+import com.lp2.lp2.Service.Inatividade3Meses;
+import com.lp2.lp2.Service.SemCreditos;
 import com.lp2.lp2.Session.Session;
 import com.lp2.lp2.Util.LoaderFXML;
 import javafx.application.Platform;
@@ -16,12 +18,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.Optional;
 
@@ -48,6 +50,29 @@ public class LoginController {
     // Armazenamento global do usuário logado
     public static User loggedUser;
 
+    private static boolean inatividadeVerificada = false;
+    private static boolean verificadoSemCreditos = false;
+
+
+    @FXML
+    public void initialize() {
+        if (!inatividadeVerificada) {
+            Inatividade3Meses checker = new Inatividade3Meses();
+            checker.inatividade3meses();
+            inatividadeVerificada = true;
+        }
+        // Verificação de clientes sem créditos
+        if (!verificadoSemCreditos) {
+            try {
+                SemCreditos semCreditos = new SemCreditos();
+                semCreditos.clientesSemCreditos();
+                verificadoSemCreditos = true;
+            } catch (Exception ex) {
+                ex.printStackTrace(); // loga se necessário.
+            }
+        }
+    }
+
     /**
      * Método chamado quando o botão de login é clicado.
      * Realiza a autenticação do usuário com base no nome de usuário e senha fornecidos.
@@ -66,6 +91,11 @@ public class LoginController {
             if (loggedUserOptional.isPresent()) {
                 User loggedUser = loggedUserOptional.get(); // Extrai o valor do Optional
 
+                // Atualiza o campo ultimoLogin com a data e hora atual
+                Timestamp agora = new Timestamp(System.currentTimeMillis());
+                loggedUser.setUltimoLogin(agora);
+                ((UserDAO) userDAO).updateUltimoLogin(loggedUser.getId(), agora);
+
                 // Salva o usuário na sessão
                 Session.setUser(loggedUser);
 
@@ -79,6 +109,7 @@ public class LoginController {
             }
         }
     }
+
     @FXML
     void onRegistarButtonClicked(MouseEvent event) {
         Stage currentStage = getStage();
@@ -146,7 +177,7 @@ public class LoginController {
 
             // Carrega a tela correspondente ao papel do usuário
             if ("cliente".equalsIgnoreCase(role)) {
-                loader = new FXMLLoader(getClass().getResource("/com/lp3_grupo5/lp2/Menus/Menu_Inicial.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/com/lp3_grupo5/lp2/Menus/Menu_Cliente.fxml"));
                 System.out.println(role);
             } else if ("manager".equalsIgnoreCase(role)) {
                 loader = new FXMLLoader(getClass().getResource("/com/lp3_grupo5/lp2/Menus/Menu_Inicial.fxml"));

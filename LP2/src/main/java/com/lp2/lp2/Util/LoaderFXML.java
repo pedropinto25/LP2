@@ -41,8 +41,12 @@ public class LoaderFXML {
      * Esse método é utilizado para exibir a tela inicial de navegação.
      */
     public void loadMainMenu() {
-        loadView("/com/lp3_grupo5/lp2/Menus/Menu_Inicial.fxml", "Menu Principal");
+        loadView("/com/lp3_grupo5/lp2/Menus/Menu_Inicial.fxml", "Menu Manager");
     }
+
+    public void loadMenuCliente() {loadView("/com/lp3_grupo5/lp2/Menus/Menu_Cliente.fxml", "Menu Cliente");}
+
+    public void loadAprovarPontos() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/AprovePontos.fxml", "Aprovar Créditos");}
 
     public void loadCreateClient() {
         loadView("/com/lp3_grupo5/lp2/ClienteViews/AddCliente.fxml", "Criar Cliente");
@@ -71,6 +75,14 @@ public class LoaderFXML {
     public void loadAddPontos() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/AddPontos.fxml", "Adicionar Pontos");}
 
     public void loadEnunciado() {loadView("/com/lp3_grupo5/lp2/Menus/Enunciado1.fxml", "Enunciado");}
+    public void loadEstatistica() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/estatiticamaislances.fxml", "estatisticamaislances");}
+    public void loadConfigAgente() {loadView("/com/lp3_grupo5/lp2/AgenteViews/AgenteConfig.fxml", "Configurar Agente");}
+    public void loadImportador() {loadView("/com/lp3_grupo5/lp2/Impotador/importador.fxml", "Importar CSV");}
+    public void loadRaiting() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/RatingDialog.fxml", "Avaliação do Raiting");}
+
+    public void loadCategorias() {loadView("/com/lp3_grupo5/lp2/CategoriaViews/ManageCategorias.fxm.fxml", "Categorias");}
+    public void loadnegoGestor() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/NegociacaoGestor.fxml", "Categorias");}
+    public void loadnegoCliente() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/NegociacaoCliente.fxml", "Categorias");}
 /** ************************************************************************************************************************************************************************ */
     /**
      * Carrega e exibe uma tela específica (view) definida pelo caminho do arquivo FXML.

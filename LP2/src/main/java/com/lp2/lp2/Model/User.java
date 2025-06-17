@@ -1,4 +1,6 @@
 package com.lp2.lp2.Model;
+import java.sql.Timestamp;
+
 
 public class User {
     private int id;               // Identificador único do utilizador
@@ -9,6 +11,8 @@ public class User {
     private Integer athleteId;    // ID do atleta relacionado (pode ser nulo se o utilizador não for um atleta)
     private boolean incripted;
     private Boolean approved;
+    private Timestamp ultimoLogin;
+
     /**
      * Obtém o ID único do utilizador.
      *
@@ -136,6 +140,10 @@ public class User {
     public boolean isApproved() {
         return approved;
     }
+
+    public Timestamp getUltimoLogin() { return ultimoLogin; }
+
+    public void setUltimoLogin(Timestamp ultimoLogin) { this.ultimoLogin = ultimoLogin; }
 
 }
 

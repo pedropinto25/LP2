@@ -16,4 +16,6 @@ public interface IClienteDAO {
     List<Cliente> getAllClientes() throws SQLException;
 
     List<Cliente> getAllClientesToAprove() throws SQLException;
+
+    void inserirClientes(List<Cliente> clientes) throws SQLException;
 }

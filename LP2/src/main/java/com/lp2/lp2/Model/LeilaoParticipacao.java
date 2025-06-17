@@ -9,7 +9,14 @@ public class LeilaoParticipacao {
     private int clienteId;
     private Timestamp dataParticipacao;
     private BigDecimal valorLance;
+    private int totalLances;
 
+
+    public LeilaoParticipacao(int leilaoId, int clienteId, int totalLances, BigDecimal maiorLance) {
+    }
+    public LeilaoParticipacao(){
+
+    }
     // Getters e Setters
     public int getId() {
         return id;
@@ -49,5 +56,12 @@ public class LeilaoParticipacao {
 
     public void setValorLance(BigDecimal valorLance) {
         this.valorLance = valorLance;
+    }
+
+    public void setTotalLances(int totalLances) {
+        this.totalLances = totalLances;
+    }
+    public int getTotalLances() {
+        return totalLances;
     }
 }

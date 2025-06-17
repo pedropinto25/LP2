@@ -1,5 +1,6 @@
 package com.lp2.lp2.DAO.IDAO;
 
+import com.lp2.lp2.Model.Leilao;
 import com.lp2.lp2.Model.LeilaoParticipacao;
 
 import java.sql.SQLException;
@@ -12,4 +13,13 @@ public interface ILeilaoParticipacaoDAO {
     LeilaoParticipacao getParticipacaoById(int id) throws SQLException;
     List<LeilaoParticipacao> getParticipacoesByLeilaoId(int leilaoId) throws SQLException;
     List<LeilaoParticipacao> getAllParticipacoes() throws SQLException;
+   // List<LeilaoParticipacao> getClientesComMaisLancesPorLeilao(int leilaoId) throws SQLException;
+
+    List<LeilaoParticipacao> getClientesComMaisLancesPorLeilao();
+
+    int contarLeiloesInativos();
+
+    List<LeilaoParticipacao> getLeiloesComMaisLances();
+
+    Leilao getLeilaoMaisTempoAtivo();
 }

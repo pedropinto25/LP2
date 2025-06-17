@@ -41,7 +41,7 @@
                         }
                     </style>
                 </Button>
-                <Label fx:id="pontosLabel" layoutX="905.0" layoutY="36.0" prefHeight="53.0" prefWidth="137.0" style="-fx-font-weight: BOLD;" text="Pontos: 0" textFill="#FFFFFF">
+                <Label fx:id="pontosLabel" layoutX="825.0" layoutY="36.0" prefHeight="53.0" prefWidth="137.0" style="-fx-font-weight: BOLD;" text="Créditos: 0" textFill="#FFFFFF">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
@@ -57,6 +57,7 @@
                         <TableColumn fx:id="nomeColumn" prefWidth="133.0" styleClass="table-column" text="Nome" />
                         <TableColumn fx:id="descricaoColumn" prefWidth="120.80006408691406" styleClass="table-column" text="Descrição" />
                         <TableColumn fx:id="tipoColumn" prefWidth="94.39996337890625" styleClass="table-column" text="Tipo" />
+                        <TableColumn fx:id="categoriasColumn" prefWidth="120.0" styleClass="table-column" text="Categorias" />
                         <TableColumn fx:id="dataInicioColumn" prefWidth="113.0" styleClass="table-column" text="Data de Início" />
                         <TableColumn fx:id="dataFimColumn" prefWidth="116.0" styleClass="table-column" text="Data de Fim" />
                         <TableColumn fx:id="valorMinimoColumn" prefWidth="109.0" styleClass="table-column" text="Valor Mínimo" />
@@ -104,7 +105,7 @@
                         }
                     </style>
                 </Button>
-                <Button fx:id="btnAddPontos" layoutX="856.0" layoutY="555.0" onAction="#handleBtnAddPontos" prefHeight="40.0" prefWidth="178.0" style="-fx-background-color: none; -fx-border-color: white;" text="Adicionar Pontos" textFill="WHITE">
+                <Button fx:id="btnAddPontos" layoutX="834.0" layoutY="555.0" onAction="#handleBtnAddPontos" prefHeight="41.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: white;" text="Adicionar Créditos" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
