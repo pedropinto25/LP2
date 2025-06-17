@@ -21,6 +21,9 @@ public class MenuClienteController {
     private Button btnSair;
 
     @FXML
+    private Button btnInscritos;
+
+    @FXML
     private void handleBtnListLeilao(ActionEvent actionEvent) {
         Stage currentStage = (Stage) btnListLeilao.getScene().getWindow();
         LoaderFXML loader = new LoaderFXML(currentStage);
@@ -52,5 +55,12 @@ public class MenuClienteController {
         Stage currentStage = (Stage) btnParticipate.getScene().getWindow();
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadnegoCliente();
+    }
+
+    @FXML
+    private void handleBtnInscritos(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) btnInscritos.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadLeilaoInscrito();
     }
 }

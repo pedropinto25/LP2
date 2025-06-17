@@ -19,3 +19,4 @@ ID,Nome,Descricao,Tipo,DataInicio,DataFim,ValorMinimo,ValorMaximo,MultiploLance
 31,testr,teste,Negociação,2025-06-16,,12,,,false
 32,Apartamento T1 - Renda,Bonito apartamento com tudo que necessita,Online,2025-06-17,2025-07-01,160.00,,20.00,false
 33,saddas,dsadsa,Venda Direta,2025-06-17,2025-06-24,11111.00,,,false
+34,asdas,dadasd,Online,2025-06-17,2025-06-24,379.00,,1.00,false
