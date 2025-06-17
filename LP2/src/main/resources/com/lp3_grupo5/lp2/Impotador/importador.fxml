@@ -1,28 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.lp2.lp2.Controller.Importador.ImportadorController" prefWidth="500" prefHeight="300">
-    <VBox alignment="CENTER" spacing="15" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20"
-          AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+<AnchorPane fx:id="anchorPane" prefHeight="743.0" prefWidth="1237.0" style="-fx-background-color: #18191A;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.Importador.ImportadorController">
+    <children>
+        <!-- Cabeçalho -->
+        <Pane prefHeight="120.0" prefWidth="1237.0" style="-fx-background-color: #242526;" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label layoutX="373.0" layoutY="30.0" prefHeight="66.0" prefWidth="580.0" style="-fx-font-weight: BOLD;" text="Importador de Dados" textFill="#FFFFFF">
+                    <font>
+                        <Font name="Century Gothic Bold" size="50.0" />
+                    </font>
+                </Label>
+                <Button fx:id="btnBack" layoutX="48.0" layoutY="36.0" onAction="#handleBtnBack" prefHeight="53.0" prefWidth="137.0" style="-fx-background-color: none; -fx-border-color: white;" text="Retroceder" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                    <style>
+                        .button:hover {
+                        -fx-background-color: #4A4B4C;
+                        -fx-cursor: hand;
+                        }
+                    </style>
+                </Button>
+            </children>
+        </Pane>
 
-        <Label text="Importador de Dados CSV" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <!-- Conteúdo -->
+        <Pane layoutY="120.0" prefHeight="623.0" prefWidth="1237.0">
+            <children>
+                <VBox alignment="CENTER" layoutX="136.0" layoutY="27.0" prefHeight="476.0" prefWidth="966.0" spacing="20.0">
+                    <children>
+                        <Text fill="#FFFFFF" strokeType="OUTSIDE" strokeWidth="0.0" text="Importar Ficheiros CSV">
+                            <font>
+                                <Font name="Century Gothic Bold" size="25.0" />
+                            </font>
+                        </Text>
 
-        <!-- Seleção de ficheiro clientes -->
-        <HBox spacing="10" alignment="CENTER">
-            <Button text="Selecionar Clientes CSV" onAction="#selecionarFicheiroClientes"/>
-            <TextField fx:id="txtFicheiroClientes" promptText="Nenhum ficheiro selecionado" editable="false" prefWidth="250"/>
-        </HBox>
-        <Button fx:id="btnImportarClientes" text="Importar Clientes" onAction="#importarClientes" minWidth="200"/>
+                        <!-- Clientes -->
+                        <HBox alignment="CENTER" spacing="10">
+                            <children>
+                                <Button onAction="#selecionarFicheiroClientes" style="-fx-background-color: none; -fx-border-color: white;" text="Selecionar Clientes CSV" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Button>
+                                <TextField fx:id="txtFicheiroClientes" editable="false" prefWidth="400.0" promptText="Nenhum ficheiro selecionado" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;">
+                                    <font>
+                                        <Font name="System" size="14.0" />
+                                    </font>
+                                </TextField>
+                            </children>
+                        </HBox>
+                        <Button fx:id="btnImportarClientes" minWidth="200" onAction="#importarClientes" style="-fx-background-color: none; -fx-border-color: white;" text="Importar Clientes" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Button>
 
-        <!-- Seleção de ficheiro leilões -->
-        <HBox spacing="10" alignment="CENTER">
-            <Button text="Selecionar Leilões CSV" onAction="#selecionarFicheiroLeiloes"/>
-            <TextField fx:id="txtFicheiroLeiloes" promptText="Nenhum ficheiro selecionado" editable="false" prefWidth="250"/>
-        </HBox>
-        <Button fx:id="btnImportarLeiloes" text="Importar Leilões" onAction="#importarLeiloes" minWidth="200"/>
-
-    </VBox>
+                        <!-- Leilões -->
+                        <HBox alignment="CENTER" spacing="10">
+                            <children>
+                                <Button onAction="#selecionarFicheiroLeiloes" style="-fx-background-color: none; -fx-border-color: white;" text="Selecionar Leilões CSV" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Button>
+                                <TextField fx:id="txtFicheiroLeiloes" editable="false" prefWidth="400.0" promptText="Nenhum ficheiro selecionado" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 0 0 1 0; -fx-text-fill: WHITE;">
+                                    <font>
+                                        <Font name="System" size="14.0" />
+                                    </font>
+                                </TextField>
+                            </children>
+                        </HBox>
+                        <Button fx:id="btnImportarLeiloes" minWidth="200" onAction="#importarLeiloes" style="-fx-background-color: none; -fx-border-color: white;" text="Importar Leilões" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </VBox>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>

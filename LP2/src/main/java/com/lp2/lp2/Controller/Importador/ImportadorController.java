@@ -6,6 +6,7 @@ import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.DAO.LeilaoDAO;
 import com.lp2.lp2.Model.Leilao;
 
+import com.lp2.lp2.Util.LoaderFXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -42,6 +43,9 @@ public class ImportadorController {
 
     @FXML
     private Button btnImportarLeiloes;
+
+    @FXML
+    private Button btnBack;
 
     public ImportadorController() throws SQLException {
     }
@@ -187,5 +191,12 @@ public class ImportadorController {
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
         alert.showAndWait();
+    }
+
+    @FXML
+    void handleBtnBack(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) btnBack.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadMainMenu();
     }
 }

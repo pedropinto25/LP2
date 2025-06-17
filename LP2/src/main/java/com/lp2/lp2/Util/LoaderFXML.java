@@ -66,7 +66,9 @@ public class LoaderFXML {
 
     public void loadParticipateLeilao() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/ParticipateLeilao.fxml", "Participar em Leilões");}
 
-    public void loadLogin() {loadView("/com/lp3_grupo5/lp2/Login/Login.fxml", "Voltar ao login");}
+    public void loadParticipateLeilaoCliente() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/ParticipateLeilaoCliente.fxml", "Participar em Leilões");}
+
+        public void loadLogin() {loadView("/com/lp3_grupo5/lp2/Login/Login.fxml", "Voltar ao login");}
 
     public void loadRegistar() {loadView("/com/lp3_grupo5/lp2/Login/Registar.fxml", "Registar");}
 
@@ -80,11 +82,12 @@ public class LoaderFXML {
     public void loadImportador() {loadView("/com/lp3_grupo5/lp2/Impotador/importador.fxml", "Importar CSV");}
     public void loadRaiting() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/RatingDialog.fxml", "Avaliação do Raiting");}
 
-    public void loadCategorias() {loadView("/com/lp3_grupo5/lp2/CategoriaViews/ManageCategorias.fxm.fxml", "Categorias");}
+    public void loadCategorias() {loadView("/com/lp3_grupo5/lp2/CategoriaViews/ManageCategorias.fxml", "Categorias");}
     public void loadnegoGestor() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/NegociacaoGestor.fxml", "Categorias");}
     public void loadnegoCliente() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/NegociacaoCliente.fxml", "Categorias");}
     public void loadLeilaoInscrito() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/LeilaoInscrito.fxml", "Inscritos");}
-/** ************************************************************************************************************************************************************************ */
+    public void loadListLeilaoCliente() {loadView("/com/lp3_grupo5/lp2/LeilaoViews/ListarLeilaoCliente.fxml", "Leilão Cliente");}
+    /** ************************************************************************************************************************************************************************ */
     /**
      * Carrega e exibe uma tela específica (view) definida pelo caminho do arquivo FXML.
      * Este método é genérico e permite a definição de qualquer tela e título,

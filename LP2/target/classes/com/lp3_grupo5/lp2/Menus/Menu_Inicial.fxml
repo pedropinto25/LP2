@@ -5,13 +5,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="691.0" prefWidth="1166.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.MenuController">
+<Pane prefHeight="691.0" prefWidth="1166.0" style="-fx-background-color: #18191A;" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp2.lp2.Controller.MenuController">
     <children>
         <Text fill="WHITE" layoutX="260.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leilões Perfeitos 2 - LP2" textAlignment="CENTER" wrappingWidth="648.0">
          <font>
             <Font size="60.0" />
          </font></Text>
-        <Button fx:id="btnLeilao" layoutX="91.0" layoutY="141.0" onAction="#handleBtnLeilao" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Leilão" textFill="WHITE" />
+        <Button fx:id="btnLeilao" layoutX="91.0" layoutY="141.0" onAction="#handleBtnLeilao" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Criar Leilão" textFill="WHITE" />
         <Button fx:id="btnCliente" layoutX="876.0" layoutY="141.0" onAction="#handleBtnCliente" prefHeight="119.0" prefWidth="199.0" style="-fx-background-color: none; -fx-border-color: white;" text="Criar Cliente" textFill="WHITE" />
         <Button fx:id="btnNegociar" layoutX="1075.0" layoutY="644.0" onAction="#handleBtnNegoc" prefHeight="47.0" prefWidth="90.0" style="-fx-background-color: none; -fx-border-color: white;" text="só estou aqui" textFill="WHITE" />
         <Button fx:id="btnSair" layoutX="514.0" layoutY="594.0" onAction="#handleBtnSair" prefHeight="69.0" prefWidth="139.0" style="-fx-background-color: none; -fx-border-color: white;" text="Sair" textFill="WHITE">
