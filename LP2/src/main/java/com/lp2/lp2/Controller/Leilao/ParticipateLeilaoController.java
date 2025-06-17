@@ -214,9 +214,10 @@ public class ParticipateLeilaoController {
                     participacao.setValorLance(valorLance);
                     leilaoParticipacaoDAO.addParticipacao(participacao);
 
+                    /* antigo local onde fazia o rating
                     if (!leilaoClassificacaoDAO.existsByClienteLeilao(clienteId, selectedLeilao.getId())) {
                         showRatingDialog(selectedLeilao.getId());
-                    }
+                    } */
 
                     pontosDAO.removerPontos(clienteId, totalNecessario.intValue());
                     atualizarPontosCliente();
@@ -241,9 +242,10 @@ public class ParticipateLeilaoController {
                     }
 
                     leilaoParticipacaoDAO.addParticipacao(participacao);
+                    /* antigo local onde fazia o rating
                     if (!leilaoClassificacaoDAO.existsByClienteLeilao(clienteId, selectedLeilao.getId())) {
                         showRatingDialog(selectedLeilao.getId());
-                    }
+                    } */
 
                     mostrarMensagemSucesso("Oferta registrada com sucesso!");
 
@@ -266,9 +268,10 @@ public class ParticipateLeilaoController {
                     leilaoDAO.updateLeilao(selectedLeilao);
                     leilaoParticipacaoDAO.addParticipacao(participacao);
 
+                    /* antigo local onde fazia o rating
                     if (!leilaoClassificacaoDAO.existsByClienteLeilao(clienteId, selectedLeilao.getId())) {
                         showRatingDialog(selectedLeilao.getId());
-                    }
+                    } */
 
                     mostrarMensagemSucesso("Leilão vendido pelo valor mínimo!");
                     String email = getEmailByUserId(clienteId);
@@ -420,6 +423,8 @@ public class ParticipateLeilaoController {
         Cliente cliente = clienteDAO.getClienteById(id);
         return cliente != null ? cliente.getNome() : "Nome não disponível";
     }
+    /* metodo para o rating
+
     private void showRatingDialog(int leilaoId) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Classificação");
@@ -429,7 +434,8 @@ public class ParticipateLeilaoController {
         Stage currentStage = getStage();
         LoaderFXML loader = new LoaderFXML(currentStage);
         loader.loadRaiting();
-    }
+    } */
+
     private Stage getStage() {
         return (Stage) btnBack.getScene().getWindow();
     }

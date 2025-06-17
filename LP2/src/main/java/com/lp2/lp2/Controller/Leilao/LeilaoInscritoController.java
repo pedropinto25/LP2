@@ -1,5 +1,6 @@
 package com.lp2.lp2.Controller.Leilao;
 
+import com.lp2.lp2.DAO.LeilaoClassificacaoDAO;
 import com.lp2.lp2.DAO.LeilaoDAO;
 import com.lp2.lp2.DAO.LeilaoParticipacaoDAO;
 import com.lp2.lp2.Model.Leilao;
@@ -56,22 +57,23 @@ public class LeilaoInscritoController {
     private Button btnBack;
     @FXML
     private Button btnMenu;
-
     @FXML
     private Button btnAvaliar;
 
-
     private LeilaoParticipacaoDAO participacaoDAO;
     private LeilaoDAO leilaoDAO;
+    private LeilaoClassificacaoDAO classificacaoDAO;
 
     public LeilaoInscritoController() throws SQLException {
         participacaoDAO = new LeilaoParticipacaoDAO();
         leilaoDAO = new LeilaoDAO();
+        classificacaoDAO = new LeilaoClassificacaoDAO();
     }
 
     @FXML
     private void initialize() {
         leilaoTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> onLeilaoSelecionado());
+
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nomeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
         descricaoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescricao()));
@@ -128,7 +130,7 @@ public class LeilaoInscritoController {
     void handleBtnBack(ActionEvent actionEvent) {
         Stage currentStage = (Stage) btnBack.getScene().getWindow();
         LoaderFXML loader = new LoaderFXML(currentStage);
-        loader.loadMainMenu();
+        loader.loadMenuCliente();
     }
 
     @FXML
@@ -152,17 +154,25 @@ public class LeilaoInscritoController {
         }
     }
 
-
     @FXML
     private void onLeilaoSelecionado() {
         Leilao selectedLeilao = leilaoTableView.getSelectionModel().getSelectedItem();
-        btnAvaliar.setDisable(selectedLeilao == null || !selectedLeilao.getVendido());
+        if (selectedLeilao != null && selectedLeilao.getVendido()) {
+            try {
+                int clienteId = Session.getUser().getId();
+                boolean jaAvaliou = classificacaoDAO.existsByClienteLeilao(clienteId, selectedLeilao.getId());
+                btnAvaliar.setDisable(jaAvaliou);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                btnAvaliar.setDisable(true);
+            }
+        } else {
+            btnAvaliar.setDisable(true);
+        }
     }
 
     @FXML
     void handleBtnMenu(ActionEvent event) {
-
+        // Implementar se necessário
     }
-
-
 }
