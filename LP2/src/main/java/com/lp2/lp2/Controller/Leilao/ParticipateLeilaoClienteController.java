@@ -1,15 +1,12 @@
 package com.lp2.lp2.Controller.Leilao;
 
-import com.lp2.lp2.DAO.ClienteDAO;
-import com.lp2.lp2.DAO.LeilaoDAO;
-import com.lp2.lp2.DAO.LeilaoParticipacaoDAO;
-import com.lp2.lp2.DAO.PontosDAO;
+import com.lp2.lp2.DAO.*;
 import com.lp2.lp2.Model.Categoria;
 import com.lp2.lp2.Model.Cliente;
 import com.lp2.lp2.Model.Leilao;
 import com.lp2.lp2.Model.LeilaoParticipacao;
+import com.lp2.lp2.Service.EmailNotificationService;
 import com.lp2.lp2.Session.Session;
-import com.lp2.lp2.Util.GmailSender;
 import com.lp2.lp2.Util.LoaderFXML;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,27 +14,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import com.lp2.lp2.Service.EmailNotificationService;
-import com.lp2.lp2.DAO.LeilaoClassificacaoDAO;
 
-
-
-
-public class ParticipateLeilaoController {
+public class ParticipateLeilaoClienteController {
 
     @FXML
     private TableView<Leilao> leilaoTableView;
@@ -67,6 +55,9 @@ public class ParticipateLeilaoController {
     private TableColumn<Leilao, Boolean> vendidoColumn;
 
     @FXML
+    private Button btnAddPontos;
+
+    @FXML
     private Button btnParticipar;
     @FXML
     private Button btnBack;
@@ -76,9 +67,6 @@ public class ParticipateLeilaoController {
     private Button btnTerminar;
     @FXML
     private Label pontosLabel;
-    @FXML
-    private Button btnAddPontos;
-
     private LeilaoDAO leilaoDAO;
     private LeilaoParticipacaoDAO leilaoParticipacaoDAO;
     private PontosDAO pontosDAO;
@@ -88,7 +76,7 @@ public class ParticipateLeilaoController {
 
     private EmailNotificationService emailNotificationService;
 
-    public ParticipateLeilaoController() throws SQLException {
+    public ParticipateLeilaoClienteController() throws SQLException {
         leilaoDAO = new LeilaoDAO();
         leilaoParticipacaoDAO = new LeilaoParticipacaoDAO();
         pontosDAO = new PontosDAO();
@@ -290,46 +278,6 @@ public class ParticipateLeilaoController {
         }
     }
 
-    @FXML
-    void handleBtnTerminar(ActionEvent event) {
-        Leilao selectedLeilao = leilaoTableView.getSelectionModel().getSelectedItem();
-
-        if (selectedLeilao != null) {
-            try {
-                if ("Online".equals(selectedLeilao.getTipo()) || "Carta Fechada".equals(selectedLeilao.getTipo())) {
-                    List<LeilaoParticipacao> participacoes = leilaoParticipacaoDAO.getParticipacoesByLeilaoId(selectedLeilao.getId());
-                    if (!participacoes.isEmpty()) {
-                        LeilaoParticipacao maiorParticipacao = participacoes.stream()
-                                .max(Comparator.comparing(LeilaoParticipacao::getValorLance))
-                                .orElse(null);
-
-                        if (maiorParticipacao != null) {
-                            selectedLeilao.setVendido(true);
-                            leilaoDAO.updateLeilao(selectedLeilao);
-                            mostrarMensagemSucesso("Leilão terminado e vendido ao cliente com o maior lance!\n" +
-                                    "Valor vendido: " + maiorParticipacao.getValorLance() + "\n" +
-                                    "Cliente ID: " + maiorParticipacao.getClienteId());
-
-                            String email = getEmailByUserId(maiorParticipacao.getClienteId());
-                            String nome = getUserNameById(maiorParticipacao.getClienteId());
-                            emailNotificationService.enviarEmailVencedorLeilao(email, nome, selectedLeilao.getId(), selectedLeilao.getNome());
-                        }
-                    } else {
-                        mostrarMensagemErro("Nenhuma participação encontrada para este leilão.");
-                    }
-                } else if ("Venda Direta".equals(selectedLeilao.getTipo())) {
-                    selectedLeilao.setInativo(true);
-                    leilaoDAO.updateLeilao(selectedLeilao);
-                    mostrarMensagemSucesso("Leilão de Venda Direta terminado e marcado como inativo.");
-                }
-            } catch (SQLException e) {
-                mostrarMensagemErro("Erro ao terminar leilão: " + e.getMessage());
-            }
-        } else {
-            mostrarMensagemErro("Por favor, selecione um leilão antes de terminar.");
-        }
-    }
-
     public void verificarLeiloesComDataFinal() {
         try {
             List<Leilao> leiloes = leilaoDAO.getAllLeiloes();
@@ -391,13 +339,10 @@ public class ParticipateLeilaoController {
     void handleBtnBack(ActionEvent actionEvent) {
         Stage currentStage = (Stage) btnBack.getScene().getWindow();
         LoaderFXML loader = new LoaderFXML(currentStage);
-        loader.loadMainMenu();
+        loader.loadMenuCliente();
     }
 
-    @FXML
-    void handleBtnMenu(ActionEvent event) {
-        // Implementar lógica para o botão de menu
-    }
+
 
     @FXML
     void handleBtnAddPontos(ActionEvent event) {
@@ -412,7 +357,7 @@ public class ParticipateLeilaoController {
         }
     }
 
-        private String getEmailByUserId(int id) throws SQLException {
+    private String getEmailByUserId(int id) throws SQLException {
         ClienteDAO clienteDAO = new ClienteDAO();
         Cliente cliente = clienteDAO.getClienteById(id);
         return cliente != null ? cliente.getEmail() : "Email não disponível";
@@ -422,21 +367,5 @@ public class ParticipateLeilaoController {
         ClienteDAO clienteDAO = new ClienteDAO();
         Cliente cliente = clienteDAO.getClienteById(id);
         return cliente != null ? cliente.getNome() : "Nome não disponível";
-    }
-    /* metodo para o rating
-
-    private void showRatingDialog(int leilaoId) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Classificação");
-        alert.setHeaderText(null);
-        alert.setContentText("Por favor classifique o leilão ID: " + leilaoId);
-        alert.showAndWait();
-        Stage currentStage = getStage();
-        LoaderFXML loader = new LoaderFXML(currentStage);
-        loader.loadRaiting();
-    } */
-
-    private Stage getStage() {
-        return (Stage) btnBack.getScene().getWindow();
     }
 }

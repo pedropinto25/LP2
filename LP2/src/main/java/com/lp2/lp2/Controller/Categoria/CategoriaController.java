@@ -2,6 +2,7 @@ package com.lp2.lp2.Controller.Categoria;
 
 import com.lp2.lp2.DAO.CategoriaDAO;
 import com.lp2.lp2.Model.Categoria;
+import com.lp2.lp2.Util.LoaderFXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
@@ -28,6 +30,9 @@ public class CategoriaController {
     private Button btnAdd;
     @FXML
     private Button btnDelete;
+
+    @FXML
+    private Button btnBack;
 
     private CategoriaDAO categoriaDAO;
 
@@ -81,5 +86,12 @@ public class CategoriaController {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(msg);
         alert.showAndWait();
+    }
+
+    @FXML
+    void handleBtnBack(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) btnBack.getScene().getWindow();
+        LoaderFXML loader = new LoaderFXML(currentStage);
+        loader.loadMainMenu();
     }
 }
